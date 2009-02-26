@@ -1,0 +1,2 @@
+class WorkPeriodsController < ApplicationController
+end

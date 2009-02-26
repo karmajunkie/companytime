@@ -1,0 +1,44 @@
+<h1>Editing user</h1>
+
+<% form_for(@user) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :login %><br />
+    <%= f.text_field :login %>
+  </p>
+  <p>
+    <%= f.label :skeleton_hours %><br />
+    <%= f.text_field :skeleton_hours %>
+  </p>
+  <p>
+    <%= f.label :vacation_hours %><br />
+    <%= f.text_field :vacation_hours %>
+  </p>
+  <p>
+    <%= f.label :sick_hours %><br />
+    <%= f.text_field :sick_hours %>
+  </p>
+  <p>
+    <%= f.label :comp_hours %><br />
+    <%= f.text_field :comp_hours %>
+  </p>
+  <p>
+    <%= f.label :vacation_accrual_rate %><br />
+    <%= f.text_field :vacation_accrual_rate %>
+  </p>
+  <p>
+    <%= f.label :sick_accrual_rate %><br />
+    <%= f.text_field :sick_accrual_rate %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @user %> |
+<%= link_to 'Back', users_path %>

@@ -1,0 +1,34 @@
+<h1>Listing users</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Login</th>
+    <th>Skeleton hours</th>
+    <th>Vacation hours</th>
+    <th>Sick hours</th>
+    <th>Comp hours</th>
+    <th>Vacation accrual rate</th>
+    <th>Sick accrual rate</th>
+  </tr>
+
+<% for user in @users %>
+  <tr>
+    <td><%=h user.name %></td>
+    <td><%=h user.login %></td>
+    <td><%=h user.skeleton_hours %></td>
+    <td><%=h user.vacation_hours %></td>
+    <td><%=h user.sick_hours %></td>
+    <td><%=h user.comp_hours %></td>
+    <td><%=h user.vacation_accrual_rate %></td>
+    <td><%=h user.sick_accrual_rate %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New user', new_user_path %>
