@@ -83,6 +83,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def accrual_report
+    @user = User.find_by_login(params[:id])
+    respond_to do |format|
+      format.csv { 
+        str = FasterCSV.generate do |csv|
+          csv << ['login', 'vacation', 'skeleton', 'sick']
+          csv << [@user.login, @user.vacation_hours, @user.skeleton_hours, @user.sick_hours]
+        end
+        render :text => str
+      }
+      format.html
+    end
+
+
+  end
+
   def clockin
     
   end
