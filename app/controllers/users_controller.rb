@@ -95,12 +95,11 @@ class UsersController < ApplicationController
       }
       format.html
     end
-
-
+  end
+  def new_timesheet
   end
 
   def clockin
-    
   end
   def clockout
   end

@@ -2,3 +2,6 @@ db/*.sqlite3
 config/database.yml
 log/*
 
+newtimesheet_vb.pdf
+db/schema.rb
+config/environment.rb
