@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  vacation_hours: 1.5
+  holiday_hours: 1.5
+  sick_hours: 1.5
+
+two:
+  user_id: 1
+  vacation_hours: 1.5
+  holiday_hours: 1.5
+  sick_hours: 1.5
