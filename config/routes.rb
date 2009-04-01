@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :work_periods
 
-  map.resources :users, :has_many => :work_periods
+  map.resources :users, :has_many => :work_periods, :has_many => :timesheets, :has_many => :accruals
 
   # The priority is based upon order of creation: first created -> highest priority.
 
