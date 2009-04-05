@@ -15,12 +15,4 @@ fixtures :users
       response.should be_success
     end
   end
-
-  describe "GET 'generate'" do
-    it "should not be successful" do
-      get 'generate'
-      response.should_not be_success
-    end
-  end
-
 end
