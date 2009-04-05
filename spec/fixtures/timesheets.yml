@@ -1,13 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  user_id: 1
-  accrual_id: 1
-  period_begin: 2009-03-31 16:41:16
-  period_end: 2009-03-31 16:41:16
-
-two:
-  user_id: 1
-  accrual_id: 1
-  period_begin: 2009-03-31 16:41:16
-  period_end: 2009-03-31 16:41:16
+# one:
+#   column: value
+#
+# two:
+#   column: value

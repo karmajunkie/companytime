@@ -1,24 +1,85 @@
 class TimesheetsController < ApplicationController
+  # GET /timesheets
+  # GET /timesheets.xml
+  def index
+    @timesheets = Timesheet.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @timesheets }
+    end
+  end
+
+  # GET /timesheets/1
+  # GET /timesheets/1.xml
+  def show
+    @timesheet = Timesheet.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @timesheet }
+    end
+  end
+
+  # GET /timesheets/new
+  # GET /timesheets/new.xml
   def new
+    @timesheet = Timesheet.new
 
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @timesheet }
+    end
   end
 
-  def edit_orig
-      @period_begin = Date.new params[:period_begin]['year'].to_i, params[:period_begin]['month'].to_i, params[:period_begin]['day'].to_i
-      @period_end = (@period_begin >> 1) -1
-      @user = User.find_by_login(params[:user_login])
-      @comp_accumulated=0
-      @month_total_hours=0
-      @month_expected_hours=160 #days 1-28 always have 160 work hours in them
-      (@period_begin+28).upto @period_end do |d|
-        @month_expected_hours+=8 if d.cwday <= 5
+  # GET /timesheets/1/edit
+  def edit
+    @timesheet = Timesheet.find(params[:id])
+  end
+
+  # POST /timesheets
+  # POST /timesheets.xml
+  def create
+    @timesheet = Timesheet.new(params[:timesheet])
+
+    respond_to do |format|
+      if @timesheet.save
+        flash[:notice] = 'Timesheet was successfully created.'
+        format.html { redirect_to(@timesheet) }
+        format.xml  { render :xml => @timesheet, :status => :created, :location => @timesheet }
+      else
+        format.html { render :action => "new" }
+        format.xml  { render :xml => @timesheet.errors, :status => :unprocessable_entity }
       end
-      @hour_totals=@user.work_periods.for_month(@period_begin).total_hours.map!{ |wkday| 
-        @comp_accumulated += (wkday.total_hours.to_f-8) if wkday.total_hours.to_f > 8
-        @month_total_hours+=wkday.total_hours.to_f
-        [wkday.total_hours.to_f, wkday.date_worked]
-      }
-
+    end
   end
 
+  # PUT /timesheets/1
+  # PUT /timesheets/1.xml
+  def update
+    @timesheet = Timesheet.find(params[:id])
+
+    respond_to do |format|
+      if @timesheet.update_attributes(params[:timesheet])
+        flash[:notice] = 'Timesheet was successfully updated.'
+        format.html { redirect_to(@timesheet) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @timesheet.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /timesheets/1
+  # DELETE /timesheets/1.xml
+  def destroy
+    @timesheet = Timesheet.find(params[:id])
+    @timesheet.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(timesheets_url) }
+      format.xml  { head :ok }
+    end
+  end
 end
