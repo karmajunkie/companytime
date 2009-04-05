@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+keith_alloc:
+  userid: 1
+  han: 1.0
+  ut_gb: 0
+  ut_ss: 0
+  ut_as: 0
+  unrestricted: 0
+
+two:
+  userid: 1
+  han: 1.5
+  ut_gb: 1.5
+  ut_ss: 1.5
+  ut_as: 1.5
+  unrestricted: 1.5

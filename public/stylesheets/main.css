@@ -1,0 +1,154 @@
+body {
+  background-color:#ac1111;
+}
+div {
+  -moz-border-radius:10px;
+  -safari-border-radius:10px;
+  border-radius:10px;
+}
+#header {
+  background-color:#000;
+  padding:10px;
+  margin:10px;
+}
+#header .logo {
+  width:600px;
+  float:left;
+}
+#header .title{
+  font-size:36px;
+  color:#fff;
+  padding:5px;
+  height:75px;
+  vertical-align:bottom;
+}
+#content {
+  background-color:#fff;
+  padding:10px;
+  margin:10px;
+}
+div.location_form p{
+  margin:5px;
+}
+div.form label{
+  display:block;
+  float:left;
+  width:150px;
+  text-align:right;
+  padding-right:10px;
+  margin:0 5px;
+}
+div.child_form {
+  border:1px solid black;
+  -moz-border-radius:10px;
+  -safari-border-radius:10px;
+  border-radius:10px;
+  padding:10px;
+}
+
+table#ts_calendar {
+  -moz-border-radius:10px 0 0 10px;
+  -safari-border-radius:10px 0 0 10px;
+  border-radius:10px 0 0 10px;
+  margin-left:10px;
+  border:1px solid black;
+
+}
+th.workweek {
+  background-color:#cc9966;
+}
+th.weekend {
+  background-color:#6699cc;
+  color:white;
+}
+td.ts_calendar {
+  height:100px;
+  width:100px;
+  text-align:center;
+  vertical-align:center;
+}
+div.cal_hrs {
+  font-size:30px;
+  position:absolute;
+  bottom:0px;
+  right:0px;
+  padding-right:10px;
+}
+div.cal_container{
+  position:relative;
+  border:1px solid black;
+  height:100px;
+}
+.short_hrs{
+  border-color:red;
+  background-color:#ff2929;
+}
+.overtime{
+  border-color:green;
+  background-color:#94ff29;
+}
+div.cal_day{
+  background-color:white;
+  -moz-border-radius:10px 0 0 0px;
+  -safari-border-radius:10px 0 0 0px;
+  border-radius:0px;
+  border-right:1px solid black;
+  border-bottom:1px solid black;
+  padding-top:5px;
+  float:left;
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:30px;
+  height:30px;
+  font-weight:bold;
+  font-size:16px;
+}
+div#info{
+  -moz-border-radius:0 10px 10px 0px;
+  -safari-border-radius:10px 0 0 0px;
+  border-radius:0px;
+  width:350px;
+  height:430px;
+  border:1px solid black;
+  position:absolute;
+  padding:10px;
+  top:0px;
+  left:745px;
+  font-size:16px;
+  font-weight:bold;
+}
+div.valueset {
+  position:relative;
+}
+div#info label{
+  left:0px;
+  margin:5px;
+  padding:5px;
+  position:relative;
+  width:300px;
+}
+div#info .value{
+  position:absolute;
+  right:40px;
+}
+div.cal_legend{
+  position:absolute;
+  bottom:0px;
+  left:0px;
+  font-size:9px;
+  padding:10px;
+}
+div.cal_ha{
+  margin-top:5px;
+  margin-right:5px;
+  position:absolute;
+  top:0px;
+  right:0px;
+  height:50px;
+  font-size:8px;
+
+}
+div#calendar_content_container{
+  position:relative;
+}

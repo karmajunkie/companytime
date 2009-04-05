@@ -1,0 +1,15 @@
+<h1>Timesheet</h1>
+
+<% form_tag (:action => "edit", :method => :post) do %>
+<div class='form'>
+  <label>Login</label>
+  <%= text_field_tag 'user_login' %><br/>
+  <label>Month</label>
+  <%= hidden_field_tag("period_begin[day]", "1") %>
+  <%= select_month(Date.today, :prefix => "period_begin" ) %><br/>
+  <label>Year</label>
+  <%= select_year(Date.today, :prefix => "period_begin") %><br/>
+  <%= submit_tag "Generate Timesheet" %>
+</div>
+<% end %>
+

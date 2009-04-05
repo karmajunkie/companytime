@@ -1,0 +1,66 @@
+<div id='calendar_content_container'>
+
+<table id='ts_calendar'>
+  <tr>
+    <th class='workweek'>Monday</th>
+    <th class='workweek'>Tuesday</th>
+    <th class='workweek'>Wednesday</th>
+    <th class='workweek'>Thursday</th>
+    <th class='workweek'>Friday</th>
+    <th class='weekend'>Saturday</th>
+    <th class='weekend'>Sunday</th>
+  </tr>
+  <tr>
+<% 2.upto @period_begin.cwday do %>
+  <td class='ts_calendar'>&nbsp;</td>
+<% end %>
+
+<% temp_comp_accum = @comp_accumulated %>
+<% @period_begin.upto @period_end do |dt| 
+   hrs_elm=@hour_totals.rassoc(dt.strftime("%m/%d/%Y")) 
+   hrs_for_day = hrs_elm ? hrs_elm[0] : 0.0
+  %>
+  <% if dt.cwday == 1 %></tr><tr><% end %>
+    <td class='ts_calendar'>
+      <div class='cal_container<%= " short_hrs" if (dt.cwday <= 5 && hrs_for_day < 8)%><%= " overtime" if (dt.cwday > 5 && hrs_for_day > 0) || hrs_for_day > 8%>'>
+        <div class='cal_day'><%= dt.strftime("%e") %></div>
+        <div class='cal_hrs'><%= hrs_elm ? hrs_elm[0] : "0"  %></div>
+        <div class='cal_ha'>
+          <span class='cal_ha'>0</span> S<br/>
+          <span class='cal_ha'>0</span> H<br/>
+          <span class='cal_ha'>0</span> A<br/>
+          <span class='cal_ha'>
+          <% if hrs_for_day > 8 %>
+            +<%= hrs_for_day - 8 %>
+          <% elsif hrs_for_day < 8
+            shortness = 8 - hrs_for_day
+            if temp_comp_accum >= shortness
+              temp_comp_accum-=shortness
+              %>-<%=shortness %><%
+            else %><%= 0 %><%
+            end
+          else %><%= 0 %> 
+          <% end %></span> C<br/>
+        </div>
+      </div>
+    </td>
+
+<% end %>
+<% @period_end.cwday.upto 6 do %>
+  <td class='ts_calendar'>&nbsp;</td>
+<% end %>
+</tr>
+</table>
+<div id='info'>
+  <div class='valueset'><label>Total hours:</label> <span class='value'><%=@month_total_hours %></span></div>
+  <div class='valueset'><label>Work hours:</label> <span class='value'><%= @month_expected_hours %></span></div>
+  <div class='valueset'><label>Total Comp:</label> <span class='value'><%= @comp_accumulated %></span></div>
+  <div class='valueset'><label>Unassigned Comp:</label> <span class='value'><%= temp_comp_accum %></span></div>
+  <div class='cal_legend'>
+    S = Sick hours<br/>
+    H = Holiday<br/>
+    A = Annual<br/>
+    C = Comp time<br/>
+  </div>
+</div>
+</div>

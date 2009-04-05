@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <%= javascript_include_tag :defaults %>
+    <%= stylesheet_link_tag "main" %>
+    <title>TALHO Time Admin</title>
+
+  <body>
+    <div id='header'>
+      <img class='logo' src='/images/talho_logo.png'>
+      <div class='title'>TALHO Time Admin</div>
+    </div>
+    <div id='content'>
+      <%= yield %>
+    </div>
+  </body>
+</html>

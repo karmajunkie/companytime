@@ -1,0 +1,71 @@
+keith:
+    name: Keith Gaddis
+    created_at: 2009-02-26 19:50:18
+    vacation_hours: "1000.0"
+    sick_hours: "1000.0"
+    updated_at: 2009-02-26 19:50:18
+    id: "1"
+    holiday_hours: "1000.0"
+    sick_accrual_rate: "1.1"
+    vacation_accrual_rate: "1.1"
+    login: keith
+
+jason:
+    name: Jason Phipps
+    created_at: 2009-04-01 19:58:09
+    vacation_hours: "0.0"
+    sick_hours: "0.0"
+    updated_at: 2009-04-01 19:58:09
+    id: "2"
+    holiday_hours: "0.0"
+    sick_accrual_rate: "0.0"
+    vacation_accrual_rate: "0.0"
+    login: jason
+
+scott:
+    name: Scott Gostisha
+    created_at: 2009-04-01 19:58:09
+    vacation_hours: "0.0"
+    sick_hours: "0.0"
+    updated_at: 2009-04-01 19:58:09
+    id: "3"
+    holiday_hours: "0.0"
+    sick_accrual_rate: "0.0"
+    vacation_accrual_rate: "0.0"
+    login: scott
+
+chris:
+    name: Chris Meredith
+    created_at: 2009-04-01 19:58:09
+    vacation_hours: "0.0"
+    sick_hours: "0.0"
+    updated_at: 2009-04-01 19:58:09
+    id: "4"
+    holiday_hours: "0.0"
+    sick_accrual_rate: "0.0"
+    vacation_accrual_rate: "0.0"
+    login: chris
+
+KeithC:
+    name: Keith Cirelli
+    created_at: 2009-04-01 19:58:09
+    vacation_hours: "0.0"
+    sick_hours: "0.0"
+    updated_at: 2009-04-01 19:58:09
+    id: "5"
+    holiday_hours: "0.0"
+    sick_accrual_rate: "0.0"
+    vacation_accrual_rate: "0.0"
+    login: KeithC
+
+ethan:
+    name: Ethan Waldo
+    created_at: 2009-04-01 19:58:09
+    vacation_hours: "0.0"
+    sick_hours: "0.0"
+    updated_at: 2009-04-01 19:58:09
+    id: "6"
+    holiday_hours: "0.0"
+    sick_accrual_rate: "0.0"
+    vacation_accrual_rate: "0.0"
+    login: ethan

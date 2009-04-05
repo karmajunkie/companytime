@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  timesheet_id: 1
+  allocation_date: 2009-04-04 22:39:00
+  sick: 1.5
+  vacation: 1.5
+  holiday: 1.5
+
+two:
+  timesheet_id: 1
+  allocation_date: 2009-04-04 22:39:00
+  sick: 1.5
+  vacation: 1.5
+  holiday: 1.5

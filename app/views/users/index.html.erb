@@ -7,7 +7,6 @@
     <th>Skeleton hours</th>
     <th>Vacation hours</th>
     <th>Sick hours</th>
-    <th>Comp hours</th>
     <th>Vacation accrual rate</th>
     <th>Sick accrual rate</th>
   </tr>
@@ -16,10 +15,9 @@
   <tr>
     <td><%=h user.name %></td>
     <td><%=h user.login %></td>
-    <td><%=h user.skeleton_hours %></td>
+    <td><%=h user.holiday_hours%></td>
     <td><%=h user.vacation_hours %></td>
     <td><%=h user.sick_hours %></td>
-    <td><%=h user.comp_hours %></td>
     <td><%=h user.vacation_accrual_rate %></td>
     <td><%=h user.sick_accrual_rate %></td>
     <td><%= link_to 'Show', user %></td>
