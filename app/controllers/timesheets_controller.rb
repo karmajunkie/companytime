@@ -35,13 +35,32 @@ class TimesheetsController < ApplicationController
   # GET /timesheets/1/edit
   def edit
     @timesheet = Timesheet.find(params[:id])
+    #@user = @timesheet.user
+    @comp_accumulated=0
+    @month_total_hours=0
+    @month_expected_hours=160 #days 1-28 always have 160 work hours in them
+    (@timesheet.start_date.to_date+28).upto @timesheet.end_date.to_date do |d|
+      @month_expected_hours+=8 if d.cwday <= 5
+    end
+    @hour_totals=@timesheet.user.work_periods.for_month(@timesheet.start_date).total_hours.map!{ |wkday| 
+      @comp_accumulated += (wkday.total_hours.to_f-8) if wkday.total_hours.to_f > 8
+      @month_total_hours+=wkday.total_hours.to_f
+      [wkday.total_hours.to_f, wkday.date_worked]
+    }
   end
 
   # POST /timesheets
   # POST /timesheets.xml
   def create
-    @timesheet = Timesheet.new(params[:timesheet])
+    #sdate=Date.new params[:start_date]['year'].to_i, params[:start_date]['month'].to_i, params[:start_date]['day'].to_i
+    @user = User.find_by_login(params[:user_login])
+    #debugger
+    @timesheet=Timesheet.new(params[:timesheet])
+    if @user 
+      #@timesheet.start_date=sdate.beginning_of_month
+      @timesheet.end_date=@timesheet.start_date.end_of_month
 
+    end
     respond_to do |format|
       if @timesheet.save
         flash[:notice] = 'Timesheet was successfully created.'

@@ -11,12 +11,12 @@
     <th class='weekend'>Sunday</th>
   </tr>
   <tr>
-<% 2.upto @period_begin.cwday do %>
+<% 2.upto @timesheet.start_date.cwday do %>
   <td class='ts_calendar'>&nbsp;</td>
 <% end %>
 
 <% temp_comp_accum = @comp_accumulated %>
-<% @period_begin.upto @period_end do |dt| 
+<% @timesheet.start_date.to_date.upto @timesheet.end_date.to_date do |dt| 
    hrs_elm=@hour_totals.rassoc(dt.strftime("%m/%d/%Y")) 
    hrs_for_day = hrs_elm ? hrs_elm[0] : 0.0
   %>
@@ -46,12 +46,18 @@
     </td>
 
 <% end %>
-<% @period_end.cwday.upto 6 do %>
+<% @timesheet.end_date.cwday.upto 6 do %>
   <td class='ts_calendar'>&nbsp;</td>
 <% end %>
 </tr>
 </table>
 <div id='info'>
+  <p>
+  <div class='valueset'>
+    <label>Employee:</label> <span class='value'><%= @timesheet.user.name %></span><br/> 
+    <label>Month:</label> <span class='value'><%= @timesheet.start_date.to_formatted_s(:month_and_year) %></span>
+  </div>
+  </p>
   <div class='valueset'><label>Total hours:</label> <span class='value'><%=@month_total_hours %></span></div>
   <div class='valueset'><label>Work hours:</label> <span class='value'><%= @month_expected_hours %></span></div>
   <div class='valueset'><label>Total Comp:</label> <span class='value'><%= @comp_accumulated %></span></div>

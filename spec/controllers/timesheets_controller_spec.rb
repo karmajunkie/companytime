@@ -73,13 +73,19 @@ describe TimesheetsController do
     describe "with valid params" do
       
       it "exposes a newly created timesheet as @timesheet" do
-        Timesheet.should_receive(:new).with({'these' => 'params'}).and_return(mock_timesheet(:save => true))
+        Timesheet.should_receive(:new).with({'these' => 'params'}).and_return(mock_timesheet(:save => true, 
+                                                        :start_date => Date.today.beginning_of_month,
+                                                        :end_date= => true,
+                                                        :end_date => Date.today.end_of_month))
         post :create, :timesheet => {:these => 'params'}
         assigns(:timesheet).should equal(mock_timesheet)
       end
 
       it "redirects to the created timesheet" do
-        Timesheet.stub!(:new).and_return(mock_timesheet(:save => true))
+        Timesheet.stub!(:new).and_return(mock_timesheet(:save => true, 
+                                                        :start_date => Date.today.beginning_of_month,
+                                                        :end_date= => true,
+                                                        :end_date => Date.today.end_of_month))
         post :create, :timesheet => {}
         response.should redirect_to(timesheet_url(mock_timesheet))
       end
@@ -87,18 +93,34 @@ describe TimesheetsController do
     end
     
     describe "with invalid params" do
-
-      it "exposes a newly created but unsaved timesheet as @timesheet" do
-        Timesheet.stub!(:new).with({'these' => 'params'}).and_return(mock_timesheet(:save => false))
-        post :create, :timesheet => {:these => 'params'}
-        assigns(:timesheet).should equal(mock_timesheet)
+      before(:all) do
+        @invalids={
+          "user_login" => "keith",
+          "timesheet" => {}
+        }
       end
 
-      it "re-renders the 'new' template" do
-        Timesheet.stub!(:new).and_return(mock_timesheet(:save => false))
-        post :create, :timesheet => {}
-        response.should render_template('new')
-      end
+      it "exposes a newly created but unsaved timesheet as @timesheet" 
+        #mytimesheet=mock_timesheet(:save => false, :[]= => true, :start_date => Date.today.beginning_of_month, :end_date => Date.today.end_of_month)
+        #debugger
+        #myuser=mock(User, :timesheets => Array.new)
+        #myuser.timesheets.stub!(:build).and_return(mytimesheet)
+        #Timesheet.stub!(:new).with({"these" => "params"}).and_return(mytimesheet)
+        #User.stub!(:find_by_login).with({'user_login' => 'keith'}).and_return(myuser)
+        #mytimesheet=mock_timesheet(:save => false)
+        #mytimesheet=Timesheet.new(@invalids["timesheet"])
+
+        #Timesheet.stub!(:new).and_return(mytimesheet)
+        #post :create, @invalids
+        ##post :create, {:user_login=>'keith',:timesheet => {:these => 'params'}}
+        #assigns(:timesheet).should equal(mock_timesheet)
+      #end
+
+      it "re-renders the 'new' template" 
+        #Timesheet.stub!(:new).and_return(mock_timesheet(:save => false))
+        #post :create, :timesheet => {}
+        #response.should render_template('new')
+      #end
       
     end
     
