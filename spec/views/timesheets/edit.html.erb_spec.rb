@@ -4,9 +4,7 @@ describe "/timesheets/edit.html.erb" do
   include TimesheetsHelper
   
   before(:each) do
-    assigns[:timesheet] = @timesheet = stub_model(Timesheet,
-      :new_record? => false
-    )
+    assigns[:timesheet] = @timesheet = stubbed_timesheet
   end
 
   it "renders the edit timesheet form" #do

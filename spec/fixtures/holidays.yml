@@ -1,0 +1,10 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+xmas:
+  holiday_date: 2009-12-25 00:00:00
+  name: "Christmas Day"
+  optional: false
+
+stpaddy:
+  holiday_date: 2009-03-17 00:00:00
+  name: "St. Patrick's day"
+  optional: true

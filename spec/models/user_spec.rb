@@ -3,7 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe User do
   before(:each) do
     @valid_attributes = {
-      :name => "John Doe",
+      :first_name => "John",
+      :last_name => "Doe",
       :login => "jdoe"
     }
   end
@@ -11,32 +12,56 @@ describe User do
   it "should create a new instance given valid attributes" do
     User.create!(@valid_attributes)
   end
-  it "should find the most recent accrual with .first" do
+  it "should find the most recent accrual with .current_accrual" do
     jd=User.create(@avalid_attributes)
+    jd.save
     t1=Timesheet.new({:start_date => 1.month.ago.beginning_of_month,
                       :end_date =>   1.month.ago.end_of_month,
                       :user_id => 1})
     t2=Timesheet.new({:start_date => 2.month.ago.beginning_of_month,
                       :end_date =>   2.month.ago.end_of_month,
                       :user_id => 1})
-    a = Accrual.new({
+    jd.timesheets << t1
+    jd.timesheets << t2
+    a1 = Accrual.new({
       :vacation_hours => 99.0,
       :holiday_hours => 99.0,
       :sick_hours => 99.0,
-      :effective_date => 2.month.ago.beginning_of_month
+      :effective_date => 2.month.ago.beginning_of_month,
+      :discriminator =>"start"
     })
-
-    b = Accrual.new({
+    a2 = Accrual.new({
       :vacation_hours => 10.0,
       :holiday_hours => 10.0,
       :sick_hours => 10.0,
-      :effective_date => 1.month.ago.beginning_of_month
+      :effective_date => 2.month.ago.end_of_month,
+      :discriminator =>"end"
     })
-    t1.accrual=a
-    t2.accrual=b
-    jd.timesheets << t1
-    jd.timesheets << t2
 
-    jd.accruals.first.effective_date.should == 1.month.ago.beginning_of_month
+    b1 = Accrual.new({
+      :vacation_hours => 10.0,
+      :holiday_hours => 10.0,
+      :sick_hours => 10.0,
+      :effective_date => 1.month.ago.beginning_of_month,
+      :discriminator =>"start"
+
+    })
+    b2 = Accrual.new({
+      :vacation_hours => 22.0,
+      :holiday_hours => 20.0,
+      :sick_hours => 20.0,
+      :effective_date => 1.month.ago.beginning_of_month,
+      :discriminator =>"end"
+
+    })
+    t1.starting_accrual=a1
+    t1.ending_accrual=a2
+
+    t2.starting_accrual=b1
+    t2.ending_accrual=b2
+
+    
+
+    jd.current_accrual.should == b2
   end
 end

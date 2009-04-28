@@ -5,8 +5,8 @@ describe "/timesheets/index.html.erb" do
   
   before(:each) do
     assigns[:timesheets] = [
-      stub_model(Timesheet),
-      stub_model(Timesheet)
+      stub_model(Timesheet, :start_date => Date.today.beginning_of_month, :end_date => Date.today.end_of_month, :user => stub_model(User, :first_name => "John", :last_name => "Doe")),
+      stub_model(Timesheet, :start_date => Date.today.beginning_of_month, :end_date => Date.today.end_of_month, :user => stub_model(User, :first_name => "John", :last_name => "Doe"))
     ]
   end
 

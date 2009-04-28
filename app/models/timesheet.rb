@@ -1,51 +1,68 @@
 class Timesheet < ActiveRecord::Base
   belongs_to :user
-  belongs_to :accrual
+  has_one :starting_accrual, :class_name => "Accrual", :conditions => "discriminator='start'"
+  has_one :ending_accrual, :class_name => "Accrual", :conditions => "discriminator='end'"
   has_many :pto_allocations, :dependent => :delete_all
   before_create :ensure_pto_allocations_created
+  after_create :credit_holiday_time
+  has_many :work_periods, :through => :user, 
+    :conditions => ["start_time > ? and start_time < ?", '#{start_date.beginning_of_day}', '#{end_date.end_of_day}']
 
+  validates_presence_of :user_id
   validates_presence_of :start_date
   validates_presence_of :end_date
   validates_uniqueness_of :start_date, :scope => [:user_id]
   
-  def autoassign_pto
-    comp_total=0.0
-    #convert the total_hours to an array of 2-element arrays so we can treat it like a hash
-    #with rassoc
-    tot_hrs=user.work_periods.for_month(start_date).total_hours.map!{ |wkday|
-      update
-      comp_total+=wkday.total_hours.to_f - 8.0 if wkday.total_hours.to_f > 8 || wkday.date_worked.to_date.cwday > 5
-      [wkday.total_hours.to_f, wkday.date_worked]
-    }
-
-    tcomp=comp_total 
-    pto_allocations do |pto|
-      elm=tot_hrs.rassoc(pto.allocation_date.strftime("%m/%d/%Y"))
-      hrs_for_day= elm ? elm[0] : 0.0
-      if hrs_for_day >= 8
-        pto.comp=8-hrs_for_day 
-      else
-        pto.comp=-1*[(8-hrs_for_day), tcomp].min
-        tcomp-=pto.comp
-      end
-
-    end
-    [tcomp, comp_total]
-
-  end
   private
     def ensure_pto_allocations_created
       start_date.to_date.upto end_date.to_date do |dt|
         pto_allocations.build( :allocation_date => dt )
       end
-      autoassign_pto
-      a=self.build_accrual({
-        :effective_date => start_date
+      #autoassign_pto
+      starting=build_starting_accrual({
+        :effective_date => start_date,
+        :discriminator => "start"
       })
-      if !user.nil? && !user.accruals.empty?
-        a.sick_hours=user.accruals.last.sick_hours+user.sick_accrual_rate
-        a.vacation_hours=user.accruals.last.vacation_hours+user.vacation_accrual_rate
+      ending=build_ending_accrual({
+        :effective_date => end_date,
+        :discriminator => "end"
+      })
+      if user.current_accrual
+        starting_accrual.vacation_hours=user.current_accrual.vacation_hours.to_f
+        starting_accrual.sick_hours=user.current_accrual.sick_hours.to_f
+        starting_accrual.holiday_hours=user.current_accrual.holiday_hours.to_f
+        ending_accrual.vacation_hours=user.current_accrual.vacation_hours.to_f+
+          user.vacation_accrual_rate
+        ending_accrual.sick_hours=user.current_accrual.sick_hours.to_f+
+          user.sick_accrual_rate
+        ending_accrual.holiday_hours=starting_accrual.holiday_hours
+      else
+        starting_accrual.vacation_hours=0
+        starting_accrual.sick_hours=0
+        starting_accrual.holiday_hours=0
+        ending_accrual.vacation_hours= user.vacation_accrual_rate
+        ending_accrual.sick_hours= user.sick_accrual_rate
+        ending_accrual.holiday_hours=0 
       end
     end
+    def credit_holiday_time
+      if !(user.nil? || user.current_accrual.nil?)
+        ending_accrual.vacation_hours=user.current_accrual.vacation_hours.to_f
+        ending_accrual.sick_hours=user.current_accrual.sick_hours.to_f
+      else
+        ending_accrual.vacation_hours = 0
+        ending_accrual.sick_hours= 0
+        ending_accrual.holiday_hours =0
+      end
+      ending_accrual.vacation_hours+=user.vacation_accrual_rate
+      ending_accrual.sick_hours+=user.sick_accrual_rate
+      pto_allocations.holidays.each do |holiday|
+        starting_accrual.holiday_hours += 8 
+      end
+      ending_accrual.holiday_hours=starting_accrual.holiday_hours
+      starting_accrual.save
+      ending_accrual.save
+    end
+
 
 end

@@ -1,0 +1,18 @@
+<p>
+  <b>Holiday date:</b>
+  <%=h @holiday.holiday_date %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @holiday.name %>
+</p>
+
+<p>
+  <b>Optional:</b>
+  <%=h @holiday.optional %>
+</p>
+
+
+<%= link_to 'Edit', edit_holiday_path(@holiday) %> |
+<%= link_to 'Back', holidays_path %>

@@ -2,10 +2,13 @@
 
 <table>
   <tr>
+    <td colspan='5'>Time period</td>
   </tr>
 
 <% @timesheets.each do |timesheet| %>
   <tr>
+    <td><%= timesheet.user.name %></td>
+    <td><%= timesheet.start_date.to_formatted_s(:month_and_year) %>
     <td><%= link_to 'Show', timesheet %></td>
     <td><%= link_to 'Edit', edit_timesheet_path(timesheet) %></td>
     <td><%= link_to 'Destroy', timesheet, :confirm => 'Are you sure?', :method => :delete %></td>

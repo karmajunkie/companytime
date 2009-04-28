@@ -96,11 +96,26 @@ class UsersController < ApplicationController
       format.html
     end
   end
-  def new_timesheet
-  end
 
   def clockin
+    @user = User.find_by_login(params[:id])
+    if @user.logged_in?
+      render :text => "You can't log in until you've logged out!", :status => 403
+    else
+      wp=@user.work_periods.build({:start_time => Time.now})
+      wp.save
+      render :text => "clocked in"
+    end
   end
+
   def clockout
+    @user = User.find_by_login(params[:id])
+    if @user.logged_in?
+      wp=@user.work_periods.last
+      wp.end_time = Time.now 
+      render :text => "clocked out"
+    else
+      render :text => "You can't log out until you've logged in!", :status => 403
+    end
   end
 end

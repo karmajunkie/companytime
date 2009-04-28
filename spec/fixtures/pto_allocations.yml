@@ -1,15 +1,249 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  timesheet_id: 1
-  allocation_date: 2009-04-04 22:39:00
-  sick: 1.5
-  vacation: 1.5
-  holiday: 1.5
-
-two:
-  timesheet_id: 1
-  allocation_date: 2009-04-04 22:39:00
-  sick: 1.5
-  vacation: 1.5
-  holiday: 1.5
+--- 
+march_01: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-01 00:00:00 
+    id: 1
+    sick: 0.0
+march_02: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-02 00:00:00 
+    id: 2
+    sick: 0.0
+march_03: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 1.0
+    holiday: 0.0
+    allocation_date: 2009-03-03 00:00:00 
+    id: 3
+    sick: 0.0
+march_04: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-04 00:00:00 
+    id: 4
+    sick: 0.0
+march_00: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-05 00:00:00 
+    id: 5
+    sick: 0.0
+march_00: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-06 00:00:00 
+    id: 6
+    sick: 0.0
+march_07: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-07 00:00:00 
+    id: 7
+    sick: 0.0
+march_08: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-08 00:00:00 
+    id: 8
+    sick: 0.0
+march_09: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-09 00:00:00 
+    id: 9
+    sick: 8.0
+march_10: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-10 00:00:00 
+    id: 10
+    sick: 0.0
+march_11: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-11 00:00:00 
+    id: 11
+    sick: 0.0
+march_12: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-12 00:00:00 
+    id: 12
+    sick: 0.0
+march_13: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-13 00:00:00 
+    id: 13
+    sick: 0.0
+march_14: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-14 00:00:00 
+    id: 14
+    sick: 0.0
+march_15: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-15 00:00:00 
+    id: 15
+    sick: 0.0
+march_16: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-16 00:00:00 
+    id: 16
+    sick: 0.0
+march_17: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-17 06:00:00 
+    id: 17
+    sick: 0.0
+march_18: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-18 00:00:00 
+    id: 18
+    sick: 0.0
+march_19: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-19 00:00:00 
+    id: 19
+    sick: 0.0
+march_20: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-20 00:00:00 
+    id: 20
+    sick: 0.0
+march_21: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-21 00:00:00 
+    id: 21
+    sick: 0.0
+march_22: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-22 00:00:00 
+    id: 22
+    sick: 0.0
+march_23: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-23 00:00:00 
+    id: 23
+    sick: 0.0
+march_24: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-24 00:00:00 
+    id: 24
+    sick: 0.0
+march_25: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-25 00:00:00 
+    id: 25
+    sick: 0.0
+march_26: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-26 00:00:00 
+    id: 26
+    sick: 0.0
+march_27: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-27 00:00:00 
+    id: 27
+    sick: 0.0
+march_28: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-28 00:00:00 
+    id: 28
+    sick: 0.0
+march_29: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-29 00:00:00 
+    id: 29
+    sick: 0.0
+march_30: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-30 00:00:00 
+    id: 30
+    sick: 0.0
+march_31: 
+    vacation: 0.0
+    timesheet_id: 10
+    comp: 0.0
+    holiday: 0.0
+    allocation_date: 2009-03-31 00:00:00 
+    id: 31
+    sick: 0.0

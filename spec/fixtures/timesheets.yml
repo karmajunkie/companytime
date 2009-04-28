@@ -1,7 +1,8 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+march:
+    id: "10"
+    user_id: "1"
+    start_date: 2009-02-01 00:00:00
+    end_date: 2009-02-28 23:59:59
+    created_at: 2009-04-08 21:27:52
+    updated_at: 2009-04-08 21:27:52
 
-# one:
-#   column: value
-#
-# two:
-#   column: value

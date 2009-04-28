@@ -3,7 +3,7 @@ require 'fastercsv'
 namespace :timesys do
   namespace :user do
     desc "copy a user's time records over from timeclock.talho.org-- call as rake timesystem:load login=username"
-    task :load_shift_info => :environment do
+    task :import=> :environment do
       login=ENV['login']
       create=ENV['create'] || false
       verbose=ENV['verbose'] || false
@@ -44,12 +44,58 @@ namespace :timesys do
     end
 
     desc "delete a user's shift records"
-    task :clear_shift_info => :environment do
+    task :clear => :environment do
       login=ENV['login']
       user=User.find_by_login(login)
       user.work_periods.each do |period|
         period.destroy
       end
+    end
+  end
+  namespace :allocations do
+    desc "import allocations from a csv file (file=/path/to/file), and optionally a user (login=username) or override flag (override=true)"
+    task :import => :environment do
+      filename=ENV['file']
+      login=ENV['login']
+      override=ENV['override']
+      create_flag = ENV['create']
+      fileh=File.open(filename,'r')
+      data=fileh.read
+      allocs=FasterCSV.parse(data)
+      fileh.close
+      allocs.each {|row|
+        if row[0]==login || login.nil?
+          user=User.find_by_login(row[0])
+          if create_flag && user.nil?
+            user=User.create({:login => row[0]})
+            user.save
+            puts "created new user #{row[0]}"
+          end
+          ga=user.grants.find_by_import_code(row[1])
+          if ga.nil?
+            grant=Grant.find_by_import_code(row[1]) 
+            if create_flag && grant.nil?
+              grant= Grant.create({:import_code => row[1]})
+              puts "Created new grant with import code #{grant.import_code}"
+            end
+            grant.save 
+            ga=user.grant_allocations.build({:grant_id => grant.id, :weight => row[3]})
+            if ga.save
+              puts "Added grant allocation for user #{user.name} and grant #{grant.title}"
+            else
+              puts "there was a problem adding grant allocation for user #{user.name} and grant #{grant.title}"
+            end
+          else
+            if override
+              ga.weight=row[3]
+              ga.save
+              puts "User already has a grant allocation for this grant, overriding"
+            else
+              puts "User already has a grant allocation for this grant, override flag not supplied.  Try again with override=true."
+            end
+          end
+        end
+      }
     end
   end
 end

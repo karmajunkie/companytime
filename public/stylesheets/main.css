@@ -46,13 +46,18 @@ div.child_form {
   padding:10px;
 }
 
-table#ts_calendar {
+div.cal{
   -moz-border-radius:10px 0 0 10px;
   -safari-border-radius:10px 0 0 10px;
   border-radius:10px 0 0 10px;
-  margin-left:10px;
   border:1px solid black;
-
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:730px;
+  margin-left:10px;
+}
+table#ts_calendar {
 }
 th.workweek {
   background-color:#cc9966;
@@ -109,7 +114,7 @@ div#info{
   -safari-border-radius:10px 0 0 0px;
   border-radius:0px;
   width:350px;
-  height:430px;
+  height:640px;
   border:1px solid black;
   position:absolute;
   padding:10px;
@@ -132,6 +137,31 @@ div#info .value{
   position:absolute;
   right:40px;
 }
+div.sources {
+  margin-top:25px;
+}
+div.sources table{
+  border-collapse;
+
+}
+div.sources div.source {
+  height:55px;
+  width:75px;
+  border:2px solid black;
+  -moz-border-radius:10px;
+  -safari-border-radius:10px;
+  border-radius:10px;
+  color:white;
+  background-color:#69c;
+  font-size:24px;
+  text-align:center;
+  vertical-align:center;
+  padding-top:20px;
+}
+div.sources td.label {
+  padding-left:40px;
+  font-size:20px;
+}
 div.cal_legend{
   position:absolute;
   bottom:0px;
@@ -151,4 +181,7 @@ div.cal_ha{
 }
 div#calendar_content_container{
   position:relative;
+  height:660px;
 }
+
+

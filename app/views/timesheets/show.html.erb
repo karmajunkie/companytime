@@ -1,3 +1,226 @@
+<h2 class='report'>Texas Association of Local Health Officials</h2>
+<h3 class='report'>Employee Time Record</h3>
+<table id='report_master_table'>
+  <tr>
+    <td colspan='15'>&nbsp;</td>
+    <td class='info' colspan='4'>Start of month</td>
+    <td class='info' colspan='4'>End of Month</td>
+  </tr>
+  <tr>
+    <td colspan='2' class='info'><%= @timesheet.user.last_name %></td>
+    <td colspan='6' class='info'><%= @timesheet.user.first_name %></td>
+    <td colspan='3'>&nbsp;</td>
+    <td colspan='4' class='accrual'>Vacation</td>
+    <td colspan='4' class='accrual_value'><%= @timesheet.starting_accrual.vacation_hours %></td>
+    <td colspan='4' class='accrual_value'><%= @timesheet.ending_accrual.vacation_hours %></td>
+    <td colspan='12'>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan='2' class='info_label'>Last name</td>
+    <td colspan='6' class='info_label'>First name</td>
+    <td colspan='3'>&nbsp;</td>
+    <td colspan='4' class='accrual'>Sick</td>
+    <td colspan='4' class='accrual_value'><%= @timesheet.starting_accrual.sick_hours%></td>
+    <td colspan='4' class='accrual_value'><%= @timesheet.ending_accrual.sick_hours%></td>
+    <td colspan='12'>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan='2'>&nbsp;</td>
+    <td colspan='6'>&nbsp;</td>
+    <td colspan='3'>&nbsp;</td>
+    <td colspan='4' class='accrual'>Holiday</td>
+    <td colspan='4' class='accrual_value'><%= @timesheet.starting_accrual.holiday_hours%></td>
+    <td colspan='4' class='accrual_value'><%= @timesheet.ending_accrual.holiday_hours%></td>
+    <td colspan='12'>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan='2' class='info'><%= @timesheet.start_date.strftime("%B") %></td>
+    <td colspan='6' class='info'><%= @timesheet.start_date.year %></td>
+    <td colspan='23'>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan='2'>Month</td>
+    <td colspan='6'>Year</td>
+    <td colspan='23'>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan='33'>&nbsp;</td>
+  </tr>
+  <tr class='title_row'>
+    <td class='rpt_grant'>Grant Activity</td>
+    <td class='rpt_total'>Total</td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_daily'>
+       <%= pto.allocation_date.day %>
+      </td>
+    <% end %>
+  </tr>
+  <% @timesheet.user.grant_allocations.each do |ga| %>
+    <tr class='rpt_ga_row'>
+      <td class='rpt_ga'><%= ga.grant.import_code %></td>
+      <td class='rpt_ga_total'><%= ga.weight.to_f * @month_expected_hours %></td>
+      <% @timesheet.pto_allocations.each do |pto| %>
+        <% x = ga.weight.to_f * (pto.allocation_date.cwday <= 5 ? 8 : 0) %>
+        <td class='rpt_ga_daily'><%= x > 0 ? x : "0" %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  <tr class='title_row'>
+    <td class='rpt_grant'>GA Total</td>
+    <td class='rpt_total'><%= @month_expected_hours %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_daily'>
+       <%= pto.allocation_date.cwday <=5 ? "8" : "0" %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='title_row'>
+    <td class='rpt_grant'>Hours worked</td>
+    <td class='rpt_total'><%= @timesheet.user.work_periods.for_month(@timesheet.start_date).total_hours(:month)[0].total_hours.to_f.round(2) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_daily'>
+        <% daily_hours = @timesheet.user.work_periods.for_day(pto.allocation_date).total_hours(:day)[0] %>
+        <%= daily_hours ? daily_hours.total_hours.to_f.round(2) : "0" %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td colspan='33'>&nbsp;</td>
+  </tr>
+  <tr class='title_row'>
+    <td>LEAVE/COMP</td><td colspan='32'>&nbsp;</td>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Annual</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:vacation) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.vacation.abs.to_f > 0 ? pto.vacation.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Sick</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:sick) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.sick.abs.to_f > 0 ? pto.sick.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Holiday</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:holiday) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.holiday.abs.to_f > 0 ? pto.holiday.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Comp TAKEN</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:comp, :conditions => "comp < 0") %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.comp.to_f < 0 ? pto.comp.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Comp EARNED</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:comp, :conditions => "comp > 0") %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.comp.to_f > 0 ? pto.comp.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Military</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:military) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.military.abs.to_f > 0 ? pto.military.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Bereavement</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:bereavement) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.bereavement.abs.to_f > 0 ? pto.bereavement.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Jury duty</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:jury_duty) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.jury_duty.abs.to_f > 0 ? pto.jury_duty.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Leave w/o Pay</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:unpaid_leave) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.unpaid_leave.abs.to_f > 0 ? pto.unpaid_leave.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row'>
+    <td class='rpt_pto'>Administrative</td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:administrative) %></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <%= pto.administrative.abs.to_f > 0 ? pto.administrative.to_f.round(2) : '&nbsp;' %>
+      </td>
+    <% end %>
+  </tr>
+  <tr class='rpt_pto_row footer_row'>
+    <td class='rpt_pto'>Leave/Comp Total</td>
+    <td class='rpt_pto_total'><%= 
+      @timesheet.pto_allocations.sum(:vacation) + 
+      @timesheet.pto_allocations.sum(:sick) + 
+      @timesheet.pto_allocations.sum(:holiday) + 
+      @timesheet.pto_allocations.sum(:comp) + 
+      @timesheet.pto_allocations.sum(:military) + 
+      @timesheet.pto_allocations.sum(:bereavement) + 
+      @timesheet.pto_allocations.sum(:jury_duty) + 
+      @timesheet.pto_allocations.sum(:administrative) + 
+      @timesheet.pto_allocations.sum(:unpaid_leave)%></td>
+    <% @timesheet.pto_allocations.each do |pto| %>
+      <td class='rpt_pto_daily'>
+        <% daily_pto_total=(pto.vacation.to_f +
+             pto.sick.to_f +
+             pto.holiday.to_f +
+             pto.comp.to_f +
+             pto.military.to_f +
+             pto.bereavement.to_f +
+             pto.jury_duty.to_f +
+             pto.administrative.to_f +
+             pto.unpaid_leave.to_f)
+        %><%= daily_pto_total > 0? daily_pto_total : "0" %>
 
+      </td>
+    <% end %>
+  </tr>
+
+</table>
+<% if @show_links %>
+<p>
 <%= link_to 'Edit', edit_timesheet_path(@timesheet) %> |
+<%= link_to 'View printable', url_for(:action => "print", :id => @timesheet) %> |
 <%= link_to 'Back', timesheets_path %>
+</p>
+<% else %>
+  <div class='signature'>
+    <label>Employee signature</label><label>Date</label><br/>
+  </div>
+  <div class='signature'>
+    <label>Supervisor signature</label><label>Date</label>
+  </div>
+<% end %>

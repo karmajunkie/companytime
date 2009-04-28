@@ -1,4 +1,5 @@
 <div id='calendar_content_container'>
+  <div class='cal'>
 
 <table id='ts_calendar'>
   <tr>
@@ -16,31 +17,37 @@
 <% end %>
 
 <% temp_comp_accum = @comp_accumulated %>
-<% @timesheet.start_date.to_date.upto @timesheet.end_date.to_date do |dt| 
-   hrs_elm=@hour_totals.rassoc(dt.strftime("%m/%d/%Y")) 
-   hrs_for_day = hrs_elm ? hrs_elm[0] : 0.0
+<% @timesheet.pto_allocations.each do |pto|
+  day=@timesheet.user.work_periods.for_day(pto.allocation_date)
+  daily_hrs= (day.size > 0 ? day.total_hours[0].total_hours.to_f : 0.0)
+  total_daily_hrs=daily_hrs - pto.sick.to_f - pto.vacation.to_f - pto.holiday.to_f - pto.comp.to_f
   %>
-  <% if dt.cwday == 1 %></tr><tr><% end %>
+  <% if pto.allocation_date.cwday == 1 %></tr><tr><% end %>
     <td class='ts_calendar'>
-      <div class='cal_container<%= " short_hrs" if (dt.cwday <= 5 && hrs_for_day < 8)%><%= " overtime" if (dt.cwday > 5 && hrs_for_day > 0) || hrs_for_day > 8%>'>
-        <div class='cal_day'><%= dt.strftime("%e") %></div>
-        <div class='cal_hrs'><%= hrs_elm ? hrs_elm[0] : "0"  %></div>
+      <div class='cal_container<%= 
+        " short_hrs" if daily_hrs < 8 && pto.allocation_date.cwday <= 5 %><%=
+        " holiday" if pto.allocation_date.holiday?  %><%= 
+        " overtime" if (total_daily_hrs >= 8) || (pto.allocation_date.cwday > 5 && total_daily_hrs > 0)  %>'
+        hours='<%=daily_hrs%>'
+        pto_id='<%= pto.id %>'
+        day_type='<%= 
+          if pto.allocation_date.holiday?
+            "holiday"
+          elsif pto.allocation_date.cwday>5
+            "weekend"
+          else
+            "weekday"
+          end
+          %>'
+        <%['sick','holiday','vacation','comp'].each do |type| %><%=type%>_hours='<%= pto[type]%>'
+        <% end%>
+        >
+        <div class='cal_day'><%= pto.allocation_date.strftime("%e") %></div>
+        <div class='cal_hrs'><%= daily_hrs  %></div>
         <div class='cal_ha'>
-          <span class='cal_ha'>0</span> S<br/>
-          <span class='cal_ha'>0</span> H<br/>
-          <span class='cal_ha'>0</span> A<br/>
-          <span class='cal_ha'>
-          <% if hrs_for_day > 8 %>
-            +<%= hrs_for_day - 8 %>
-          <% elsif hrs_for_day < 8
-            shortness = 8 - hrs_for_day
-            if temp_comp_accum >= shortness
-              temp_comp_accum-=shortness
-              %>-<%=shortness %><%
-            else %><%= 0 %><%
-            end
-          else %><%= 0 %> 
-          <% end %></span> C<br/>
+          <%['sick','holiday','vacation','comp'].each do |type| %><span class='cal_ha' type='<%=type%>_hours' hours='pto[type]'>
+              <%= pto[type]%> <%=type.capitalize[0,1]%></span><br/>
+          <% end%>
         </div>
       </div>
     </td>
@@ -51,6 +58,7 @@
 <% end %>
 </tr>
 </table>
+</div>
 <div id='info'>
   <p>
   <div class='valueset'>
@@ -60,13 +68,30 @@
   </p>
   <div class='valueset'><label>Total hours:</label> <span class='value'><%=@month_total_hours %></span></div>
   <div class='valueset'><label>Work hours:</label> <span class='value'><%= @month_expected_hours %></span></div>
-  <div class='valueset'><label>Total Comp:</label> <span class='value'><%= @comp_accumulated %></span></div>
-  <div class='valueset'><label>Unassigned Comp:</label> <span class='value'><%= temp_comp_accum %></span></div>
+  <div class='valueset'><label>Total Comp:</label> <span class='value'><%= 
+    @timesheet.pto_allocations.sum(:comp, :conditions => "comp > 0") %></span></div>
+  <div class='valueset'><label>Unassigned Comp:</label> <span class='value'><%= @timesheet.pto_allocations.sum(:comp) %></span></div>
+  <div class='sources'>
+      <table>
+        <tr><td colspan='2'>Drag hours from sources below to the date you want them applied<hr></td></tr>
+        <% ["sick_hours", "holiday_hours", "vacation_hours" ].each do |type| %>
+          <tr>
+            <td><div class='source' atype='<%=type%>' hours="<%= @timesheet.ending_accrual[type] %>"><%= @timesheet.ending_accrual[type]  %></div></td>
+            <td class='label'><%= type.humanize %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td class='source'><div class='source' atype='comp_hours' hours='<%= @timesheet.pto_allocations.sum(:comp)  %>'>
+              <%= @timesheet.pto_allocations.sum(:comp)  %></div></td>
+          <td class='label'>Comp hours</td>
+        </tr>
+  </div>
   <div class='cal_legend'>
     S = Sick hours<br/>
     H = Holiday<br/>
-    A = Annual<br/>
+    V = Vacation<br/>
     C = Comp time<br/>
+    <%= link_to "View report", :action => "show", :id =>@timesheet %>
   </div>
 </div>
 </div>

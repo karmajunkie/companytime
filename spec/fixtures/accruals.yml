@@ -1,13 +1,21 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+march_starting_accrual: 
+  id: "1"
+  effective_date: 2009-03-01 00:00:00
+  timesheet_id: "10"
+  discriminator: "start"
+  sick_hours: 20  
+  vacation_hours: 25
+  holiday_hours: 8
+  created_at: 2009-04-08 21:27:52
+  updated_at: 2009-04-08 21:27:52
+march_starting_accrual: 
+  id: "2"
+  timesheet_id: "10"
+  discriminator: "end"
+  effective_date: 2009-03-31 00:00:00
+  sick_hours: 31
+  vacation_hours: 33
+  holiday_hours: 16
+  created_at: 2009-04-08 21:27:52
+  updated_at: 2009-04-08 21:27:52
 
-one:
-  user_id: 1
-  vacation_hours: 1.5
-  holiday_hours: 1.5
-  sick_hours: 1.5
-
-two:
-  user_id: 1
-  vacation_hours: 1.5
-  holiday_hours: 1.5
-  sick_hours: 1.5

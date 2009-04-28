@@ -4,10 +4,16 @@ class WorkPeriod < ActiveRecord::Base
 
   #all work periods for the month starting on the date given
   named_scope :for_month, lambda { |month|
-    {:conditions => ["start_time > ? and start_time < ?", month, ((month.to_date >>1)-1)] }
+    {:conditions => ["start_time > ? and start_time < ?", month.beginning_of_month.to_time, month.end_of_month.end_of_day.to_time] }
+  }
+  named_scope :for_day, lambda { |day|
+    { :conditions => ["start_time > ? and start_time < ?", day.beginning_of_day.to_time, day.end_of_day.to_time ]}
   }
 
-  named_scope :total_hours, :select => " date_format(start_time, '%m/%d/%Y') as date_worked, sum(unix_timestamp(end_time)-unix_timestamp(start_time))/3600.0 as total_hours",:group => "date_worked"
+  named_scope :total_hours, lambda { |period|
+    date_formats={ :month => "%m/%Y", :day => "%m/%d/%Y" }
+      {:select => " date_format(start_time, '#{date_formats[period]}') as date_worked, sum(unix_timestamp(end_time)-unix_timestamp(start_time))/3600.0 as total_hours",:group => "date_worked"}
+  }
 
   def hours
     if self.start_time 

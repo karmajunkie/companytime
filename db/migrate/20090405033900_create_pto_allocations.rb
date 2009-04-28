@@ -3,9 +3,9 @@ class CreatePtoAllocations < ActiveRecord::Migration
     create_table :pto_allocations do |t|
       t.integer :timesheet_id
       t.datetime :allocation_date
-      t.float :sick
-      t.float :vacation
-      t.float :holiday
+      t.float :sick, :default => 0.0
+      t.float :vacation, :default => 0.0
+      t.float :holiday, :default => 0.0
 
       t.timestamps
     end

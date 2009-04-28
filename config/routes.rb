@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :holidays
+
   map.resources :work_periods
   map.resources :timesheets
 

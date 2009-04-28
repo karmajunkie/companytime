@@ -1,0 +1,98 @@
+@media print,screen{
+h2.report {
+  text-align:center;
+  line-height:1em;
+  margin:5pt;
+}
+h3.report {
+  text-align:center;
+  line-height:1em;
+  margin:5pt;
+}
+#report_master_table{
+  width:1100pt;
+  text-align:center;
+  border-collapse:collapse;
+}
+tr.title_row {
+  font-weight:bold;
+  border-bottom:2pt solid black;
+}
+tr.footer_row {
+  border:4pt double black;
+  font-weight:bold;
+}
+tr.footer_row td.rpt_pto_daily {
+}
+td.rpt_grant {
+  width:150pt;
+  border-right:4pt double black;
+}
+td.rpt_total {
+  width:75pt;
+  border-right:4pt double black;
+}
+td.rpt_daily {
+  width:20pt;
+  border-left:2pt solid black;
+  border-right:2pt solid black;
+  border-bottom:1pt solid black;
+  border-top:1pt solid black;
+  font-size:11pt;
+}
+tr.rpt_ga_row {
+  border-bottom:1pt solid black;
+}
+td.rpt_ga {
+  border-right:4pt double black;
+}
+
+td.rpt_ga_total {
+  border-right:4pt double black;
+}
+td.rpt_ga_daily {
+  border-right:1pt solid black;
+}
+td.rpt_pto{
+  border-bottom:1pt solid black;
+}
+td.rpt_pto_total{
+  border-left:4pt double black;
+  border-right:4pt double black;
+  border-bottom:1pt solid black;
+}
+td.rpt_pto_daily{
+  width:20pt;
+  border-left:2pt solid black;
+  border-right:2pt solid black;
+  border-bottom:1pt solid black;
+  border-top:1pt solid black;
+  font-size:11pt;
+}
+td.accrual { 
+  font-weight:bold;
+  border-left:2pt solid black;
+  border-top:2pt solid black;
+  border-bottom:2pt solid black;
+}
+td.accrual_value { 
+  font-weight:bold;
+  border-right:2pt solid black;
+  border-top:2pt solid black;
+  border-bottom:2pt solid black;
+}
+td.info { 
+  font-weight:bold;
+  border-bottom:2pt solid black;
+}
+div.signature { 
+  margin-top:75pt;
+  float:clear;
+}
+div.signature label {
+  float:left;
+  border-top:2pt solid black;
+  width:400pt;
+  margin-right:50pt;
+}
+}
