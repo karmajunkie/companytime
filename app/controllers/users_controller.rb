@@ -97,23 +97,40 @@ class UsersController < ApplicationController
     end
   end
 
+  def toggle
+    if User.find_by_login(params[:id]).clocked_in?
+      puts "logged in"
+      clockout
+    else
+      puts "logged out"
+      clockin
+    end
+  end
   def clockin
     @user = User.find_by_login(params[:id])
-    if @user.logged_in?
+    if @user.clocked_in?
       render :text => "You can't log in until you've logged out!", :status => 403
     else
       wp=@user.work_periods.build({:start_time => Time.now})
       wp.save
-      render :text => "clocked in"
+      respond_to do |format|
+        format.js { render :text => "clocked in", :status => 201 }
+        format.html{ render :text => 'clocked in' }
+      end
+      
     end
   end
 
   def clockout
     @user = User.find_by_login(params[:id])
-    if @user.logged_in?
+    if @user.clocked_in?
       wp=@user.work_periods.last
       wp.end_time = Time.now 
-      render :text => "clocked out"
+      wp.save
+      respond_to do |format|
+        format.js { render :text => "clocked out", :status => 205 }
+        format.html{ render :text => 'clocked out' }
+      end
     else
       render :text => "You can't log out until you've logged in!", :status => 403
     end

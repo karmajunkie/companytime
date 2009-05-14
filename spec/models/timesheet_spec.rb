@@ -16,7 +16,7 @@ describe Timesheet do
   end
   it "should create pto_allocations for each date it covers" do
     t=Timesheet.create!(@valid_attributes)
-    t.pto_allocations.size.should == 31
+    t.pto_allocations.size.should == (@valid_attributes[:end_date].to_date-@valid_attributes[:start_date].to_date)+1
   end
   it "should create a starting accrual object when it gets created" do
     t=Timesheet.create!(@valid_attributes)

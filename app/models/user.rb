@@ -4,10 +4,15 @@ class User < ActiveRecord::Base
   has_many :grant_allocations
   #has_many :accruals, :through => :timesheets, :order => "effective_date asc"
   has_many :grants, :through => :grant_allocations, :order => "priority asc"
+
+  named_scope :valid_users, :conditions => {:valid_user => true}
   
 
   def logged_in?
-    work_periods.last.start_time && work_periods.last.end_time == nil
+    true
+  end
+  def clocked_in?
+    work_periods.last && work_periods.last.start_time && (work_periods.last.end_time == nil)
   end
   def current_accrual
     begin
