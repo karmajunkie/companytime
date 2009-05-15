@@ -12,7 +12,9 @@ namespace :timesys do
       user=User.find_by_login(login)
       if user==nil 
         if create
-          user=User.new({:login => login})
+          user=User.new({:login => login, :valid_user => true})
+          puts "Creating user #{login}" 
+          user.save
         else
           throw "user not found and create=true not specified"
         end
