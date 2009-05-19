@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
   #has_many :accruals, :through => :timesheets, :order => "effective_date asc"
   has_many :grants, :through => :grant_allocations, :order => "priority asc"
 
-  named_scope :valid_users, :conditions => {:valid_user => true}
+  default_scope :conditions => {:valid_user => true}
+  named_scope :clocked_in, :select => "users.*", :joins => :work_periods, :having => ["max(work_periods.start_time) > max(work_periods.end_time)"], :group => "work_periods.user_id"
+  named_scope :clocked_out, :select => "users.*", :joins => :work_periods, :having => ["max(work_periods.start_time) < max(work_periods.end_time)"], :group => "work_periods.user_id"
   
 
   def logged_in?
@@ -22,6 +24,13 @@ class User < ActiveRecord::Base
     end
   end
   def last_clock
+    if work_periods.last.nil?
+      nil
+    elsif work_periods.last.start_time && work_periods.last.end_time.nil?
+      work_periods.last.start_time
+    else
+      work_periods.last.end_time 
+    end
     
   end
   def toggle_clock_status
