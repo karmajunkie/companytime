@@ -1,6 +1,6 @@
 <% @users.each do |user| %>
-  <%= user.name %> (<%= user.login %>) currently clocked <%= user.clocked_in? ? "in" : "out" %> at <%= 
-  user.clocked_in? ? 
-    user.work_periods.last.start_time.localtime.strftime("%x %X"): 
-    user.work_periods.last.end_time.localtime.strftime("%x %X")%><br/>
+  <%= user.name %> (<%= user.login %>) currently clocked <%= user.clocked_in? ? "in" : "out" %> at 
+  <% if user.last_clock %>
+   <%= user.last_clock.localtime.strftime("%x %X")%><br/>
+  <% end %>
 <% end %>
