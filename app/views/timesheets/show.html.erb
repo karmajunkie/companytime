@@ -95,7 +95,7 @@
     <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:vacation) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.vacation.abs.to_f > 0 ? pto.vacation.to_f.round(2) : '&nbsp;' %>
+        <%= pto.vacation.abs.to_f > 0 ? pto.vacation.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
@@ -104,7 +104,7 @@
     <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:sick) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.sick.abs.to_f > 0 ? pto.sick.to_f.round(2) : '&nbsp;' %>
+        <%= pto.sick.abs.to_f > 0 ? pto.sick.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
@@ -113,25 +113,25 @@
     <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:holiday) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.holiday.abs.to_f > 0 ? pto.holiday.to_f.round(2) : '&nbsp;' %>
+        <%= pto.holiday.abs.to_f > 0 ? pto.holiday.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
   <tr class='rpt_pto_row'>
     <td class='rpt_pto'>Comp TAKEN</td>
-    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:comp, :conditions => "comp < 0") %></td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:comp, :conditions => "comp < 0").round(1) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.comp.to_f < 0 ? pto.comp.to_f.round(2) : '&nbsp;' %>
+        <%= pto.comp.to_f < 0 ? pto.comp.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
   <tr class='rpt_pto_row'>
     <td class='rpt_pto'>Comp EARNED</td>
-    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:comp, :conditions => "comp > 0") %></td>
+    <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:comp, :conditions => "comp > 0").round(1) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.comp.to_f > 0 ? pto.comp.to_f.round(2) : '&nbsp;' %>
+        <%= pto.comp.to_f > 0 ? pto.comp.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
@@ -140,7 +140,7 @@
     <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:military) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.military.abs.to_f > 0 ? pto.military.to_f.round(2) : '&nbsp;' %>
+        <%= pto.military.abs.to_f > 0 ? pto.military.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
@@ -149,7 +149,7 @@
     <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:bereavement) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.bereavement.abs.to_f > 0 ? pto.bereavement.to_f.round(2) : '&nbsp;' %>
+        <%= pto.bereavement.abs.to_f > 0 ? pto.bereavement.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
@@ -158,7 +158,7 @@
     <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:jury_duty) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.jury_duty.abs.to_f > 0 ? pto.jury_duty.to_f.round(2) : '&nbsp;' %>
+        <%= pto.jury_duty.abs.to_f > 0 ? pto.jury_duty.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
@@ -167,7 +167,7 @@
     <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:unpaid_leave) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.unpaid_leave.abs.to_f > 0 ? pto.unpaid_leave.to_f.round(2) : '&nbsp;' %>
+        <%= pto.unpaid_leave.abs.to_f > 0 ? pto.unpaid_leave.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
@@ -176,14 +176,14 @@
     <td class='rpt_pto_total'><%= @timesheet.pto_allocations.sum(:administrative) %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
-        <%= pto.administrative.abs.to_f > 0 ? pto.administrative.to_f.round(2) : '&nbsp;' %>
+        <%= pto.administrative.abs.to_f > 0 ? pto.administrative.to_f.round(1) : '&nbsp;' %>
       </td>
     <% end %>
   </tr>
   <tr class='rpt_pto_row footer_row'>
     <td class='rpt_pto'>Leave/Comp Total</td>
     <td class='rpt_pto_total'><%= 
-      @timesheet.pto_allocations.sum(:vacation) + 
+      (@timesheet.pto_allocations.sum(:vacation) + 
       @timesheet.pto_allocations.sum(:sick) + 
       @timesheet.pto_allocations.sum(:holiday) + 
       @timesheet.pto_allocations.sum(:comp) + 
@@ -191,7 +191,7 @@
       @timesheet.pto_allocations.sum(:bereavement) + 
       @timesheet.pto_allocations.sum(:jury_duty) + 
       @timesheet.pto_allocations.sum(:administrative) + 
-      @timesheet.pto_allocations.sum(:unpaid_leave)%></td>
+      @timesheet.pto_allocations.sum(:unpaid_leave)).round(1)%></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_pto_daily'>
         <% daily_pto_total=(pto.vacation.to_f +
@@ -202,8 +202,8 @@
              pto.bereavement.to_f +
              pto.jury_duty.to_f +
              pto.administrative.to_f +
-             pto.unpaid_leave.to_f)
-        %><%= daily_pto_total > 0? daily_pto_total : "0" %>
+             pto.unpaid_leave.to_f).round(1)
+        %><%= daily_pto_total > 0? daily_pto_total.round(1) : "0" %>
 
       </td>
     <% end %>

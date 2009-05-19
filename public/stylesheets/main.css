@@ -14,6 +14,7 @@ div {
 #header .logo {
   width:600px;
   float:left;
+  border:0px;
 }
 #header .title{
   font-size:36px;

@@ -20,7 +20,7 @@
 <% @timesheet.pto_allocations.each do |pto|
   day=@timesheet.user.work_periods.for_day(pto.allocation_date)
   daily_hrs= (day.size > 0 ? day.total_hours[0].total_hours.to_f : 0.0)
-  total_daily_hrs=daily_hrs - pto.sick.to_f - pto.vacation.to_f - pto.holiday.to_f - pto.comp.to_f
+  total_daily_hrs=daily_hrs - pto.sick.to_f - pto.vacation.to_f - pto.holiday.to_f - pto.comp.to_f.round(1)
   %>
   <% if pto.allocation_date.cwday == 1 %></tr><tr><% end %>
     <td class='ts_calendar'>
@@ -46,7 +46,7 @@
         <div class='cal_hrs'><%= daily_hrs  %></div>
         <div class='cal_ha'>
           <%['sick','holiday','vacation','comp'].each do |type| %><span class='cal_ha' type='<%=type%>_hours' hours='pto[type]'>
-              <%= pto[type]%> <%=type.capitalize[0,1]%></span><br/>
+              <%= pto[type].round(1)%> <%=type.capitalize[0,1]%></span><br/>
           <% end%>
         </div>
       </div>
@@ -69,8 +69,8 @@
   <div class='valueset'><label>Total hours:</label> <span class='value'><%=@month_total_hours %></span></div>
   <div class='valueset'><label>Work hours:</label> <span class='value'><%= @month_expected_hours %></span></div>
   <div class='valueset'><label>Total Comp:</label> <span class='value'><%= 
-    @timesheet.pto_allocations.sum(:comp, :conditions => "comp > 0") %></span></div>
-  <div class='valueset'><label>Unassigned Comp:</label> <span class='value'><%= @timesheet.pto_allocations.sum(:comp) %></span></div>
+    @timesheet.pto_allocations.sum(:comp, :conditions => "comp > 0").round(1) %></span></div>
+  <div class='valueset'><label>Unassigned Comp:</label> <span class='value'><%= @timesheet.pto_allocations.sum(:comp).round(1) %></span></div>
   <div class='sources'>
       <table>
         <tr><td colspan='2'>Drag hours from sources below to the date you want them applied<hr></td></tr>
@@ -82,7 +82,7 @@
         <% end %>
         <tr>
           <td class='source'><div class='source' atype='comp_hours' hours='<%= @timesheet.pto_allocations.sum(:comp)  %>'>
-              <%= @timesheet.pto_allocations.sum(:comp)  %></div></td>
+              <%= @timesheet.pto_allocations.sum(:comp).round(1) %></div></td>
           <td class='label'>Comp hours</td>
         </tr>
   </div>

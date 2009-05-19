@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   
 
   def logged_in?
-    true
+    false
   end
   def clocked_in?
     work_periods.last && work_periods.last.start_time && (work_periods.last.end_time == nil)
@@ -21,6 +21,12 @@ class User < ActiveRecord::Base
       nil
     end
   end
+  def last_clock
+    
+  end
+  def toggle_clock_status
+  end
+  
   def name
     "#{first_name} #{last_name}"
   end
