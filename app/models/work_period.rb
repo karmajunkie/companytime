@@ -2,6 +2,7 @@ class WorkPeriod < ActiveRecord::Base
   belongs_to :user
   default_scope :order => "start_time asc"
   named_scope :current, :conditions => ["start_time < now()"]
+  validates_presence_of :start_time
 
   #all work periods for the month starting on the date given
   named_scope :for_month, lambda { |month|

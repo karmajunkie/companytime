@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
     false
   end
   def clocked_in?
-    work_periods.current.last && work_periods.current.last.start_time && (work_periods.current.last.end_time == nil)
+    work_periods.last && work_periods.last.start_time && (work_periods.last.end_time.nil?)
   end
   def current_accrual
     begin
