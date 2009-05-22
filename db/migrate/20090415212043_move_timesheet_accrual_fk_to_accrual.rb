@@ -1,7 +1,7 @@
 class MoveTimesheetAccrualFkToAccrual < ActiveRecord::Migration
   def self.up
-    #remove_column :accruals, :user_id
-    #add_column :accruals, :timesheet_id, :integer
+    remove_column :accruals, :user_id
+    add_column :accruals, :timesheet_id, :integer
     Timesheet.reset_column_information
     Timesheet.all.each {|t| 
       a=Accrual.find(t.starting_accrual_id)

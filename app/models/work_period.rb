@@ -1,6 +1,7 @@
 class WorkPeriod < ActiveRecord::Base
   belongs_to :user
   default_scope :order => "start_time asc"
+  named_scope :current, :conditions => ["start_time < now()"]
 
   #all work periods for the month starting on the date given
   named_scope :for_month, lambda { |month|
@@ -20,7 +21,7 @@ class WorkPeriod < ActiveRecord::Base
       self.end_time||= DateTime.now
       diff = self.end_time.to_datetime - self.start_time.to_datetime
       hrs, mins, secs, frac = Date.day_fraction_to_time(diff)
-      hrs + (((mins / 60.0) * 10).round / 10)
+      hrs + (((mins / 60.0) * 10).round(2) / 10)
     else
       nil
     end

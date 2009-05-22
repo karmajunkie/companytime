@@ -180,6 +180,7 @@ describe TimesheetsController do
         assigns(:timesheet).should equal(mock_timesheet)
       end
 
+      it "should not allow the creation of a timesheet without a valid login" 
       it "re-renders the 'edit' template" do
         Timesheet.stub!(:find).and_return(mock_timesheet(:update_attributes => false))
         put :update, :id => "1"

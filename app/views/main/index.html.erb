@@ -1,9 +1,10 @@
+<meta http-equiv="refresh" content="30">
 <div id='clockpanel'>
   <div id='clocked_in_users'>
     <h3>Clocked in</h3>
     <ul>
     <% @clocked_in_users.each do |u| %>
-      <li><p class='name'><%= u.name %></p><p class='clocktime'><%= u.last_clock.localtime.strftime("%x %X") %></p></li>
+      <li><p class='name'><%= link_to  u.name, user_path(u) %></p><p class='clocktime'><%= u.last_clock.localtime.strftime("%x %X") %></p></li>
     <% end %>
   </ul>
   </div>
@@ -11,7 +12,7 @@
     <h3>Clocked out</h3>
     <ul>
     <% @clocked_out_users.each do |u| %>
-      <li><p class='name'><%= u.name %></p><p class='clocktime'><%= u.last_clock.localtime.strftime("%x %X") %></p></li>
+      <li><p class='name'><%= link_to  u.name, user_path(u) %></p><p class='clocktime'><%= u.last_clock.localtime.strftime("%x %X") %></p></li>
     <% end %>
   </ul>
   </div>

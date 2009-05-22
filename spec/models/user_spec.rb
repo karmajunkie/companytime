@@ -12,6 +12,7 @@ describe User do
   it "should create a new instance given valid attributes" do
     User.create!(@valid_attributes)
   end
+  it "should find return nil for current_accrual if there are none" 
   it "should find the most recent accrual with .current_accrual" do
     jd=User.create(@avalid_attributes)
     jd.save

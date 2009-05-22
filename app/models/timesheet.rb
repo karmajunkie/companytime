@@ -38,25 +38,23 @@ class Timesheet < ActiveRecord::Base
           user.sick_accrual_rate
         ending_accrual.holiday_hours=starting_accrual.holiday_hours
       else
-        starting_accrual.vacation_hours=0
-        starting_accrual.sick_hours=0
-        starting_accrual.holiday_hours=0
-        ending_accrual.vacation_hours= user.vacation_accrual_rate
-        ending_accrual.sick_hours= user.sick_accrual_rate
-        ending_accrual.holiday_hours=0 
+        starting_accrual.vacation_hours=user.vacation_hours
+        starting_accrual.sick_hours=user.sick_hours
+        starting_accrual.holiday_hours=user.holiday_hours
+        ending_accrual.vacation_hours= user.vacation_hours+user.vacation_accrual_rate
+        ending_accrual.sick_hours= user.sick_hours+user.sick_accrual_rate
+        ending_accrual.holiday_hours= user.holiday_hours
       end
     end
     def credit_holiday_time
       if !(user.nil? || user.current_accrual.nil?)
-        ending_accrual.vacation_hours=user.current_accrual.vacation_hours.to_f
-        ending_accrual.sick_hours=user.current_accrual.sick_hours.to_f
+        ending_accrual.vacation_hours=user.current_accrual.vacation_hours.to_f+user.vacation_accrual_rate
+        ending_accrual.sick_hours=user.current_accrual.sick_hours.to_f+user.sick_accrual_rate
       else
-        ending_accrual.vacation_hours = 0
-        ending_accrual.sick_hours= 0
-        ending_accrual.holiday_hours =0
+        ending_accrual.vacation_hours= user.vacation_hours+user.vacation_accrual_rate
+        ending_accrual.sick_hours= user.sick_hours+user.sick_accrual_rate
+        ending_accrual.holiday_hours= user.holiday_hours
       end
-      ending_accrual.vacation_hours+=user.vacation_accrual_rate
-      ending_accrual.sick_hours+=user.sick_accrual_rate
       pto_allocations.holidays.each do |holiday|
         starting_accrual.holiday_hours += 8 
       end

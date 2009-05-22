@@ -18,9 +18,11 @@
 </div>
 <div id='timesheets'>
   <h4>Timesheets</h4>
+  <ul>
   <% @user.timesheets.each do |ts| %>
-    <%= link_to ts.start_date.strftime("%B %Y"), timesheet_path(ts) %>
+    <li><%= link_to ts.start_date.strftime("%B %Y"), timesheet_path(ts) %></li>
   <% end %>
+  </ul>
 </div>
 </div>
 <br>

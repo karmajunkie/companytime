@@ -135,7 +135,11 @@ class TimesheetsController < ApplicationController
       timesheet.pto_allocations.each do |pto|
         if !pto.user_modified?
           #is this right?
-          hrs=timesheet.user.work_periods.for_day(pto.allocation_date).total_hours(:day)
+          if !timesheet.user.work_periods.for_day(pto.allocation_date).nil?
+            hrs=timesheet.user.work_periods.for_day(pto.allocation_date).total_hours(:day)
+          else
+            hrs=[0]
+          end
           if hrs[0]
             pto.comp=0
             pto.holiday=0
