@@ -1,39 +1,28 @@
+<div id='user_show'>
 <p>
-  <b>Name:</b>
-  <%=h @user.name %>
+<b><%=h @user.name %></b> (<%=h @user.login %>)<br/>
 </p>
-
-<p>
-  <b>Login:</b>
-  <%=h @user.login %>
-</p>
-
-<p>
-  <b>Holiday:</b>
-  <%=h @user.holiday_hours%>
-</p>
-
-<p>
-  <b>Vacation:</b>
-  <%=h @user.vacation_hours %>
-</p>
-
-<p>
-  <b>Sick:</b>
-  <%=h @user.sick_hours %>
-</p>
-
-
-<p>
-  <b>Vacation accrual rate:</b>
-  <%=h @user.vacation_accrual_rate %>
-</p>
-
-<p>
-  <b>Sick accrual rate:</b>
-  <%=h @user.sick_accrual_rate %>
-</p>
-
-
+<div id='current_accruals'>
+  <h4>Current Accruals</h4>
+  <dl>
+    <% if @user.timesheets.last.nil? %>
+      <li>Holiday: <%=h @user.holiday_hours %></li>
+      <li>Vacation/annual leave: <%=h @user.vacation_hours%></li>
+      <li>Sick: <%=h @user.sick_hours%></li>
+    <% else %>
+      <li>Holiday: <%=h @user.timesheets.last.ending_accrual.holiday_hours %></li>
+      <li>Vacation/annual leave: <%=h @user.timesheets.last.ending_accrual.vacation_hours%></li>
+      <li>Sick: <%=h @user.timesheets.last.ending_accrual.sick_hours%></li>
+    <% end %>
+  </dl>
+</div>
+<div id='timesheets'>
+  <h4>Timesheets</h4>
+  <% @user.timesheets.each do |ts| %>
+    <%= link_to ts.start_date.strftime("%B %Y"), timesheet_path(ts) %>
+  <% end %>
+</div>
+</div>
+<br>
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

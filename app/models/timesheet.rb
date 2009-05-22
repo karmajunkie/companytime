@@ -12,6 +12,7 @@ class Timesheet < ActiveRecord::Base
   validates_presence_of :start_date
   validates_presence_of :end_date
   validates_uniqueness_of :start_date, :scope => [:user_id]
+  validates_associated :user
   
   private
     def ensure_pto_allocations_created

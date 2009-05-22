@@ -76,7 +76,14 @@
   </tr>
   <tr class='title_row'>
     <td class='rpt_grant'>Hours worked</td>
-    <td class='rpt_total'><%= @timesheet.user.work_periods.for_month(@timesheet.start_date).total_hours(:month)[0].total_hours.to_f.round(2) %></td>
+    <td class='rpt_total'>
+      <%= 
+        if !@timesheet.user.work_periods.for_month(@timesheet.start_date).empty? 
+          @timesheet.user.work_periods.for_month(@timesheet.start_date).total_hours(:month)[0].total_hours.to_f.round(2) 
+        else
+          0
+        end
+      %></td>
     <% @timesheet.pto_allocations.each do |pto| %>
       <td class='rpt_daily'>
         <% daily_hours = @timesheet.user.work_periods.for_day(pto.allocation_date).total_hours(:day)[0] %>

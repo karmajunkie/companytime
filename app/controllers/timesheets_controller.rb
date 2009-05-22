@@ -55,14 +55,17 @@ class TimesheetsController < ApplicationController
   # POST /timesheets.xml
   def create
     @user = User.find_by_login(params[:user_login])
-    @timesheet=@user.timesheets.build(params[:timesheet]) || Timesheet.new(params[:timesheet])
     if @user 
+      @timesheet=@user.timesheets.build(params[:timesheet]) || Timesheet.new(params[:timesheet])
       @user.save
       @timesheet.end_date=@timesheet.start_date.end_of_month
       #save needs to happen before doing anything with the pto_allocations because they're
       #created in a before_create filter
       @timesheet.save
       update_pto_allocations(@timesheet)
+    else
+      @timesheet=Timesheet.new(params[:timesheet])
+      @timesheet.errors.add("user", "does not exist.")
     end
     respond_to do |format|
       if !@timesheet.new_record?

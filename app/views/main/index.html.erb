@@ -1,6 +1,18 @@
-<% @users.each do |user| %>
-  <%= user.name %> (<%= user.login %>) currently clocked <%= user.clocked_in? ? "in" : "out" %> at 
-  <% if !user.last_clock.nil? %>
-   <%= user.last_clock.localtime.strftime("%x %X") %>
-  <% end %><br/>
-<% end %>
+<div id='clockpanel'>
+  <div id='clocked_in_users'>
+    <h3>Clocked in</h3>
+    <ul>
+    <% @clocked_in_users.each do |u| %>
+      <li><p class='name'><%= u.name %></p><p class='clocktime'><%= u.last_clock.localtime.strftime("%x %X") %></p></li>
+    <% end %>
+  </ul>
+  </div>
+  <div id='clocked_out_users'>
+    <h3>Clocked out</h3>
+    <ul>
+    <% @clocked_out_users.each do |u| %>
+      <li><p class='name'><%= u.name %></p><p class='clocktime'><%= u.last_clock.localtime.strftime("%x %X") %></p></li>
+    <% end %>
+  </ul>
+  </div>
+</div>

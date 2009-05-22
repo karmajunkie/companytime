@@ -8,6 +8,7 @@ div {
 }
 #header {
   background-color:#000;
+  color:#fff;
   padding:10px;
   margin:10px;
 }
@@ -18,15 +19,28 @@ div {
 }
 #header .title{
   font-size:36px;
-  color:#fff;
   padding:5px;
   height:75px;
   vertical-align:bottom;
 }
+#menu ul{
+  margin:0px;
+  padding:0px;
+}
+#menu li{
+  list-style:none none inside;
+  display:inline;
+  padding-left:15px;
+}
+
+.relative_container {
+  position:relative;
+}
 #content {
   background-color:#fff;
   padding:10px;
-  margin:10px;
+  margin:10px
+  position:relative;
 }
 div.location_form p{
   margin:5px;
@@ -184,5 +198,52 @@ div#calendar_content_container{
   position:relative;
   height:660px;
 }
+div#clockpanel { 
+  position:relative;
+  margin:10px;
+  width:175px;
+  
+}
+div#clockpanel h3{ 
+  line-height:1.2em;
+  margin:5px 0;
+  text-align:center;
+  border-radius:5px 5px 0 0;
+  -moz-border-radius:5px 5px 0 0;
+  -safari-border-radius:5px 5px 0 0;
+  border:1px solid black;
 
-
+}
+div#clockpanel p{ 
+  margin:0px;
+}
+div#clockpanel div{
+  border-width:0 1px 1px 1px;
+  border-style:solid;
+  border-color:black;
+}
+#clocked_in_users h3{
+  background-color:#0a0;
+  color:#fff;
+}
+#clocked_out_users h3{
+  background-color:#a00;
+  color:#fff;
+}
+div#clockpanel .name{
+  font-weight:bold
+}
+div#clockpanel .clocktime {
+  font-size:.8em;
+  padding-left:20px;
+}
+div#clockpanel ul{ 
+  margin:5px;
+  padding:0px;
+}
+div#clockpanel li{ 
+  list-style-image: none;
+  list-style-type: none;
+  display:block;
+  list-style-position:inside;
+}
