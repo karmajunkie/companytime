@@ -15,6 +15,10 @@ describe UsersController do
     it "should return false from user.clocked_in?"
     it "should not allow a clockout unless the user is clocked in"
   end
+  describe "GET toggle" do
+    it "should change the users clock state"
+    it "should clock in for a new user"
+  end
 end
 
 

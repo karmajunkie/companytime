@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <%= stylesheet_link_tag "main" %>
+  <%= stylesheet_link_tag 'scaffold' %>
+<%= javascript_include_tag :defaults %>
+<%= active_scaffold_includes %>
+    <title>TALHO Time Admin</title>
+    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? -%>
+
+
+  <body>
+    <div id='header'>
+      <a href='/'><img class='logo' src='/images/talho_logo.png'></a>
+      <div class='title'>TALHO Time Admin</div>
+      <%= render :file => '_menubar' %>
+    </div>
+    <div id='content'>
+      <%= yield %>
+    </div>
+  </body>
+</html>

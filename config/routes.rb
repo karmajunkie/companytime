@@ -1,7 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :leave_requests
+
   map.resources :holidays
 
-  map.resources :work_periods
+  map.resources :work_periods, :active_scaffold => true
   map.resources :timesheets
 
   map.resources :users, 

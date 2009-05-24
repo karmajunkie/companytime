@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  active_scaffold :user
   # GET /users
   # GET /users.xml
   def index
