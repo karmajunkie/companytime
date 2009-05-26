@@ -62,9 +62,6 @@ Rails::Initializer.run do |config|
     :session_key => '_time_system_session',
     :secret      => 'b43f10eda92071ff51dd3a64fb78dcfb6ebaebaf0920c2204aaa732c286e334de861a040e4513b204b0d66bb5dcf6f8393b09545ba67d683779deb8454ea7710'
   }
-  config.gem "thoughtbot-factory_girl",
-    :lib    => "factory_girl",
-    :source => "http://gems.github.com"
 
 
   # Use the database for sessions instead of the cookie-based default,
@@ -80,4 +77,5 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+  config.gem 'fastercsv'
 end

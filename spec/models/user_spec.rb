@@ -76,4 +76,31 @@ describe User do
       User.clocked_in.should include(@user)
     end
   end
+  describe "clocked_out" do
+    before do
+      @user = Factory(:user)
+    end
+
+    it "should include users that have never clocked in" do
+      pending
+      User.clocked_out.should include(@user)
+    end
+
+    it "should not include users that are currently clocked in" do
+      Factory(:work_period, :user => @user, :end_time => nil)
+      User.clocked_out.should_not include(@user)
+    end
+
+    it "should not include users that have clocked out before and are currently clocked in" do
+      Factory(:work_period, :user => @user, :end_time => Time.now)
+      Factory(:work_period, :user => @user, :end_time => nil)
+      User.clocked_out.should_not include(@user)
+    end
+
+
+    it "should include users that are currently clocked out" do
+      Factory(:work_period, :user => @user, :end_time => Time.now)
+      User.clocked_out.should include(@user)
+    end
+  end
 end

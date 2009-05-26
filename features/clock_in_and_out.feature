@@ -16,3 +16,9 @@ Feature: Clocking in and out
     When Ethan clocks in
     Then I can see an error message
     
+  Scenario: An employee clocking out
+    Given Ethan is an employee
+    And Ethan is currently clocked in
+    When Ethan clocks out
+    Then I can see that Ethan is clocked out
+
