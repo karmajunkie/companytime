@@ -6,5 +6,5 @@ Feature: Clocking in and out
   Scenario: An employee clocking in
     Given Keith is an employee
     When Keith clocks in
-    Then I can see that Keith clocked in
+    Then I can see that Keith is clocked in
     

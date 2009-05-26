@@ -6,7 +6,8 @@ class User < ActiveRecord::Base
   has_many :grants, :through => :grant_allocations, :order => "priority asc"
 
   default_scope :conditions => {:valid_user => true}
-  named_scope :clocked_in, :select => "users.*", :joins => :work_periods, :having => ["max(work_periods.start_time) > max(work_periods.end_time)"], :group => "work_periods.user_id"
+  named_scope :clocked_in, :select => "DISTINCT users.*",
+    :joins => :work_periods, :conditions => 'work_periods.end_time IS NULL'
   named_scope :clocked_out, :select => "users.*", :joins => :work_periods, :having => ["max(work_periods.start_time) < max(work_periods.end_time)"], :group => "work_periods.user_id"
   
 

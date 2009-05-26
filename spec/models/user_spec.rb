@@ -65,4 +65,15 @@ describe User do
 
     jd.current_accrual.should == b2
   end
+  
+  describe "clocked_in" do
+    before do
+      @user = Factory(:user)
+    end
+    
+    it "should include users that are clocked in but have never clocked out" do
+      Factory(:work_period, :user => @user)
+      User.clocked_in.should include(@user)
+    end
+  end
 end

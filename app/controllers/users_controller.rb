@@ -99,7 +99,7 @@ class UsersController < ApplicationController
   end
 
   def toggle
-    if User.find_by_login(params[:id]).clocked_in?
+    if User.find_by_login!(params[:id]).clocked_in?
       puts "logged in"
       clockout
     else
