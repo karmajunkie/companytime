@@ -6,10 +6,16 @@ class User < ActiveRecord::Base
   has_many :grants, :through => :grant_allocations, :order => "priority asc"
 
   default_scope :conditions => {:valid_user => true}
-  named_scope :clocked_in, :select => "DISTINCT users.*",
+  named_scope :clocked_in, :select => "users.*",
     :joins => :work_periods, :conditions => 'work_periods.end_time IS NULL'
-  named_scope :clocked_out, :select => "DISTINCT users.*", :joins => :work_periods, :having => ["work_periods.end_time IS NOT NULL"], :group => "work_periods.user_id"
-  
+  #named_scope :clocked_out, 
+    #:select => "users.*", 
+    #:joins => :work_periods, 
+    #:conditions => ["work_periods.start_time = max(work_periods.start_time) and  work_periods.end_time IS NOT NULL"], 
+    ##:order => "work_periods.start_time desc" 
+  named_scope :clocked_out, lambda{{
+    :conditions => ["users.id not in (?)", clocked_in.map(&:id)+ [-1]]
+  }}
 
   def logged_in?
     false

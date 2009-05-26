@@ -82,7 +82,6 @@ describe User do
     end
 
     it "should include users that have never clocked in" do
-      pending
       User.clocked_out.should include(@user)
     end
 
