@@ -27,4 +27,7 @@ class WorkPeriod < ActiveRecord::Base
       nil
     end
   end
+  def to_label
+    "#{user.name}, #{start_time.localtime.strftime("%x %X")} to #{end_time.localtime.strftime("%x %X")}"
+  end
 end
