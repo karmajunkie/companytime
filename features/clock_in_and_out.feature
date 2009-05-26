@@ -7,4 +7,12 @@ Feature: Clocking in and out
     Given Keith is an employee
     When Keith clocks in
     Then I can see that Keith is clocked in
+  
+  Scenario: An employee tries to clock in twice
+    Given Ethan is an employee
+    When Ethan clocks in
+    Then I can see that Ethan is clocked in
+    
+    When Ethan clocks in
+    Then I can see an error message
     

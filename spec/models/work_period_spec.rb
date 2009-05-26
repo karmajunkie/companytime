@@ -16,4 +16,25 @@ describe WorkPeriod do
 
     work_period.hours.should == 8.75
   end
+  
+  describe "validating if clocked in" do
+    it "should be invalid when user is clocked in" do
+      open_work_period = Factory(:work_period, :end_time => nil)
+      work_period = Factory.build(:work_period, :user => open_work_period.user)
+      work_period.should_not be_valid
+      work_period.errors.on_base.should_not be_nil
+    end
+    
+    it "should be valid when user is not clocked in" do
+      Factory.build(:work_period, :end_time => nil).should be_valid
+    end
+    
+    it "should be valid when another user is clocked in" do
+      user1 = Factory(:user)
+      user2 = Factory(:user)
+      open_work_period = Factory(:work_period, :end_time => nil, :user => user1)
+      work_period = Factory.build(:work_period, :end_time => nil, :user => user2)
+      work_period.should be_valid
+    end
+  end
 end

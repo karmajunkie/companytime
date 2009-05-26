@@ -3,6 +3,7 @@ class WorkPeriod < ActiveRecord::Base
   default_scope :order => "start_time asc"
   named_scope :current, :conditions => ["start_time < now()"]
   validates_presence_of :start_time
+  validate_on_create :check_clocked_in
 
   #all work periods for the month starting on the date given
   named_scope :for_month, lambda { |month|
@@ -30,4 +31,11 @@ class WorkPeriod < ActiveRecord::Base
   def to_label
     "#{user.name}, #{start_time.localtime.strftime("%x %X")} to #{end_time.localtime.strftime("%x %X")}"
   end
+  
+private
+  
+  def check_clocked_in
+    errors.add_to_base 'You are already clocked in.' if user.clocked_in?
+  end
+  
 end

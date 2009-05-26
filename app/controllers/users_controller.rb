@@ -107,6 +107,7 @@ class UsersController < ApplicationController
       clockin
     end
   end
+
   def clockin
     @user = User.find_by_login(params[:id])
     if @user.clocked_in?

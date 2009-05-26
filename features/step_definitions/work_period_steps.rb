@@ -1,5 +1,5 @@
 When '$login clocks in' do |login|
-  visit toggle_user_path(login)
+  visit clockin_user_path(login)
 end
 
 Then 'I can see that $login is clocked in' do |login|
