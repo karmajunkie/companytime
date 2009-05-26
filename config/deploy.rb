@@ -28,6 +28,7 @@ desc "mod_rails restart"
 end
  
 after 'deploy:update_code', 'deploy:symlink_configs'
+after "deploy", "deploy:cleanup"
 namespace :deploy do
   desc "we need a database. this helps with that."
   task :symlink_configs do

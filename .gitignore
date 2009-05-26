@@ -4,7 +4,6 @@ log/*
 
 newtimesheet_vb.pdf
 db/schema.rb
-vendor/rails
 TAGS
 TAGS
 TAGS TAGS (Case Conflict 1)
