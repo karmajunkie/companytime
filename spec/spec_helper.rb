@@ -46,3 +46,13 @@ Spec::Runner.configure do |config|
   # 
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
 end
+module Webrat::SaveAndOpenPage
+  alias_method :old_open_in_browser, :open_in_browser
+  def open_in_browser(path)
+    if ruby_platform =~ /linux/i
+      `firefox #{path}`
+    else
+      old_open_in_browser
+    end
+  end
+end

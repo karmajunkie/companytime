@@ -8,11 +8,7 @@ class User < ActiveRecord::Base
   default_scope :conditions => {:valid_user => true}
   named_scope :clocked_in, :select => "users.*",
     :joins => :work_periods, :conditions => 'work_periods.end_time IS NULL'
-  #named_scope :clocked_out, 
-    #:select => "users.*", 
-    #:joins => :work_periods, 
-    #:conditions => ["work_periods.start_time = max(work_periods.start_time) and  work_periods.end_time IS NOT NULL"], 
-    ##:order => "work_periods.start_time desc" 
+
   named_scope :clocked_out, lambda{{
     :conditions => ["users.id not in (?)", clocked_in.map(&:id)+ [-1]]
   }}

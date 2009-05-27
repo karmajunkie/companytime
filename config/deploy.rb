@@ -19,6 +19,7 @@ set :use_sudo, false
 set :user, 'root'
 set :git_enable_submodules, true
 set :ssh_options, {:forward_agent => true}
+set :deploy_via, :remote_cache
  
 desc "mod_rails restart"
   namespace :deploy do

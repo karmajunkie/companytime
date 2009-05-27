@@ -1,7 +1,7 @@
 db/*.sqlite3
 config/database.yml
 log/*
-
+.idea
 newtimesheet_vb.pdf
 db/schema.rb
 TAGS
