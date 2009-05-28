@@ -21,3 +21,13 @@
   </ul>
   </div>
 </div>
+
+<div id="feed">
+  <h3>The Feed</h3>
+  
+  <ul>
+    <% @feed.entries.each do |entry| %>
+      <li><%= link_to entry.title, entry.link %> <%=h Time.parse(entry.published).to_s(:short) %></li>
+    <% end %>
+  </ul>
+</div>
