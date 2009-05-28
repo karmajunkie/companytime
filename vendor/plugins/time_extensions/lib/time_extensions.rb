@@ -1,13 +1,12 @@
 module Timesystem
-  module TimeExtensions
+  module TimeExtensions  
     def cwday
       wday == 0 ? 7 : wday
     end
   end
   module Holidays
     def holiday?
-      h=Holiday.find(:first, :conditions => ["holiday_date >= ? and holiday_date <= ?", self.beginning_of_day, self.end_of_day])
-      !h.nil?
+      Holiday.exists?(:holiday_date => self.beginning_of_day..self.end_of_day)
     end
   end
 end
