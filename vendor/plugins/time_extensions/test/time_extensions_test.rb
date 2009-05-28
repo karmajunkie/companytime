@@ -1,8 +1,9 @@
 require 'test_helper'
 
 class TimeExtensionsTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  
+  test "cwday Time" do
+    assert_equal 7, Time.now.end_of_week.cwday
   end
+  
 end
