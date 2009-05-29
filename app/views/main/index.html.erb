@@ -22,12 +22,12 @@
   </div>
 </div>
 
-<div id="feed">
-  <h3>The Feed</h3>
+<div class="feed laconica">
+  <h3>Recently on Laconica...</h3>
   
   <ul>
     <% @feed.entries.each do |entry| %>
-      <li><%= link_to h(entry.title), entry.link %> <%=h Time.parse(entry.published).to_s(:short) %></li>
+      <li><div class='link_author'><%= entry.author %></div><div class='link_title'><%= link_to h(entry.title), entry.link %> </div> </li>
     <% end %>
   </ul>
 </div>

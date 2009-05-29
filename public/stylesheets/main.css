@@ -1,249 +1,344 @@
 body {
-  background-color:#ac1111;
+
 }
+
 div {
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-  border-radius:10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
+
 #header {
-  background-color:#000;
-  color:#fff;
-  padding:10px;
-  margin:10px;
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    margin: 10px;
 }
+
 #header .logo {
-  width:600px;
-  float:left;
-  border:0px;
+    width: 600px;
+    float: left;
+    border: 0px;
 }
-#header .title{
-  font-size:36px;
-  padding:5px;
-  height:75px;
-  vertical-align:bottom;
+
+#header .title {
+    font-size: 36px;
+    padding: 5px;
+    height: 75px;
+    vertical-align: bottom;
 }
-#menu ul{
-  margin:0px;
-  padding:0px;
+
+#menu ul {
+    margin: 0px;
+    padding: 0px;
 }
-#menu li{
-  list-style:none none inside;
-  display:inline;
-  padding-left:15px;
+
+#menu li {
+    list-style: none none inside;
+    display: inline;
+    padding-left: 15px;
 }
 
 .relative_container {
-  position:relative;
-}
-#content {
-  background-color:#fff;
-  padding:10px;
-  margin:10px
-  position:relative;
-}
-div.location_form p{
-  margin:5px;
-}
-div.form label{
-  display:block;
-  float:left;
-  width:150px;
-  text-align:right;
-  padding-right:10px;
-  margin:0 5px;
-}
-div.child_form {
-  border:1px solid black;
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-  border-radius:10px;
-  padding:10px;
+    position: relative;
 }
 
-div.cal{
-  -moz-border-radius:10px 0 0 10px;
-  -webkit-border-radius:10px 0 0 10px;
-  border-radius:10px 0 0 10px;
-  border:1px solid black;
-  position:absolute;
-  top:0px;
-  left:0px;
-  width:730px;
-  margin-left:10px;
+#content {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px;
+    position: relative;
+
 }
+
+div.location_form p {
+    margin: 5px;
+}
+
+div.form label {
+    display: block;
+    float: left;
+    width: 150px;
+    text-align: right;
+    padding-right: 10px;
+    margin: 0 5px;
+}
+
+div.child_form {
+    border: 1px solid black;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+div.cal {
+    -moz-border-radius: 10px 0 0 10px;
+    -webkit-border-radius: 10px 0 0 10px;
+    border-radius: 10px 0 0 10px;
+    border: 1px solid black;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 730px;
+    margin-left: 10px;
+}
+
 table#ts_calendar {
 }
+
 th.workweek {
-  background-color:#cc9966;
+    background-color: #cc9966;
 }
+
 th.weekend {
-  background-color:#6699cc;
-  color:white;
+    background-color: #6699cc;
+    color: white;
 }
+
 td.ts_calendar {
-  height:100px;
-  width:100px;
-  text-align:center;
-  vertical-align:center;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    vertical-align: center;
 }
+
 div.cal_hrs {
-  font-size:30px;
-  position:absolute;
-  bottom:0px;
-  right:0px;
-  padding-right:10px;
+    font-size: 30px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    padding-right: 10px;
 }
-div.cal_container{
-  position:relative;
-  border:1px solid black;
-  height:100px;
+
+div.cal_container {
+    position: relative;
+    border: 1px solid black;
+    height: 100px;
 }
-.short_hrs{
-  border-color:red;
-  background-color:#ff2929;
+
+.short_hrs {
+    border-color: red;
+    background-color: #ff2929;
 }
-.overtime{
-  border-color:green;
-  background-color:#94ff29;
+
+.overtime {
+    border-color: green;
+    background-color: #94ff29;
 }
-div.cal_day{
-  background-color:white;
-  -moz-border-radius:10px 0 0 0px;
-  -webkit-border-radius:10px 0 0 0px;
-  border-radius:0px;
-  border-right:1px solid black;
-  border-bottom:1px solid black;
-  padding-top:5px;
-  float:left;
-  position:absolute;
-  top:0px;
-  left:0px;
-  width:30px;
-  height:30px;
-  font-weight:bold;
-  font-size:16px;
+
+div.cal_day {
+    background-color: white;
+    -moz-border-radius: 10px 0 0 0px;
+    -webkit-border-radius: 10px 0 0 0px;
+    border-radius: 0px;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-top: 5px;
+    float: left;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 30px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 16px;
 }
-div#info{
-  -moz-border-radius:0 10px 10px 0px;
-  -webkit-border-radius:10px 0 0 0px;
-  border-radius:0px;
-  width:350px;
-  height:640px;
-  border:1px solid black;
-  position:absolute;
-  padding:10px;
-  top:0px;
-  left:745px;
-  font-size:16px;
-  font-weight:bold;
+
+div#info {
+    -moz-border-radius: 0 10px 10px 0px;
+    -webkit-border-radius: 10px 0 0 0px;
+    border-radius: 0px;
+    width: 350px;
+    height: 640px;
+    border: 1px solid black;
+    position: absolute;
+    padding: 10px;
+    top: 0px;
+    left: 745px;
+    font-size: 16px;
+    font-weight: bold;
 }
+
 div.valueset {
-  position:relative;
+    position: relative;
 }
-div#info label{
-  left:0px;
-  margin:5px;
-  padding:5px;
-  position:relative;
-  width:300px;
+
+div#info label {
+    left: 0px;
+    margin: 5px;
+    padding: 5px;
+    position: relative;
+    width: 300px;
 }
-div#info .value{
-  position:absolute;
-  right:40px;
+
+div#info .value {
+    position: absolute;
+    right: 40px;
 }
+
 div.sources {
-  margin-top:25px;
+    margin-top: 25px;
 }
-div.sources table{
-  border-collapse;
+
+div.sources table {
+    border-collapse;
 
 }
+
 div.sources div.source {
-  height:55px;
-  width:75px;
-  border:2px solid black;
-  -moz-border-radius:10px;
-  -webkit-border-radius:10px;
-  border-radius:10px;
-  color:white;
-  background-color:#69c;
-  font-size:24px;
-  text-align:center;
-  vertical-align:center;
-  padding-top:20px;
+    height: 55px;
+    width: 75px;
+    border: 2px solid black;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    color: white;
+    background-color: #69c;
+    font-size: 24px;
+    text-align: center;
+    vertical-align: center;
+    padding-top: 20px;
 }
+
 div.sources td.label {
-  padding-left:40px;
-  font-size:20px;
+    padding-left: 40px;
+    font-size: 20px;
 }
-div.cal_legend{
-  position:absolute;
-  bottom:0px;
-  left:0px;
-  font-size:9px;
-  padding:10px;
+
+div.cal_legend {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    font-size: 9px;
+    padding: 10px;
 }
-div.cal_ha{
-  margin-top:5px;
-  margin-right:5px;
-  position:absolute;
-  top:0px;
-  right:0px;
-  height:50px;
-  font-size:8px;
+
+div.cal_ha {
+    margin-top: 5px;
+    margin-right: 5px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 50px;
+    font-size: 8px;
 
 }
-div#calendar_content_container{
-  position:relative;
-  height:660px;
+
+div#calendar_content_container {
+    position: relative;
+    height: 660px;
 }
-div#clockpanel { 
-  position:relative;
-  margin:10px;
-  width:175px;
-  
-}
-div#clockpanel h3{ 
-  line-height:1.2em;
-  margin:5px 0;
-  text-align:center;
-  border-radius:5px 5px 0 0;
-  -moz-border-radius:5px 5px 0 0;
-  -webkit-border-radius:5px 5px 0 0;
-  border:1px solid black;
+
+div#clockpanel {
+    position: relative;
+    margin: 10px;
+    width: 175px;
 
 }
-div#clockpanel p{ 
-  margin:0px;
+
+div#clockpanel h3 {
+    line-height: 1.2em;
+    margin: 5px 0;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
+    -webkit-border-radius: 5px 5px 0 0;
+    border: 1px solid black;
+
 }
-div#clockpanel div{
-  border-width:0 1px 1px 1px;
-  border-style:solid;
-  border-color:black;
+
+div#clockpanel p {
+    margin: 0px;
 }
-#clocked_in_users h3{
-  background-color:#0a0;
-  color:#fff;
+
+div#clockpanel div {
+    border-width: 0 1px 1px 1px;
+    border-style: solid;
+    border-color: black;
 }
-#clocked_out_users h3{
-  background-color:#a00;
-  color:#fff;
+
+#clocked_in_users h3 {
+    background-color: #0a0;
+    color: #fff;
 }
-div#clockpanel .name{
-  font-weight:bold
+
+#clocked_out_users h3 {
+    background-color: #a00;
+    color: #fff;
 }
+
+div#clockpanel .name {
+    font-weight: bold
+}
+
 div#clockpanel .clocktime {
-  font-size:.8em;
-  padding-left:20px;
+    font-size: .8em;
+    padding-left: 20px;
 }
-div#clockpanel ul{ 
-  margin:5px;
-  padding:0px;
+
+div#clockpanel ul {
+    margin: 5px;
+    padding: 0px;
 }
-div#clockpanel li{ 
-  list-style-image: none;
-  list-style-type: none;
-  display:block;
-  list-style-position:inside;
+
+div#clockpanel li {
+    list-style-image: none;
+    list-style-type: none;
+    display: block;
+    list-style-position: inside;
+}
+
+div.feed ul {
+
+    display: block;
+    margin:0;
+    padding:0;
+}
+div.feed h3{
+    margin:0px;
+    padding:5px;
+    text-align:center;
+    line-height:1em;
+}
+
+div.laconica {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+div.feed li {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    display: block;
+    width: 300px;
+    border: 1px solid black;
+    background-color: #fff;
+    margin:0px 5px 5px 5px;
+
+}
+
+div.feed div.link_author {
+    -moz-border-radius: 10px 10px 0 0;
+    -webkit-border-radius: 10px 10px 0 0;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+
+    background-color: #6666dd;
+    color: #fff;
+}
+
+div.feed div.link_title {
+    -moz-border-radius: 0 0 10px 10px;
+    -webkit-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+    font-size: 12px;
+
+    color: #6666dd;
+    background-color: #fff;
+    padding: 10px 5px;
 }
