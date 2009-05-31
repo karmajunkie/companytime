@@ -1,0 +1,64 @@
+# == Schema Information
+# Schema version: 20090529235331
+#
+# Table name: leave_requests
+#
+#  id                   :integer(4)      not null, primary key
+#  employee             :integer(4)
+#  executive            :integer(4)
+#  reason               :text
+#  vacation_hours       :float
+#  holiday_hours        :float
+#  sick_hours           :float
+#  bereavement          :boolean(1)
+#  bereavement_hours    :float
+#  military             :boolean(1)
+#  military_hours       :float
+#  comp_hours           :float
+#  jury_duty            :boolean(1)
+#  jury_hours           :float
+#  unpaid               :boolean(1)
+#  unpaid_hours         :float
+#  administrative       :boolean(1)
+#  administrative_hours :float
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  leave_period_id: 1
+  reason: MyText
+  vacation_hours: 1.5
+  holiday_hours: 1.5
+  sick_hours: 1.5
+  bereavement: false
+  bereavement_hours: 1.5
+  military: false
+  military_hours: 1.5
+  comp_hours: 1.5
+  jury_duty: false
+  jury_hours: 1.5
+  unpaid: false
+  unpaid_hours: 1.5
+  administrative: false
+  administrative_hours: 1.5
+
+two:
+  leave_period_id: 1
+  reason: MyText
+  vacation_hours: 1.5
+  holiday_hours: 1.5
+  sick_hours: 1.5
+  bereavement: false
+  bereavement_hours: 1.5
+  military: false
+  military_hours: 1.5
+  comp_hours: 1.5
+  jury_duty: false
+  jury_hours: 1.5
+  unpaid: false
+  unpaid_hours: 1.5
+  administrative: false
+  administrative_hours: 1.5

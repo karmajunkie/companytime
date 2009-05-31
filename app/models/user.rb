@@ -1,3 +1,22 @@
+# == Schema Information
+# Schema version: 20090529235331
+#
+# Table name: users
+#
+#  id                    :integer(4)      not null, primary key
+#  login                 :string(255)
+#  holiday_hours         :float           default(0.0)
+#  vacation_hours        :float           default(0.0)
+#  sick_hours            :float           default(0.0)
+#  vacation_accrual_rate :float           default(0.0)
+#  sick_accrual_rate     :float           default(0.0)
+#  created_at            :datetime
+#  updated_at            :datetime
+#  first_name            :string(255)
+#  last_name             :string(255)
+#  valid_user            :boolean(1)      default(TRUE)
+#
+
 class User < ActiveRecord::Base
   has_many :work_periods, :order => "start_time asc"
   has_many :timesheets, :order => "start_date desc";

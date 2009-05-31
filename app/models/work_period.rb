@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20090529235331
+#
+# Table name: work_periods
+#
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
+#  start_time :datetime
+#  end_time   :datetime
+#  note       :text
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class WorkPeriod < ActiveRecord::Base
   belongs_to :user
   default_scope :order => "start_time asc"

@@ -1,0 +1,50 @@
+<h1>Listing leave_requests</h1>
+
+<table>
+  <tr>
+    <th>Leave period</th>
+    <th>Reason</th>
+    <th>Vacation hours</th>
+    <th>Holiday hours</th>
+    <th>Sick hours</th>
+    <th>Bereavement</th>
+    <th>Bereavement hours</th>
+    <th>Military</th>
+    <th>Military hours</th>
+    <th>Comp hours</th>
+    <th>Jury duty</th>
+    <th>Jury hours</th>
+    <th>Unpaid</th>
+    <th>Unpaid hours</th>
+    <th>Administrative</th>
+    <th>Administrative hours</th>
+  </tr>
+
+<% @leave_requests.each do |leave_request| %>
+  <tr>
+    <td><%=h leave_request.leave_period_id %></td>
+    <td><%=h leave_request.reason %></td>
+    <td><%=h leave_request.vacation_hours %></td>
+    <td><%=h leave_request.holiday_hours %></td>
+    <td><%=h leave_request.sick_hours %></td>
+    <td><%=h leave_request.bereavement %></td>
+    <td><%=h leave_request.bereavement_hours %></td>
+    <td><%=h leave_request.military %></td>
+    <td><%=h leave_request.military_hours %></td>
+    <td><%=h leave_request.comp_hours %></td>
+    <td><%=h leave_request.jury_duty %></td>
+    <td><%=h leave_request.jury_hours %></td>
+    <td><%=h leave_request.unpaid %></td>
+    <td><%=h leave_request.unpaid_hours %></td>
+    <td><%=h leave_request.administrative %></td>
+    <td><%=h leave_request.administrative_hours %></td>
+    <td><%= link_to 'Show', leave_request %></td>
+    <td><%= link_to 'Edit', edit_leave_request_path(leave_request) %></td>
+    <td><%= link_to 'Destroy', leave_request, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New leave_request', new_leave_request_path %>

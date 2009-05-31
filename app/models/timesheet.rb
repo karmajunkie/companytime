@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20090529235331
+#
+# Table name: timesheets
+#
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
+#  start_date :datetime
+#  end_date   :datetime
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Timesheet < ActiveRecord::Base
   belongs_to :user
   has_one :starting_accrual, :class_name => "Accrual", :conditions => "discriminator='start'"

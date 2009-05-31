@@ -20,3 +20,32 @@ Factory.define :work_period do |w|
   w.association :user
   w.start_time { Time.zone.now }
 end
+reasons=[
+          "Planning a vacation",
+          "Dog passed away",
+          "Tickets to a [UFC Fight|Monster Truck Rally|State Fair|Porn Convention]",
+          "Dr Appt"
+  ]
+Factory.sequence(:leave_reason) do |i|
+  reasons.rand
+end
+Factory.sequence(:hours) { rand(120)}
+Factory.define :leave_request do |lr|
+  lr.association :employee, :factory => :user
+  lr.association :executive, :factory => :user
+  lr.reason Factory.next(:leave_reason)
+  lr.vacation_hours  Factory.next(:hours)
+  lr.holiday_hours Factory.next(:hours)
+  lr.sick_hours Factory.next(:hours)
+  lr.bereavement false
+  lr.bereavement_hours 0
+  lr.military false
+  lr.military_hours 0
+  lr.comp_hours Factory.next(:hours)
+  lr.jury_duty false
+  lr.jury_hours 0
+  lr.unpaid false
+  lr.unpaid_hours 0
+  lr.administrative false
+  lr.administrative_hours0
+end

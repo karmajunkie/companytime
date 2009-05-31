@@ -1,0 +1,30 @@
+# == Schema Information
+# Schema version: 20090529235331
+#
+# Table name: leave_periods
+#
+#  id               :integer(4)      not null, primary key
+#  leave_request_id :integer(4)
+#  from_date        :date
+#  until_date       :date
+#  from_time        :time
+#  until_time       :time
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  from_date: 2009-05-29
+  until_date: 2009-05-29
+  leave_request_id: 1
+  from_time: 2009-05-29 18:53:31
+  until_time: 2009-05-29 18:53:31
+
+two:
+  from_date: 2009-05-29
+  until_date: 2009-05-29
+  leave_request_id: 1
+  from_time: 2009-05-29 18:53:31
+  until_time: 2009-05-29 18:53:31

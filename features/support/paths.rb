@@ -10,6 +10,9 @@ module NavigationHelpers
     
     when /the homepage/
       '/'
+    when /the new leave_requests page/
+      new_leave_requests_path
+
     
     # Add more mappings here.
     # Here is a more fancy example:
