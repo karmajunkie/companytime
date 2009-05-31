@@ -4,7 +4,7 @@
   <%= f.error_messages %>
 <div class='form'>
   <label>Login</label>
-  <%= text_field_tag 'user_login' %><br/>
+  <%= select_tag 'user_login', options_from_collection_for_select(User.all, "login", "name") %><br/>
   <%= f.label :start_date, "Time period" %>
   <%= date_select("timesheet", "start_date", :order => [:month, :year], :default => Date.today.beginning_of_month) %><br/>
   <label>&nbsp;</label>
