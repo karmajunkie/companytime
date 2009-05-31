@@ -2,8 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe LeaveRequest do
   before(:each) do
-    @valid_attributes = {
-      :leave_period_id => 1,
+    @valid_attributes = {   
       :reason => "value for reason",
       :vacation_hours => 1.5,
       :holiday_hours => 1.5,
