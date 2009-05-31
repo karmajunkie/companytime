@@ -1,9 +1,9 @@
 [submodule "vendor/plugins/active_scaffold"]
 	path = vendor/plugins/active_scaffold
 	url = git://github.com/activescaffold/active_scaffold.git
-[submodule "vendor/rails"]
-	path = vendor/rails
-	url = git://github.com/rails/rails.git
 [submodule "vendor/plugins/seed-fu"]
 	path = vendor/plugins/seed-fu
 	url = git://github.com/mbleigh/seed-fu.git
+[submodule "vendor/rails"]
+	path = vendor/rails
+	url = git://github.com/rails/rails.git
