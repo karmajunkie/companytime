@@ -34,5 +34,6 @@ namespace :deploy do
   desc "we need a database. this helps with that."
   task :symlink_configs do
     run "mv #{release_path}/config/database.yml.example #{release_path}/config/database.yml"
+    run "chown -R apache:apache *"
   end
 end
