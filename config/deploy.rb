@@ -16,7 +16,7 @@ role :db,  "192.168.30.115", :primary => true
 set :scm, :git
 set :branch, 'master'
 set :use_sudo, false
-set :user, 'root'
+set :user, 'apache'
 set :git_enable_submodules, true
 set :ssh_options, {:forward_agent => true}
 set :deploy_via, :remote_cache
@@ -35,5 +35,6 @@ namespace :deploy do
   task :symlink_configs do
     run "mv #{release_path}/config/database.yml.example #{release_path}/config/database.yml"
     run "chown -R apache:apache *"
+    run "chmod a+rw #{release_path}/log/*"
   end
 end

@@ -1,5 +1,14 @@
 Name,Date,Optional
 Memorial Day,2009-05-25,FALSE
-Independence Day,2009-07-04,FALSE
-Ceasar Chavez Day,2010-04-21,TRUE
-Christmas,2010-12-25,FALSE
+Independence Day,2009-07-03,FALSE
+Emancipation Day,2009-06-29,true
+LBJ Birthday,2009-08-27,true
+Labor Day,2009-09-07,false
+Columbus Day,2009-10-12,false
+Veterans Day,2009-11-11,false
+Thanksgiving,2009-11-26,false
+Thanksgiving,2009-11-27,false
+Christmas,2009-12-23,false
+Christmas,2009-12-24,false
+Christmas,2009-12-25,false
+New Years Day,2010-01-01,false

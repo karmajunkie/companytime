@@ -55,7 +55,7 @@ namespace :timesys do
     end
   end
   namespace :allocations do
-    desc "import allocations from a csv file (file=/path/to/file), and optionally a user (login=username) or override flag (override=true)"
+    desc "import allocations from a csv file (file=/path/to/file), and optionally a user (login=username), create flag (create=true) or override flag (override=true)"
     task :import => :environment do
       filename=ENV['file']
       login=ENV['login']
@@ -65,9 +65,10 @@ namespace :timesys do
       data=fileh.read
       allocs=FasterCSV.parse(data)
       fileh.close
-      allocs.each {|row|
+      allocs.each do |row|
         if row[0]==login || login.nil?
           user=User.find_by_login(row[0])
+          
           if create_flag && user.nil?
             user=User.create({:login => row[0]})
             user.save
@@ -97,7 +98,7 @@ namespace :timesys do
             end
           end
         end
-      }
+      end
     end
   end
 end
