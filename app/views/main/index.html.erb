@@ -5,7 +5,7 @@
       <h3>Clocked in</h3>
       <ul>
       <% @clocked_in_users.each do |u| %>
-        <li><p class='name'><%= link_to  u.name, user_path(u) %></p><p class='clocktime'><%= u.last_clock.localtime.strftime("%x %X") %></p></li>
+        <%= render :partial => 'user_clock_listing', :locals => {:user => u} %>
       <% end %>
     </ul>
     </div>
@@ -14,9 +14,7 @@
     <h3>Clocked out</h3>
     <ul>
     <% @clocked_out_users.each do |u| %>
-      <% cache [:clocked_out, u.work_periods.last] do %>
-        <li><p class='name'><%= link_to  u.name, user_path(u) %></p><p class='clocktime'><%= u.last_clock.localtime.strftime("%x %X") %></p></li>
-      <% end %>
+        <%= render :partial => 'user_clock_listing', :locals => {:user => u}%>
     <% end %>
   </ul>
   </div>
