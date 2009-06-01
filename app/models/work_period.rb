@@ -21,10 +21,10 @@ class WorkPeriod < ActiveRecord::Base
 
   #all work periods for the month starting on the date given
   named_scope :for_month, lambda { |month|
-    {:conditions => ["start_time > ? and start_time < ?", month.beginning_of_month.to_time, month.end_of_month.end_of_day.to_time] }
+    {:conditions => ["start_time >= ? and start_time <= ?", month.beginning_of_month.to_time, month.end_of_month.end_of_day.to_time] }
   }
   named_scope :for_day, lambda { |day|
-    { :conditions => ["start_time > ? and start_time < ?", day.beginning_of_day.to_time, day.end_of_day.to_time ]}
+    { :conditions => ["start_time >= ? and start_time <= ?", day.beginning_of_day.to_time, day.end_of_day.to_time ]}
   }
 
   named_scope :total_hours, lambda { |period|
@@ -49,7 +49,7 @@ class WorkPeriod < ActiveRecord::Base
 private
   
   def check_clocked_in
-    errors.add_to_base 'You are already clocked in.' if user.clocked_in?
+    errors.add_to_base 'You are already clocked in.' if user.clocked_in? && start_time > user.last_clock
   end
   
 end

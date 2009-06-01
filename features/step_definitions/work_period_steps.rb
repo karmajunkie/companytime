@@ -14,7 +14,6 @@ end
 Then "I can see that $login is clocked out" do |login|
   visit root_path
   user = User.find_by_login!(login)
-  save_and_open_page
   response.should have_tag('#clocked_out_users .name a[href=?]',
     user_path(user), user.name)
 
