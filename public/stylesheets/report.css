@@ -1,4 +1,6 @@
 @media print,screen{
+@page { size: landscape; }
+
 h2.report {
   text-align:center;
   line-height:1em;
