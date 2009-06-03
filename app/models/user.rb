@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     end
   end
   def last_clock
-    if work_periods.last.nil?
+    if work_periods.last.nil?   
       nil
     elsif work_periods.last.start_time && work_periods.last.end_time.nil?
       work_periods.last.start_time

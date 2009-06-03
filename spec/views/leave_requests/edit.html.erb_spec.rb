@@ -29,7 +29,6 @@ describe "/leave_requests/edit.html.erb" do
     render
     
     response.should have_tag("form[action=#{leave_request_path(@leave_request)}][method=post]") do
-      with_tag('input#leave_request_leave_period_id[name=?]', "leave_request[leave_period_id]")
       with_tag('textarea#leave_request_reason[name=?]', "leave_request[reason]")
       with_tag('input#leave_request_vacation_hours[name=?]', "leave_request[vacation_hours]")
       with_tag('input#leave_request_holiday_hours[name=?]', "leave_request[holiday_hours]")

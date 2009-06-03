@@ -1,13 +1,14 @@
 Given "$user is on the employee portal" do |user|
-  pending
+  visit "/"
+  response.should have_tag("a[href=?]", new_leave_request_path, "New Leave Request")
 end
 
-When "$user clicks \"$link\"" do |user, link|
-  pending
+When "$user clicks \"$link\"" do |user, link| 
+  click_link "New Leave Request"
 end
 
 Then "$user should go to the Leave Request form" do |user|
-  pending
+  response
 end
 
 Given "$user is on the Leave Request form" do |user|

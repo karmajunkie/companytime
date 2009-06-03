@@ -6,7 +6,6 @@ describe "/leave_requests/new.html.erb" do
   before(:each) do
     assigns[:leave_request] = stub_model(LeaveRequest,
       :new_record? => true,
-      :leave_period_id => 1,
       :reason => "value for reason",
       :vacation_hours => 1.5,
       :holiday_hours => 1.5,
@@ -29,7 +28,6 @@ describe "/leave_requests/new.html.erb" do
     render
     
     response.should have_tag("form[action=?][method=post]", leave_requests_path) do
-      with_tag("input#leave_request_leave_period_id[name=?]", "leave_request[leave_period_id]")
       with_tag("textarea#leave_request_reason[name=?]", "leave_request[reason]")
       with_tag("input#leave_request_vacation_hours[name=?]", "leave_request[vacation_hours]")
       with_tag("input#leave_request_holiday_hours[name=?]", "leave_request[holiday_hours]")

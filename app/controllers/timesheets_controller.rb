@@ -44,11 +44,11 @@ class TimesheetsController < ApplicationController
     @user = @timesheet.user
     @comp_accumulated=0
     @month_total_hours=0
-    @hour_totals=@timesheet.user.work_periods.for_month(@timesheet.start_date).total_hours(:day).map!{ |wkday| 
+    @hour_totals=@timesheet.user.work_periods.for_month(@timesheet.start_date).total_hours(:day).map! do |wkday| 
       @comp_accumulated += (wkday.total_hours.to_f-8) if wkday.total_hours.to_f > 8
       @month_total_hours+=wkday.total_hours.to_f
       [wkday.total_hours.to_f, wkday.date_worked]
-    }
+    end
   end
 
   # POST /timesheets

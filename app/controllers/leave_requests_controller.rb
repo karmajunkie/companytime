@@ -6,7 +6,7 @@ class LeaveRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @leave_requests }
+      format.xml  { render :xml => @leave_requests }   
     end
   end
 
