@@ -1,0 +1,66 @@
+<% form_for(@leave_request) do |f| %>
+    <%= f.error_messages %>
+  <p>
+    <%= f.label :reason %><br />
+    <%= f.text_area :reason %>
+  </p>
+  <p>
+    <%= f.label :vacation_hours %><br />
+    <%= f.text_field :vacation_hours %>
+  </p>
+  <p>
+    <%= f.label :holiday_hours %><br />
+    <%= f.text_field :holiday_hours %>
+  </p>
+  <p>
+    <%= f.label :sick_hours %><br />
+    <%= f.text_field :sick_hours %>
+  </p>
+  <p>
+    <%= f.label :bereavement %><br />
+    <%= f.check_box :bereavement %>
+  </p>
+  <p>
+    <%= f.label :bereavement_hours %><br />
+    <%= f.text_field :bereavement_hours %>
+  </p>
+  <p>
+    <%= f.label :military %><br />
+    <%= f.check_box :military %>
+  </p>
+  <p>
+    <%= f.label :military_hours %><br />
+    <%= f.text_field :military_hours %>
+  </p>
+  <p>
+    <%= f.label :comp_hours %><br />
+    <%= f.text_field :comp_hours %>
+  </p>
+  <p>
+    <%= f.label :jury_duty %><br />
+    <%= f.check_box :jury_duty %>
+  </p>
+  <p>
+    <%= f.label :jury_hours %><br />
+    <%= f.text_field :jury_hours %>
+  </p>
+  <p>
+    <%= f.label :unpaid %><br />
+    <%= f.check_box :unpaid %>
+  </p>
+  <p>
+    <%= f.label :unpaid_hours %><br />
+    <%= f.text_field :unpaid_hours %>
+  </p>
+  <p>
+    <%= f.label :administrative %><br />
+    <%= f.check_box :administrative %>
+  </p>
+  <p>
+    <%= f.label :administrative_hours %><br />
+    <%= f.text_field :administrative_hours %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
