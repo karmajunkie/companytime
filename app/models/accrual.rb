@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090529235331
+# Schema version: 20090603200000
 #
 # Table name: accruals
 #
@@ -10,8 +10,8 @@
 #  created_at     :datetime
 #  updated_at     :datetime
 #  effective_date :datetime
-#  timesheet_id   :integer(4)
 #  discriminator  :string(255)
+#  timesheet_id   :integer(4)
 #
 
 class Accrual < ActiveRecord::Base

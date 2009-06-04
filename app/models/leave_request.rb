@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090529235331
+# Schema version: 20090603200000
 #
 # Table name: leave_requests
 #
@@ -23,8 +23,14 @@
 #  administrative_hours :float
 #  created_at           :datetime
 #  updated_at           :datetime
+#  employee_id          :integer(4)
+#  approver_id          :integer(4)
 #
 
 class LeaveRequest < ActiveRecord::Base
   has_many :leave_periods
+  belongs_to :employee, :foreign_key => "employee_id", :class_name => "User"
+  belongs_to :approver, :foreign_key => "approver_id", :class_name => "User"
+
+  named_scope :open, :conditions => {:approver_id => nil}
 end

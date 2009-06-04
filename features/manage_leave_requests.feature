@@ -11,5 +11,5 @@ Feature: Manage leave_requests
   Scenario: Request leave
     Given Keith is on the Leave Request form
     When Keith requests an afternoon of Leave for a Doctor's appointment
-    Then a leave request should be created with a single leave period
-    And a new Leave Request should appear in the admin console 
+    Then Keith should have a leave request created with a single leave period
+    And Keith should have a leave request in the admin console 

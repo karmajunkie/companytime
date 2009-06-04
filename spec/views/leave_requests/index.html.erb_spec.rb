@@ -6,7 +6,6 @@ describe "/leave_requests/index.html.erb" do
   before(:each) do
     assigns[:leave_requests] = [
       stub_model(LeaveRequest,
-        :leave_period_id => 1,
         :reason => "value for reason",
         :vacation_hours => 1.5,
         :holiday_hours => 1.5,
@@ -24,7 +23,6 @@ describe "/leave_requests/index.html.erb" do
         :administrative_hours => 1.5
       ),
       stub_model(LeaveRequest,
-        :leave_period_id => 1,
         :reason => "value for reason",
         :vacation_hours => 1.5,
         :holiday_hours => 1.5,

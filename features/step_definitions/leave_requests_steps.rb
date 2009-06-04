@@ -8,21 +8,32 @@ When "$user clicks \"$link\"" do |user, link|
 end
 
 Then "$user should go to the Leave Request form" do |user|
-  response
+  URI.parse(current_url).path.should == new_leave_request_path
 end
 
 Given "$user is on the Leave Request form" do |user|
-  pending
+  Factory.create(:user, :login => user)
+  visit new_leave_request_path
 end
 
-When "$user requests an afternoon of Leave for $reason" do |user, reason|
-  pending
+When "$login requests an afternoon of Leave for $reason" do |login, reason|
+  user=User.find_by_login(login)
+  fill_in("leave_request[reason]", reason)
+  fill_in("leave_request[vacation_hours]", 4)
+  select( user.name, "leave_request[employee_id]")
+  click_button "Save"
 end
 
-Then "a leave request should be created with a single leave period" do
-  pending
+Then "$login should have a leave request created with a single leave period" do |login|
+  user=User.find_by_login(login)
+  user.leave_requests.should_not be_empty
 end
 
-Then "a new Leave Request should appear in the admin console" do
-  pending
+Then "$login should have a leave request in the admin console" do |login|
+  visit "/admin"
+  user=User.find_by_login(login)
+  response.should have_tag("div.requester", user.name)
+  response.should have_tag("div.request li",
+     "From #{user.leave_requests.first.leave_periods.first.from_date("%x")} To #{user.leave_requests.first.leave_periods.first.until_date("%x")}")
+
 end

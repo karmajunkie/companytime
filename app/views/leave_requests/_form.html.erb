@@ -1,5 +1,9 @@
 <% form_for(@leave_request) do |f| %>
     <%= f.error_messages %>
+
+  <p><%= f.label(:employee_id) %>
+     <%= f.collection_select(:employee_id, User.all, :id, :name) %>
+  </p>
   <p>
     <%= f.label :reason %><br />
     <%= f.text_area :reason %>
@@ -61,6 +65,6 @@
     <%= f.text_field :administrative_hours %>
   </p>
   <p>
-    <%= f.submit 'Update' %>
+    <%= f.submit 'Save' %>
   </p>
 <% end %>

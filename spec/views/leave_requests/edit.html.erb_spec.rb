@@ -6,7 +6,6 @@ describe "/leave_requests/edit.html.erb" do
   before(:each) do
     assigns[:leave_request] = @leave_request = stub_model(LeaveRequest,
       :new_record? => false,
-      :leave_period_id => 1,
       :reason => "value for reason",
       :vacation_hours => 1.5,
       :holiday_hours => 1.5,

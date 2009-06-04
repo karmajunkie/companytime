@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090529235331
+# Schema version: 20090603200000
 #
 # Table name: leave_requests
 #
@@ -23,12 +23,13 @@
 #  administrative_hours :float
 #  created_at           :datetime
 #  updated_at           :datetime
+#  employee_id          :integer(4)
+#  approver_id          :integer(4)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  leave_period_id: 1
   reason: MyText
   vacation_hours: 1.5
   holiday_hours: 1.5
@@ -46,7 +47,6 @@ one:
   administrative_hours: 1.5
 
 two:
-  leave_period_id: 1
   reason: MyText
   vacation_hours: 1.5
   holiday_hours: 1.5

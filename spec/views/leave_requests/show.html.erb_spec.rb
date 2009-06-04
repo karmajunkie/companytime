@@ -4,7 +4,6 @@ describe "/leave_requests/show.html.erb" do
   include LeaveRequestsHelper
   before(:each) do
     assigns[:leave_request] = @leave_request = stub_model(LeaveRequest,
-      :leave_period_id => 1,
       :reason => "value for reason",
       :vacation_hours => 1.5,
       :holiday_hours => 1.5,

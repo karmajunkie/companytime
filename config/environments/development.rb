@@ -16,4 +16,4 @@ config.action_controller.perform_caching             = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-LACONICA_URI='http://keith.talho.org/api/statuses/public_timeline.atom'
+LACONICA_URI='http://laconica.talho.org/api/statuses/public_timeline.atom'
