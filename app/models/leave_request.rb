@@ -32,5 +32,7 @@ class LeaveRequest < ActiveRecord::Base
   belongs_to :employee, :foreign_key => "employee_id", :class_name => "User"
   belongs_to :approver, :foreign_key => "approver_id", :class_name => "User"
 
+  accepts_nested_attributes_for :leave_periods
+
   named_scope :open, :conditions => {:approver_id => nil}
 end
