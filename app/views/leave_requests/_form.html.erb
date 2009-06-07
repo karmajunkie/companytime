@@ -4,6 +4,21 @@
   <p><%= f.label(:employee_id) %>
      <%= f.collection_select(:employee_id, User.all, :id, :name) %>
   </p>
+     <div id='leave_periods_subform'>
+      <h5>Requesting the following leave periods:</h5>
+       <% @leave_request.leave_periods.each do |period| %>
+      <% f.fields_for(:leave_periods, period) do |lp|%>
+        <p>
+          <%= lp.hidden_field :from_date %>
+          <%= lp.hidden_field :until_date %>
+          <%= lp.hidden_field :from_time %>
+          <%= lp.hidden_field :until_time %>
+          From: <%= period.from_date %> <%= period.from_time if period.from_time %> <br/>
+          Until: <%=period.until_date %> <%= period.until_time if period.until_time %> <br/>
+        </p>
+      <% end %>
+           <% end %>
+    </div>
   <p>
     <%= f.label :reason %><br />
     <%= f.text_area :reason, :cols => 40, :rows => 5 %>
@@ -46,6 +61,7 @@
         <%= f.text_field :administrative_hours %>
       </p>
   </div>
+
 
   <p>
     <%= f.submit 'Save' %>
