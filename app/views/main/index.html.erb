@@ -25,8 +25,11 @@
   <h3>Recently on Laconica...</h3>
   
   <ul>
-    <% @feed.entries[1..10].each do |entry| %>
-      <li><div class='link_author'><%= entry.author %></div><div class='link_title'><%= link_to h(entry.title), entry.link %> </div> </li>
+
+    <% unless  @feed.entries.count < 1 %>
+        <% @feed.entries[1..10].each do |entry| %>
+          <li><div class='link_author'><%= entry.author %></div><div class='link_title'><%= link_to h(entry.title), entry.link %> </div> </li>
+        <% end %>
     <% end %>
   </ul>
 </div>
