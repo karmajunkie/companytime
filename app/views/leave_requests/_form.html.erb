@@ -1,3 +1,8 @@
+<%= javascript_include_tag "leave_request" %>
+
+<div id='leave_period_form_dlg'>
+  
+</div>
 <% form_for(@leave_request) do |f| %>
     <%= f.error_messages %>
 
@@ -6,6 +11,7 @@
   </p>
      <div id='leave_periods_subform'>
       <h5>Requesting the following leave periods:</h5>
+       <%= link_to_function "Add new", "addNewLeavePeriod()" %>
        <% @leave_request.leave_periods.each do |period| %>
       <% f.fields_for(:leave_periods, period) do |lp|%>
         <p>

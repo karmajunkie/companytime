@@ -346,11 +346,25 @@ div.feed div.link_title {
     background-color: #fff;
     padding: 10px 5px;
 }
+#leave_period_form_dlg  {
+    border-radius:0px;
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+    display:none;
+    position:absolute;
+    top:20px;
+    left:100px;
+    height:300px;
+    width:350px;
+    background-color:#cc6;
+    z-index:4;
+}
 #bank_hours {
     position:absolute;
     top:10px;
-    right:30px;
+    left:350px;
     width:300px;
+    z-index:3;
 }
 #bank_hours p{
     position:relative;

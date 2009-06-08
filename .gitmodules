@@ -7,3 +7,6 @@
 [submodule "vendor/rails"]
 	path = vendor/rails
 	url = git://github.com/rails/rails.git
+[submodule "vendor/plugins/unobtrusive_date_picker"]
+	path = vendor/plugins/unobtrusive_date_picker
+	url = git://github.com/brianjlandau/unobtrusive_date_picker.git
