@@ -1,75 +1,100 @@
 <%= javascript_include_tag "leave_request" %>
 
 <div id='leave_period_form_dlg'>
-  
-</div>
-<% form_for(@leave_request) do |f| %>
-    <%= f.error_messages %>
-
-  <p><%= f.label(:employee_id) %>
-     <%= f.collection_select(:employee_id, User.all, :id, :name) %>
-  </p>
-     <div id='leave_periods_subform'>
-      <h5>Requesting the following leave periods:</h5>
-       <%= link_to_function "Add new", "addNewLeavePeriod()" %>
-       <% @leave_request.leave_periods.each do |period| %>
-      <% f.fields_for(:leave_periods, period) do |lp|%>
-        <p>
-          <%= lp.hidden_field :from_date %>
-          <%= lp.hidden_field :until_date %>
-          <%= lp.hidden_field :from_time %>
-          <%= lp.hidden_field :until_time %>
-          From: <%= period.from_date %> <%= period.from_time if period.from_time %> <br/>
-          Until: <%=period.until_date %> <%= period.until_time if period.until_time %> <br/>
-        </p>
-      <% end %>
-           <% end %>
-    </div>
+  <h5>Add Leave period</h5>
   <p>
-    <%= f.label :reason %><br />
-    <%= f.text_area :reason, :cols => 40, :rows => 5 %>
+    <label>From</label><br/>
+    <%= text_field_tag(:from_date, Date.today.strftime("%x"), :class => "js_calendar") %>
+    <%= time_select( :leave_period, :from_time,  :options => {:minute_step => 15}) %>
   </p>
-  <div id='bank_hours'>
-    <p>
-        <%= f.label :vacation_hours %><br />
-        <%= f.text_field :vacation_hours %>
-    </p>
-     <p>
-        <%= f.label :holiday_hours %><br />
-        <%= f.text_field :holiday_hours %>
-      </p>
-      <p>
-        <%= f.label :sick_hours %><br />
-        <%= f.text_field :sick_hours %>
-      </p>
-      <p>
-        <%= f.label :bereavement_hours %><br />
-        <%= f.text_field :bereavement_hours %>
-      </p>
-      <p>
-        <%= f.label :military_hours %><br />
-        <%= f.text_field :military_hours %>
-      </p>
-      <p>
-        <%= f.label :comp_hours %><br />
-        <%= f.text_field :comp_hours %>
-      </p>
-       <p>
-        <%= f.label :jury_hours %><br />
-        <%= f.text_field :jury_hours %>
-      </p>
-      <p>
-        <%= f.label :unpaid_hours %><br />
-        <%= f.text_field :unpaid_hours %>
-      </p>
-      <p>
-        <%= f.label :administrative_hours %><br />
-        <%= f.text_field :administrative_hours %>
-      </p>
+  <p>
+    <label>Until</label><br/>
+    <%= text_field_tag(:until_date, Date.today.strftime("%x"), :class => "js_calendar") %>
+    <%= time_select(:until_time, :time, :minute_step => 15, :include_blanks => true) %>
+  </p>
+  <div>
+    <%= button_to_function("Add", "addNewLeavePeriod()") %>
+    <%= button_to_function("Close","closeNewLeavePeriodDlg()") %>
   </div>
+</div>
+<div class='relative-container'>
+  <% form_for(@leave_request) do |f| %>
+      <%= f.error_messages %>
+
+      <p><%= f.label(:employee_id) %>
+        <%= f.collection_select(:employee_id, User.all, :id, :name) %>
+      </p>
+
+      <div id='leave_periods_subform'>
+        <h5>Requesting the following leave periods:</h5>
+        <%= link_to_function "Add new", "openNewLeavePeriodDlg()" %>
+        <% @leave_request.leave_periods.each do |period| %>
+            <% f.fields_for(:leave_periods, period) do |lp| %>
+                <p>
+                  <%= lp.hidden_field :from_date %>
+                  <%= lp.hidden_field :until_date %>
+                  From: <%= period.from_date %>  <br/>
+                  Until: <%= period.until_date %>  <br/>
+                </p>
+            <% end %>
+        <% end %>
+      </div>
+      <p>
+        <%= f.label :reason %><br/>
+        <%= f.text_area :reason, :cols => 40, :rows => 5 %>
+      </p>
 
 
-  <p>
-    <%= f.submit 'Save' %>
-  </p>
-<% end %>
+      <div id='bank_hours'>
+        <p>
+          <%= f.label :vacation_hours %><br/>
+          <%= f.text_field :vacation_hours %>
+        </p>
+
+        <p>
+          <%= f.label :holiday_hours %><br/>
+          <%= f.text_field :holiday_hours %>
+        </p>
+
+        <p>
+          <%= f.label :sick_hours %><br/>
+          <%= f.text_field :sick_hours %>
+        </p>
+
+        <p>
+          <%= f.label :bereavement_hours %><br/>
+          <%= f.text_field :bereavement_hours %>
+        </p>
+
+        <p>
+          <%= f.label :military_hours %><br/>
+          <%= f.text_field :military_hours %>
+        </p>
+
+        <p>
+          <%= f.label :comp_hours %><br/>
+          <%= f.text_field :comp_hours %>
+        </p>
+
+        <p>
+          <%= f.label :jury_hours %><br/>
+          <%= f.text_field :jury_hours %>
+        </p>
+
+        <p>
+          <%= f.label :unpaid_hours %><br/>
+          <%= f.text_field :unpaid_hours %>
+        </p>
+
+        <p>
+          <%= f.label :administrative_hours %><br/>
+          <%= f.text_field :administrative_hours %>
+        </p>
+      </div>
+
+
+      <p>
+        <%= f.submit 'Save' %>
+      </p>
+  <% end %>
+</div>

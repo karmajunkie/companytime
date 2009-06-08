@@ -186,7 +186,7 @@ div.sources {
 }
 
 div.sources table {
-    border-collapse;
+    border-collapse:collapse;
 
 }
 
@@ -350,14 +350,15 @@ div.feed div.link_title {
     border-radius:0px;
     -moz-border-radius:0px;
     -webkit-border-radius:0px;
-    display:none;
+ 
     position:absolute;
     top:20px;
     left:100px;
-    height:300px;
+    height:200px;
     width:350px;
-    background-color:#cc6;
+    background-color: #cccccc;
     z-index:4;
+    padding:15px;
 }
 #bank_hours {
     position:absolute;
@@ -383,4 +384,26 @@ div.feed div.link_title {
     top:0px;
     left:160px;
     
+}
+a.dp-choose-date {
+	float: left;
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 5px 3px 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background: url(/images/datepicker/cal.gif) no-repeat;
+}
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
+}
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+input.dp-applied {
+	width: 140px;
+	float: left;
 }

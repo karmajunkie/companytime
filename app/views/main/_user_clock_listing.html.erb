@@ -1,4 +1,4 @@
 <li>
   <p class='name'><%= link_to  user.name, user_path(user) %></p>
-  <p class='clocktime'><%= user.last_clock.nil? ? "Never logged in" : user.last_clock.strftime("%x %X") %></p>
+  <p class='clocktime'><%= user.last_clock.nil? ? "Never logged in" : time_ago_in_words(user.last_clock) %></p>
 </li>
