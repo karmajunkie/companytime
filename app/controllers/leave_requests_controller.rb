@@ -25,7 +25,7 @@ class LeaveRequestsController < ApplicationController
   # GET /leave_requests/new.xml
   def new
     @leave_request = LeaveRequest.new
-    @new_leave_period = @leave_request.leave_periods.build #LeavePeriod.new
+    @new_leave_period = LeavePeriod.new
 
     respond_to do |format|
       format.html # new.html.erb

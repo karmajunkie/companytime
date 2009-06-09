@@ -37,13 +37,63 @@ function updateInputs(type, selectedDate) {
 	$("#leave_period_"+type+"_2i").val(selectedDate.getMonth());
 	$("#leave_period_"+type+"_3i").val(selectedDate.getDate());
 }
+function dateStringFromForm(method){
+	allday=$("#leave_period_all_day").attr("checked");
+	datestr=$("#"+method).val();
+	if(!allday){
+		hr=$("#leave_period_"+method+"_4i").val();
+		min=$("#leave_period_"+method+"_5i").val();
+		datestr+=" "+hr+":"+min+":00";
+	}
+
+	return datestr;
+}
+function dateFromForm(method){
+	return new Date(dateStringFromForm(method));
+}
 function openNewLeavePeriodDlg() {
-	$("#leave_period_form_dlg").slideToggle();
+	$("#leave_period_form_dlg").fadeIn();
 }
 function addNewLeavePeriod() {
-	$('#leave_period_form_dlg').slideUp();
-    
+	createFormInputs();
+    closeNewLeavePeriodDlg();
+}
+function createFormInputs(){
+	form_inputs=$(".tselect input, .tselect select").clone();
+	li=$("<li class='leave_period_item'/>").appendTo("#leave_periods_list");
+	form_inputs.each(function(){
+		inp=null;
+		if($(this).attr("tagName")=="SELECT"){
+			//convert to input
+			inp=$("<input type='hidden'/>");
+			inp.attr("name", $(this).attr('name'));
+			inp.attr("id", $(this).attr('id'));
+			inp.val($(this).val());
+			
+		}else{
+			inp=$(this)
+		}
+		inp.attr("name",
+			inp.attr('name').replace("leave_period",
+					"leave_request[leave_periods_attributes]["+leave_period_count+"]")
+		);
+		inp.attr("id",
+			inp.attr('id').replace("leave_period",
+					"leave_request_leave_periods_attributes_"+leave_period_count)
+		);
+
+		if(inp.attr("type")!="hidden"){
+			inp.css("display", "none");
+		}
+		inp.appendTo(li);
+
+	});
+	leave_period_count++;
+	$("<div>From: <strong>"+dateStringFromForm("from_date")+"</strong></div>").appendTo(li);
+	$("<div>Until: <strong>"+dateStringFromForm("until_date")+"</strong></div>").appendTo(li);
+	return li;
+
 }
 function closeNewLeavePeriodDlg() {
-	$('#leave_period_form_dlg').slideUp();
+	$('#leave_period_form_dlg').fadeOut();
 }

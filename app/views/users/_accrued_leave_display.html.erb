@@ -1,0 +1,14 @@
+<h4>Accrued Leave</h4>
+<% if user.timesheets.count > 0 %>
+    <ul>
+      <li>Holiday: <strong><%= user.timesheets.last.ending_accrual.holiday_hours %></strong></li>
+      <li>Vacation: <strong><%= user.timesheets.last.ending_accrual.vacation_hours %></strong></li>
+      <li>Sick: <strong><%= user.timesheets.last.ending_accrual.sick_hours %></strong></li>
+    </ul>
+<% else %>
+    <ul>
+      <li>Holiday: <strong><%= user.holiday_hours %></strong></li>
+      <li>Vacation: <strong><%= user.vacation_hours %></strong></li>
+      <li>Sick: <strong><%= user.sick_hours %></strong></li>
+    </ul>
+<% end %>

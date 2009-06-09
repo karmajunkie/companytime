@@ -257,9 +257,9 @@ div#clockpanel p {
 }
 
 div#clockpanel div {
-    border-width: 0 1px 1px 1px;
-    border-style: solid;
-    border-color: black;
+    border: 1px solid black;
+    border-top-width: 0;
+
 }
 
 #clocked_in_users h3 {
@@ -287,10 +287,10 @@ div#clockpanel ul {
 }
 
 div#clockpanel li {
-    list-style-image: none;
-    list-style-type: none;
+    list-style: none inside none;
+
     display: block;
-    list-style-position: inside;
+
 }
 
 div.feed ul {
@@ -350,7 +350,7 @@ div.feed div.link_title {
     border-radius:0px;
     -moz-border-radius:0px;
     -webkit-border-radius:0px;
- 
+    border:3px solid #666666;
     position:absolute;
     top:20px;
     left:100px;
@@ -359,31 +359,66 @@ div.feed div.link_title {
     background-color: #cccccc;
     z-index:4;
     padding:15px;
+    display:none;
 }
-#bank_hours {
+
+#bank_hours_subform {
     position:absolute;
+    display:none;
     top:10px;
     left:350px;
     width:300px;
     z-index:3;
 }
-#bank_hours p{
+#bank_hours_subform p{
     position:relative;
 }
-#bank_hours label{
+#bank_hours_subform label{
     display:block;
     width:150px;
     position:absolute;
     left:0px;
     top:0px;
 }
-#bank_hours input{
+#bank_hours_subform input{
     position:absolute;
     display:block;
     width:50px;
     top:0px;
     left:160px;
     
+}
+#accruals_display {
+    position:absolute;
+    left:375px;
+    top:0;
+    width:150px;
+}
+#accruals_display h4{
+    margin:0;
+    text-align:center;
+    padding:0;
+    border-radius:5px 5px 0 0;
+    -moz-border-radius:5px 5px 0 0;
+    -webkit-border-radius:5px 5px 0 0;
+    border: 1px solid black;
+    border-bottom-width:0;
+    width:150px;
+}
+#accruals_display ul{
+    margin:0;
+    padding:5px 0;
+    border:1px solid black;
+    width:150px;
+}
+#accruals_display li {
+    list-style: none inside none;
+    clear:both;
+    padding:0 5px;
+}
+#accruals_display strong {
+    float:right;
+    margin-left:10px;
 }
 a.dp-choose-date {
 	float: left;
@@ -406,4 +441,18 @@ a.dp-choose-date.dp-disabled {
 input.dp-applied {
 	width: 140px;
 	float: left;
+}
+
+#leave_periods_list{
+    margin:0px;
+    padding:0px;
+    position:relative;
+    display:block;
+    width:300px;
+}
+.leave_period_item {
+    list-style: none inside none;
+    border:1px solid black;
+    padding:5px;
+    margin-top:10px;
 }

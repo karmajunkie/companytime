@@ -2,55 +2,64 @@
 
 <div id='leave_period_form_dlg'>
   <h5>Add Leave period</h5>
-  <p class='tselect'>
     <label>From</label><br/>
     <%= text_field_tag(:from_date, Date.today.strftime("%x"), :class => "js_calendar") %>
+  <span class='tselect'>
     <%= time_select( :leave_period, :from_date, :minute_step => 15) %>
     <%= check_box(:leave_period, :all_day) %> All Day
-  </p>
-  <p class='tselect'>
+  </span>
     <label>Until</label><br/>
     <%= text_field_tag(:until_date, Date.today.strftime("%x"), :class => "js_calendar") %>
+  <span class='tselect'>
     <%= time_select(:leave_period, :until_date, :minute_step => 15) %>
+   </span>
 
-  </p>
   <div>
     <%= button_to_function("Add", "addNewLeavePeriod()") %>
     <%= button_to_function("Close","closeNewLeavePeriodDlg()") %>
   </div>
 </div>
-<div class='relative-container'>
+<div class='relative_container'>
   <% form_for(@leave_request) do |f| %>
       <%= f.error_messages %>
 
       <p><%= f.label(:employee_id) %>
-        <%= f.collection_select(:employee_id, User.all, :id, :name) %>
+        <%= f.collection_select(:employee_id, User.all, :id, :name, :prompt => "Select User") %>
+        <%= observe_field( "leave_request_employee_id",
+            :url => "/users/accrual_display",
+            :with => 'id',
+            :update => "accruals_display") %>
       </p>
-
+<%= javascript_tag "var leave_period_count=#{@leave_request.leave_periods.count}" %>
       <div id='leave_periods_subform'>
         <h5>Requesting the following leave periods:</h5>
 
         <%= link_to_function "Add new", "openNewLeavePeriodDlg()" %>
-        <div id='leave_periods_list'>
+        <ul id='leave_periods_list'>
         <% @leave_request.leave_periods.each do |period| %>
             <% f.fields_for(:leave_periods, period) do |lp| %>
-                <p>
+                <li class='leave_period_item'>
                   <%= lp.hidden_field :from_date %>
                   <%= lp.hidden_field :until_date %>
-                  From: <%= period.from_date %>  <br/>
-                  Until: <%= period.until_date %>  <br/>
-                </p>
+                  <div>From: <strong><%= period.from_date.strftime("%x") %>
+                  <%= period.from_date.strftime("%X") unless period.all_day %></strong>  </div>
+                  <div>Until: <strong><%= period.until_date.strftime("%x") %>
+                  <%= period.until_date.strftime("%X") unless period.all_day  %></strong>  </div>
+                </li>
             <% end %>
         <% end %>
-        </div>
+        </ul>
       </div>
       <p>
         <%= f.label :reason %><br/>
         <%= f.text_area :reason, :cols => 40, :rows => 5 %>
       </p>
 
+      <div id='accruals_display'>
+        <%= render :partial => '/users/accrued_leave_display',
+                   :locals => {:user => @leave_request.employee} unless @leave_request.employee.nil? %></div>
 
-      <div id='bank_hours'>
+      <div id='bank_hours_subform'>
         <p>
           <%= f.label :vacation_hours %><br/>
           <%= f.text_field :vacation_hours %>

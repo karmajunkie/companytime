@@ -139,4 +139,8 @@ class UsersController < ApplicationController
       render :text => "You can't log out until you've logged in!", :status => 403
     end
   end
+	def accrual_display
+		@user=User.find(params[:id])
+		render :partial => "accrued_leave_display", :locals =>{ :user => @user}
+	end
 end
