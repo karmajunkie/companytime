@@ -2,15 +2,17 @@
 
 <div id='leave_period_form_dlg'>
   <h5>Add Leave period</h5>
-  <p>
+  <p class='tselect'>
     <label>From</label><br/>
     <%= text_field_tag(:from_date, Date.today.strftime("%x"), :class => "js_calendar") %>
-    <%= time_select( :leave_period, :from_time,  :options => {:minute_step => 15}) %>
+    <%= time_select( :leave_period, :from_date, :minute_step => 15) %>
+    <%= check_box(:leave_period, :all_day) %> All Day
   </p>
-  <p>
+  <p class='tselect'>
     <label>Until</label><br/>
     <%= text_field_tag(:until_date, Date.today.strftime("%x"), :class => "js_calendar") %>
-    <%= time_select(:until_time, :time, :minute_step => 15, :include_blanks => true) %>
+    <%= time_select(:leave_period, :until_date, :minute_step => 15) %>
+
   </p>
   <div>
     <%= button_to_function("Add", "addNewLeavePeriod()") %>
@@ -27,7 +29,9 @@
 
       <div id='leave_periods_subform'>
         <h5>Requesting the following leave periods:</h5>
+
         <%= link_to_function "Add new", "openNewLeavePeriodDlg()" %>
+        <div id='leave_periods_list'>
         <% @leave_request.leave_periods.each do |period| %>
             <% f.fields_for(:leave_periods, period) do |lp| %>
                 <p>
@@ -38,6 +42,7 @@
                 </p>
             <% end %>
         <% end %>
+        </div>
       </div>
       <p>
         <%= f.label :reason %><br/>
