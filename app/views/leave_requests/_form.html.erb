@@ -30,7 +30,8 @@
             :with => 'id',
             :update => "accruals_display") %>
       </p>
-<%= javascript_tag "var leave_period_count=#{@leave_request.leave_periods.count}" %>
+<%= javascript_tag "leave_period_count=#{@leave_request.leave_periods.count};
+    hours_in_day=#{HOURS_IN_WORKDAY};" %>
       <div id='leave_periods_subform'>
         <h5>Requesting the following leave periods:</h5>
 

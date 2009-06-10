@@ -59,6 +59,13 @@ function addNewLeavePeriod() {
     closeNewLeavePeriodDlg();
 }
 function createFormInputs(){
+	var dStart = dateFromForm("from_date");
+	var dEnd = dateFromForm("until_date");
+	if(dStart > dEnd){
+		alert("The start date must be less than the end date.");
+		return;
+	}
+	leave_hours=calculateWorkHours(dStart, dEnd);
 	form_inputs=$(".tselect input, .tselect select").clone();
 	li=$("<li class='leave_period_item'/>").appendTo("#leave_periods_list");
 	form_inputs.each(function(){
@@ -89,10 +96,34 @@ function createFormInputs(){
 
 	});
 	leave_period_count++;
+
 	$("<div>From: <strong>"+dateStringFromForm("from_date")+"</strong></div>").appendTo(li);
 	$("<div>Until: <strong>"+dateStringFromForm("until_date")+"</strong></div>").appendTo(li);
 	return li;
 
+}
+function calculateWorkHours(dBegin, dEnd){
+	//look at this link:
+	//http://stackoverflow.com/questions/141368/calculating-the-elapsed-working-hours-between-2-datetime
+	//start with the easy case
+	workhours=Math.abs(dBegin.dateDiffHours(dEnd));
+	if(workhours < 8) return workhours;
+	
+	tempDate=dBegin;
+	workdays=0;
+	if(tempDate.isWeekDay()) workdays++;
+	tempDate.addDays(1);
+	while(tempDate < dEnd){
+		if(tempDate.isWeekDay()) workdays++;
+		tempDate.addDays(1);
+	}
+	tempDate=dEnd;
+	tempDate.setHours(8).setMinutes(0);
+	return (workdays*8)+Math.min(Math.abs(tempDate.dateDiffHours(dEnd)), 8);
+	
+	
+	
+	return 0;
 }
 function closeNewLeavePeriodDlg() {
 	$('#leave_period_form_dlg').fadeOut();
