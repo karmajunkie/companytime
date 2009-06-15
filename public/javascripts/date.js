@@ -393,7 +393,60 @@ Date.fullYearStart = '20';
 		this.setHours(0);
 		return this;
 	});
-	
+
+	/**
+	 * returns the difference in minutes as a float, rounded to tenth (six-second) increments
+	 *
+	 * @example var someDate = new Date("01/12/2008 12:00:00"),
+	 * anotherDate = new Date("01/12/2008 13:30:12");
+	 * diff=someDate.dateDiffMinutes(anotherDate);
+	 * @result 90.2
+	 *
+	 * @name dateDiffHours
+	 * @type Date
+	 * @cat Plugins/Methods/Date
+	 * @author Keith Gaddis
+	 */
+	add("dateDiffMinutes", function(otherDate){
+		return this._diffByFactor(otherDate, 60000);
+	});
+
+	/**
+	 * returns the difference in hours as a float, rounded to tenth (six-minute) increments
+	 *
+	 * @example var someDate = new Date("01/12/2008 12:00"),
+	 * anotherDate = new Date("01/12/2008 13:30");
+	 * diff=someDate.dateDiffHours(anotherDate);
+	 * @result 1.5
+	 *
+	 * @name dateDiffHours
+	 * @type Date
+	 * @cat Plugins/Methods/Date
+	 * @author Keith Gaddis
+	 */
+	add("dateDiffHours", function(otherDate){
+		return this._diffByFactor(otherDate, 3600000);
+	});
+
+	/**
+	 * returns the difference in days as a float, rounded to .1 increments
+	 *
+	 * @example var someDate = new Date("01/12/2008 12:00"),
+	 * anotherDate = new Date("01/12/2008 13:30");
+	 * diff=someDate.dateDiffHours(anotherDate);
+	 * @result 1.5
+	 *
+	 * @name dateDiffHours
+	 * @type Date
+	 * @cat Plugins/Methods/Date
+	 * @author Keith Gaddis
+	 */
+	add("dateDiffDays", function(otherDate){
+		return this._diffByFactor(otherDate, 3600000);
+	});
+	add("_diffByFactor", function(otherDate, factor){
+		return Math.round((otherDate-this)/factor*10)/10;
+	});
 	/**
 	 * Returns a string representation of the date object according to Date.format.
 	 * (Date.toString may be used in other places so I purposefully didn't overwrite it)
@@ -495,5 +548,7 @@ Date.fullYearStart = '20';
 		return s.substring(s.length-2)
 		//return ('0'+num).substring(-2); // doesn't work on IE :(
 	};
+
+
 	
 })();
