@@ -7,9 +7,14 @@ Feature: Manage leave_requests
     Given Keith is on the employee portal
     When Keith clicks "New Leave Request"
     Then Keith should go to the Leave Request form
+    And Keith should see the Employee select box
+    And Keith should see the "Reason" text box
+    And Keith should see the "Add new" leave period link
+    And 
 
   Scenario: Request leave
     Given Keith is on the Leave Request form
     When Keith requests an afternoon of Leave for a Doctor's appointment
     Then Keith should have a leave request created with a single leave period
-    And Keith should have a leave request in the admin console 
+    And Keith should have a leave request in the admin console
+
