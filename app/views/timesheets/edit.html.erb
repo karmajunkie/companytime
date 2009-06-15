@@ -93,7 +93,7 @@
         <% end %>
         <tr>
           <td class='source'>
-            <div class='source' atype='comp_hours' hours='<%= @timesheet.pto_allocations.sum(:comp) %>'>
+            <div class='source' atype='comp_hours' hours='<%= @timesheet.pto_allocations.sum(:comp).round(1) %>'>
               <%= @timesheet.pto_allocations.sum(:comp).round(1) %></div>
           </td>
           <td class='label'>Comp hours</td>

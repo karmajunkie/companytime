@@ -69,9 +69,10 @@ class Timesheet < ActiveRecord::Base
         ending_accrual.holiday_hours= user.holiday_hours
       end
       pto_allocations.holidays.each do |holiday|
-        starting_accrual.holiday_hours += 8 
+        starting_accrual.holiday_time_in_period += 8 
       end
-      ending_accrual.holiday_hours=starting_accrual.holiday_hours
+      ending_accrual.holiday_hours=starting_accrual.holiday_hours +
+				      starting_accrual.holiday_time_in_period 
       starting_accrual.save
       ending_accrual.save
     end
