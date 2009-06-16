@@ -84,4 +84,28 @@ class LeaveRequestsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+	def approve
+		set_approval_status("approved")
+	end
+	def deny
+		set_approval_status("denied")
+	end
+	private
+		def set_approval_status(status)
+			@leave_request=LeaveRequest.find(params[:id])
+			if !@leave_request.nil?
+				@leave_request.approval_code=status
+				if @leave_request.save
+					render :update do |page|
+						page.visual_effect :fade, dom_id(@leave_request)
+					end
+				else
+					render :update do |page|
+						page.alert("Error saving the leave request approval")
+					end
+				end
+			end
+		end
+
 end

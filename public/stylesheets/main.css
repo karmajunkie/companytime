@@ -456,3 +456,42 @@ input.dp-applied {
     padding:5px;
     margin-top:10px;
 }
+
+#open_leave_requests .requester {
+    border-bottom:2px solid #999999;
+    border-radius:0;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+    position:relative;
+    width:400px;
+}
+#open_leave_requests h5 {
+    margin:5px;
+    padding:0;
+}
+#open_leave_requests .request{
+    margin:10px 0 0 0;
+    border: 2px solid black;
+    padding:10px 20px;
+    width:400px;
+}
+#open_leave_requests ul {
+    padding:0;
+    margin:5px;
+}
+#open_leave_requests li {
+    list-style-type: circle;
+    list-style-position: inside;
+    list-style-image: none;
+    position:relative;
+    top:10px;
+}
+#open_leave_requests li div{
+    margin:0 10px 0 0;
+    position:relative;
+    top:-17px;
+    left:10px;
+}
+#open_leave_requests .approval_form{
+    margin-top:20px;
+}

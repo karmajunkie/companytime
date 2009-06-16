@@ -4,17 +4,7 @@ $(function(){
     $("div.cal_container").droppable({
       drop:allocation_drop
       });
-    $.ajaxSetup({ 
-      'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")} 
-    });  
-    $(document).ajaxSend(function(event, request, settings) {
-      if ( settings.type.toLowerCase() == 'post' ) {
-          settings.data = (settings.data ? settings.data + "&" : "")
-              + "authenticity_token=" + encodeURIComponent( AUTH_TOKEN );
-      }
-    });
-
-
+ 
 })
 
 function allocation_drop(evt, ui){

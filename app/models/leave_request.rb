@@ -34,5 +34,5 @@ class LeaveRequest < ActiveRecord::Base
 
   accepts_nested_attributes_for :leave_periods
 
-  named_scope :open, :conditions => {:approver_id => nil}
+  named_scope :open, :conditions => {:approval_code => nil}
 end
