@@ -54,11 +54,18 @@
       <p>
         <%= f.label :reason %><br/>
         <%= f.text_area :reason, :cols => 40, :rows => 5 %>
+
+      <div id='leave_type_display'>
+        <h4>Leave Type</h4>
+        <%= f.collection_select(:leave_type_id, LeaveType.all, :id, :name, :include_blank => true) %>
+      </div>
       </p>
 
       <div id='accruals_display'>
         <%= render :partial => '/users/accrued_leave_display',
-                   :locals => {:user => @leave_request.employee} unless @leave_request.employee.nil? %></div>
+                   :locals => {:user => @leave_request.employee} unless @leave_request.employee.nil? %>
+      </div>
+
 
       <div id='bank_hours_subform'>
         <p>
