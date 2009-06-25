@@ -3,43 +3,7 @@
 <div id='open_leave_requests'>
 
   <% for request in @open_leave_requests %>
-      <div id="<%= dom_id(request) %>" class='request'>
-        <div class='requester'><%= request.employee.name %></div>
-        <div class='request_periods'>
-          <h5>Requesting leave for the following periods:</h5>
-          <ul>
-            <% for period in request.leave_periods %>
-
-                <li>
-                  <div>
-                    <strong>Date: </strong><%= period.from_date.strftime("%x") %>
-                    <% unless period.from_date.to_date == period.until_date.to_date %> - <%=
-                      period.until_date.strftime("%x") -%>
-                    <% end %>
-                    <% if period.all_day %>
-                        (All day)
-                    <% else %>
-                        <br/>
-                        <strong>Time: </strong> <%= period.from_date.strftime("%l:%M %p") %> -
-                        <%= period.until_date.strftime("%l:%M %p") %>
-                    <% end %>
-
-                  </div>
-                </li>
-            <% end %>
-          </ul>
-          <div class='request_reason'>
-            <strong>Reason:</strong> <%= request.reason %>
-          </div>
-          <div class='request_code'>
-            <strong>Leave type:</strong> <%= request.leave_type.name %>
-          </div>
-        </div>
-        <div class='approval_form'>
-          <%= button_to_function("Approve","approveLeave(#{request.id})") %>
-          <%= button_to_function("Deny","denyLeave(#{request.id})") %>
-        </div>
-      </div>
+      <%= render request %>
 
   <% end %>
 </div>

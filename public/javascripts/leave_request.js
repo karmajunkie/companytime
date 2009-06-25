@@ -78,7 +78,7 @@ function createFormInputs(){
 			inp.val($(this).val());
 			
 		}else{
-			inp=$(this)
+			inp=$(this);
 		}
 		inp.attr("name",
 			inp.attr('name').replace("leave_period",

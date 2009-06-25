@@ -31,7 +31,7 @@ class LeaveRequest < ActiveRecord::Base
   has_many :leave_periods
   belongs_to :employee, :foreign_key => "employee_id", :class_name => "User"
   belongs_to :approver, :foreign_key => "approver_id", :class_name => "User"
-  has_one :leave_type
+  belongs_to :leave_type
 
   accepts_nested_attributes_for :leave_periods
 

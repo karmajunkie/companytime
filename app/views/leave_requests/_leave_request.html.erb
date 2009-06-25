@@ -1,0 +1,44 @@
+<div id="<%= dom_id(leave_request) %>" class='request'>
+  <div class='requester'><%= leave_request.employee.name %></div>
+  <div class='request_periods'>
+    <h5>Requesting leave for the following periods:</h5>
+    <ul>
+      <% for period in leave_request.leave_periods %>
+
+          <li>
+            <div>
+              <strong>Date: </strong><%= period.from_date.strftime("%x") %>
+              <% unless period.from_date.to_date == period.until_date.to_date %> - <%=
+                period.until_date.strftime("%x") -%>
+              <% end %>
+              <% if period.all_day %>
+                  (All day)
+              <% else %>
+                  <br/>
+                  <strong>Time: </strong> <%= period.from_date.strftime("%l:%M %p") %> -
+                  <%= period.until_date.strftime("%l:%M %p") %>
+              <% end %>
+
+            </div>
+          </li>
+      <% end %>
+    </ul>
+    <div class='request_reason'>
+      <strong>Reason:</strong> <%= leave_request.reason %>
+    </div>
+    <div class='request_code'>
+      <strong>Leave type:</strong> <%= leave_request.leave_type.name unless leave_request.leave_type.nil? %>
+    </div>
+    <div id='accruals'>
+      <%= render :partial => '/users/accrued_leave_display',
+                 :locals => {:user => leave_request.employee} unless leave_request.employee.nil? %>
+    </div>
+
+  </div>
+  <% if @admin %>
+      <div class='approval_form'>
+        <%= button_to_function("Approve", "approveLeave(#{leave_request.id})") %>
+        <%= button_to_function("Deny", "denyLeave(#{leave_request.id})") %>
+      </div>
+  <% end %>
+</div>

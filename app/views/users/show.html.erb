@@ -3,18 +3,9 @@
 <b><%=h @user.name %></b> (<%=h @user.login %>)<br/>
 </p>
 <div id='current_accruals'>
-  <h4>Current Accruals</h4>
-  <dl>
-    <% if @user.timesheets.last.nil? %>
-      <li>Holiday: <%=h @user.holiday_hours %></li>
-      <li>Vacation/annual leave: <%=h @user.vacation_hours%></li>
-      <li>Sick: <%=h @user.sick_hours%></li>
-    <% else %>
-      <li>Holiday: <%=h @user.timesheets.last.ending_accrual.holiday_hours %></li>
-      <li>Vacation/annual leave: <%=h @user.timesheets.last.ending_accrual.vacation_hours%></li>
-      <li>Sick: <%=h @user.timesheets.last.ending_accrual.sick_hours%></li>
-    <% end %>
-  </dl>
+        <%= render :partial => '/users/accrued_leave_display',
+                   :locals => {:user => @user}  %>
+ 
 </div>
 <div id='timesheets'>
   <h4>Timesheets</h4>
@@ -24,6 +15,18 @@
   <% end %>
   </ul>
 </div>
+  <div id='leave_requests'>
+    <h4>Leave requests</h4>
+    <ul>
+    <% @user.leave_requests.each do |leave_request| %>
+        <% if leave_request.leave_periods.count > 0 %>
+            <li><%= link_to "#{leave_request.reason} (#{leave_request.leave_periods.first.from_date.strftime("%x")}
+- #{leave_request.leave_periods.last.until_date.strftime("%x")}): #{leave_request.approval_code}", leave_request_path(leave_request)%></li>
+        <% end %>
+
+    <% end %>
+    </ul>
+  </div>
 </div>
 <br>
 <%= link_to 'Edit', edit_user_path(@user) %> |
