@@ -19,9 +19,9 @@ function allocation_drop(evt, ui){
   if(daytype=="weekday" || daytype=='holiday'){
     if(daily_hrs < 8){
       //determind hour shortage
-      shortage=Math.round(Math.min(8-daily_hrs, accrual_hrs)*10)/10;
+      shortage=Math.round(Math.min(8-daily_hrs, accrual_hrs)*4)/4;
       //add to the appropriate pto allocation on drop
-      drop.attr(type, (Math.round(parseFloat(drop.attr(type))*10)/10)-shortage);
+      drop.attr(type, (Math.round(parseFloat(drop.attr(type))*4)/4)-shortage);
       updateAccrual(type, accrual_hrs-shortage);
       updateDrop(drop);
 

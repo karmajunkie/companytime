@@ -29,7 +29,7 @@ class WorkPeriod < ActiveRecord::Base
 
   named_scope :total_hours, lambda { |period|
     date_formats={ :month => "%m/%Y", :day => "%m/%d/%Y" }
-      {:select => " date_format(start_time, '#{date_formats[period]}') as date_worked, round(sum(unix_timestamp(end_time)-unix_timestamp(start_time))/360.0)/10.0 as total_hours",:group => "date_worked"}
+      {:select => " date_format(start_time, '#{date_formats[period]}') as date_worked, round(sum(unix_timestamp(end_time)-unix_timestamp(start_time))/3600.0*4)/4 as total_hours",:group => "date_worked"}
   }
 
   def hours
@@ -37,7 +37,7 @@ class WorkPeriod < ActiveRecord::Base
       self.end_time||= DateTime.now
       diff = self.end_time.to_datetime - self.start_time.to_datetime
       hrs, mins, secs, frac = Date.day_fraction_to_time(diff)
-      hrs + (((mins / 60.0) * 10).round(2) / 10)
+      hrs + (((mins / 60.0) * 4).round(2) / 4)
     else
       nil
     end

@@ -20,7 +20,7 @@
         <% @timesheet.pto_allocations.each do |pto|
             day=@timesheet.user.work_periods.for_day(pto.allocation_date)
             daily_hrs= (day.size > 0 ? day.total_hours[0].total_hours.to_f : 0.0)
-            total_daily_hrs=daily_hrs - pto.sick.to_f - pto.vacation.to_f - pto.holiday.to_f - pto.comp.to_f.round(1)
+            total_daily_hrs=daily_hrs - pto.sick.to_f - pto.vacation.to_f - pto.holiday.to_f - (pto.comp.to_f*4).round(1)/4
         %>
             <% if pto.allocation_date.cwday == 1 %></tr>
                 <tr>
@@ -93,7 +93,7 @@
         <% end %>
         <tr>
           <td class='source'>
-            <div class='source' atype='comp_hours' hours='<%= @timesheet.pto_allocations.sum(:comp).round(1) %>'>
+            <div class='source' atype='comp_hours' hours='<%= @timesheet.pto_allocations.sum(:comp).round(2) %>'>
               <%= @timesheet.pto_allocations.sum(:comp).round(1) %></div>
           </td>
           <td class='label'>Comp hours</td>
