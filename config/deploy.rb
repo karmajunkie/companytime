@@ -1,5 +1,6 @@
 set :application, "time_system"
-set :repository,  "ssh://git@git.talho.org/home/git/repositories/#{application}/.git"
+#set :repository,  "ssh://git@git.talho.org/home/git/repositories/#{application}/.git"
+set :repository,  "ssh://git@github.com/karmajunkie/companytime.git"
 
 # If you aren't deploying to /u/apps/#{application} on the target
 # servers (which is the default), you can specify the actual location
