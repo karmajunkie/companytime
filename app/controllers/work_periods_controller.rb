@@ -13,7 +13,6 @@ class WorkPeriodsController < ApplicationController
     config.field_search.columns = [:user, :start_time, :end_time]
   end
   def before_update_save(record)
-    debugger
     record.start_time=record.start_time.localtime if record.start_time
   end
 end
