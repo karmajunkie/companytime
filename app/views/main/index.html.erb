@@ -20,16 +20,3 @@
   </div>
 </div>
 <script type="text/javascript" src="http://transparency.cit.nih.gov/widgets/swinelinks.cfm?javascript"></script> <noscript><iframe src="http://transparency.cit.nih.gov/widgets/swinelinks.cfm" name="swineframe" frameborder=0 id="swineframe" scrolling="no" height="160" width="198" marginheight="0" marginwidth="0" >Swine Flu Info</iframe></noscript>
-
-<div class="feed laconica">
-  <h3>Recently on Laconica...</h3>
-  
-  <ul>
-
-    <% unless  @feed.entries.count < 1 %>
-        <% @feed.entries[1..10].each do |entry| %>
-          <li><div class='link_author'><%= entry.author %></div><div class='link_title'><%= link_to h(entry.title), entry.link %> </div> </li>
-        <% end %>
-    <% end %>
-  </ul>
-</div>
