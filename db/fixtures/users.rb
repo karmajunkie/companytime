@@ -8,4 +8,9 @@ User.seed(:login) do |u|
   u.first_name            = 'Admin'
   u.last_name             = 'User'
   u.valid_user            = true
+  u.admin                 = true
+  u.email_confirmed       = true
+  u.email                 = 'admin@example.com'
+  u.password              = 'password'
+  u.password_confirmation = 'password'
 end

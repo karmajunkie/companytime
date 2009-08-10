@@ -94,6 +94,12 @@ Then /^I should see "([^\"]*)"$/ do |text|
   response.should contain(text)
 end
 
+Then /^I should see:$/ do |table|
+  table.raw.each do |row|
+    response.should contain(row.join)
+  end
+end
+
 Then /^I should not see "([^\"]*)"$/ do |text|
   response.should_not contain(text)
 end
@@ -111,5 +117,9 @@ Then /^the "([^\"]*)" checkbox should be checked$/ do |label|
 end
 
 Then /^I should be on (.+)$/ do |page_name|
+  URI.parse(current_url).path.should == path_to(page_name)
+end
+
+Then /^I should be redirected to (.+)$/ do |page_name|
   URI.parse(current_url).path.should == path_to(page_name)
 end

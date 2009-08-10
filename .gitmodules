@@ -10,3 +10,9 @@
 [submodule "vendor/plugins/jrails"]
 	path = vendor/plugins/jrails
 	url = git://github.com/aaronchi/jrails.git
+[submodule "vendor/plugins/thoughtbot-clearance"]
+	path = vendor/plugins/thoughtbot-clearance
+	url = http://github.com/thoughtbot/clearance.git
+[submodule "vendor/plugins/cucumber"]
+	path = vendor/plugins/cucumber
+	url = git://github.com/aslakhellesoy/cucumber.git

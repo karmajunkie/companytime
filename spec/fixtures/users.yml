@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090529235331
+# Schema version: 20090805190920
 #
 # Table name: users
 #
@@ -15,6 +15,13 @@
 #  first_name            :string(255)
 #  last_name             :string(255)
 #  valid_user            :boolean(1)      default(TRUE)
+#  email                 :string(255)
+#  encrypted_password    :string(128)
+#  salt                  :string(128)
+#  token                 :string(128)
+#  token_expires_at      :datetime
+#  email_confirmed       :boolean(1)      not null
+#  admin                 :boolean(1)
 #
 
 keith:

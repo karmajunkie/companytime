@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090529235331
+# Schema version: 20090805190920
 #
 # Table name: users
 #
@@ -15,9 +15,17 @@
 #  first_name            :string(255)
 #  last_name             :string(255)
 #  valid_user            :boolean(1)      default(TRUE)
+#  email                 :string(255)
+#  encrypted_password    :string(128)
+#  salt                  :string(128)
+#  token                 :string(128)
+#  token_expires_at      :datetime
+#  email_confirmed       :boolean(1)      not null
+#  admin                 :boolean(1)
 #
 
 class User < ActiveRecord::Base
+  include Clearance::User
   has_many :work_periods, :order => "start_time asc"
   has_many :timesheets, :order => "start_date desc";
   has_many :grant_allocations
@@ -32,6 +40,9 @@ class User < ActiveRecord::Base
   named_scope :clocked_out, lambda{{
     :conditions => ["users.id not in (?)", clocked_in.map(&:id)+ [-1]]
   }}
+  named_scope :admins, :conditions => ["admin = ?", true]
+
+  validates_presence_of :first_name, :last_name
 
   def logged_in?
     false
@@ -41,7 +52,7 @@ class User < ActiveRecord::Base
   end
   def current_accrual
     begin
-      timesheets.last.ending_accrual 
+      timesheets.first.ending_accrual 
     rescue NoMethodError
       nil
     end

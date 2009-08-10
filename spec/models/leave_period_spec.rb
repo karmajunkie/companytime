@@ -1,17 +1,18 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe LeavePeriod do
-  before(:each) do
-    @valid_attributes = {
-      :from_date => Date.today,
-      :until_date => Date.today,
-      :leave_request_id => 1,
-      :from_time => Time.now,
-      :until_time => Time.now
-    }
-  end
+	describe "validations" do
+		before(:each) do
+      @lp=Factory(:leave_period)
+		end
+		it "should be valid" do
+			@lp.should be_valid
+		end
+#		it "should not be valid without a leave request" do
+#			@lp.leave_request=nil
+#			@lp.should_not be_valid
+#		end
+	end
 
-  it "should create a new instance given valid attributes" do
-    LeavePeriod.create!(@valid_attributes)
-  end
+
 end

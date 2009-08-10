@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20090529235331
+# Schema version: 20090805190920
 #
 # Table name: timesheets
 #
 #  id         :integer(4)      not null, primary key
 #  user_id    :integer(4)
-#  start_date :datetime
-#  end_date   :datetime
+#  start_date :date
+#  end_date   :date
 #  created_at :datetime
 #  updated_at :datetime
 #
@@ -21,7 +21,7 @@ class Timesheet < ActiveRecord::Base
   has_many :work_periods, :through => :user, 
     :conditions => ["start_time > ? and start_time < ?", '#{start_date.beginning_of_day}', '#{end_date.end_of_day}']
 
-  validates_presence_of :user_id
+  validates_presence_of :user
   validates_presence_of :start_date
   validates_presence_of :end_date
   validates_uniqueness_of :start_date, :scope => [:user_id]

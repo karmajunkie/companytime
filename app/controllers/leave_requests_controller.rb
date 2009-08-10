@@ -42,14 +42,15 @@ class LeaveRequestsController < ApplicationController
   # POST /leave_requests
   # POST /leave_requests.xml
   def create
-    @leave_request = LeaveRequest.new(params[:leave_request])
+    @leave_request = current_user.leave_requests.build(params[:leave_request])
 
     respond_to do |format|
       if @leave_request.save
         flash[:notice] = 'LeaveRequest was successfully created.'
-        format.html { redirect_to(@leave_request) }
+        format.html { redirect_to(current_user) }
         format.xml  { render :xml => @leave_request, :status => :created, :location => @leave_request }
       else
+	      debugger
         format.html { render :action => "new" }
         format.xml  { render :xml => @leave_request.errors, :status => :unprocessable_entity }
       end

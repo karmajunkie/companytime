@@ -2,26 +2,15 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe LeaveRequest do
   before(:each) do
-    @valid_attributes = {   
-      :reason => "value for reason",
-      :vacation_hours => 1.5,
-      :holiday_hours => 1.5,
-      :sick_hours => 1.5,
-      :bereavement => false,
-      :bereavement_hours => 1.5,
-      :military => false,
-      :military_hours => 1.5,
-      :comp_hours => 1.5,
-      :jury_duty => false,
-      :jury_hours => 1.5,
-      :unpaid => false,
-      :unpaid_hours => 1.5,
-      :administrative => false,
-      :administrative_hours => 1.5
-    }
+    @leave_request=Factory(:leave_request)
   end
-
-  it "should create a new instance given valid attributes" do
-    LeaveRequest.create!(@valid_attributes)
-  end
+	describe "validations" do
+		it "should be valid" do
+			@leave_request.should be_valid
+		end
+		it "should not be valid without an employee" do
+			@leave_request.employee = nil
+			@leave_request.should_not be_valid
+		end
+	end
 end

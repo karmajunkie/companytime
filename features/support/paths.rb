@@ -8,12 +8,16 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
     
-    when /the homepage/
-      '/'
-    when /the new leave_requests page/
-      new_leave_requests_path
+			when /the homepage/
+				'/'
+			when /the new leave_requests? page/i
+				new_leave_request_path
 
-    
+			when /the employee portal page/i
+				user_path(current_user)
+
+			when /the admin page/i
+		    admin_path
     # Add more mappings here.
     # Here is a more fancy example:
     #

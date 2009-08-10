@@ -6,7 +6,7 @@ $(document).ready(function(){
       'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
     });
     $(document).ajaxSend(function(event, request, settings) {
-      if ( settings.type.toLowerCase() == 'post' ) {
+      if ( settings.type.toLowerCase() != 'get') {
           settings.data = (settings.data ? settings.data + "&" : "")
               + "authenticity_token=" + encodeURIComponent( AUTH_TOKEN );
       }

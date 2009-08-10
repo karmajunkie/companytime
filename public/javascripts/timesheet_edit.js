@@ -65,8 +65,8 @@ function updateServer(ptonode, sourcenode){
   { dataType:'json',
     error:serverUpdateError,
     success:serverUpdateSuccess,
-    url:"/pto_allocations/update/"+ptonode.attr("pto_id"),
-    type:"get" ,
+    url:"/pto_allocations/"+ptonode.attr("pto_id"),
+    type:"put" ,
     data:{  type  : atype.substr(0, atype.length-6),
             hours : ptonode.attr(atype) }
   });

@@ -1,7 +1,10 @@
 class UsersController < ApplicationController
+	skip_before_filter :login_required, :only => [:clockin, :clockout, :toggle]
   active_scaffold :user
   cache_sweeper :work_period_sweeper, :only => [:toggle, :clockin, :clockout]
-  
+  before_filter :admin_required, :only => [:index, :delete]
+  before_filter :admin_or_self_required, :only => [:update, :show]
+
   # GET /users
   # GET /users.xml
   def index

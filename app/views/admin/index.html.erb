@@ -1,9 +1,7 @@
 <h3>Open Leave Requests</h3>
 
-<div id='open_leave_requests'>
-
-  <% for request in @open_leave_requests %>
-      <%= render request %>
-
+<div class='pending_leave_requests'>
+  <% for request in @pending_leave_requests %>
+    <%= render request %>
   <% end %>
 </div>

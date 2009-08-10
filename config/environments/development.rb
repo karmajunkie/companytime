@@ -17,3 +17,6 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 LACONICA_URI='http://laconica.talho.org/api/statuses/public_timeline.atom'
+
+DO_NOT_REPLY = "donotreply@example.com"
+HOST = "localhost"

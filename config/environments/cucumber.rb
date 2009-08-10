@@ -1,10 +1,4 @@
-# Settings specified here will take precedence over those in config/environment.rb
-LACONICA_URI='http://keith.talho.org/api/statuses/public_timeline.atom'
-# The test environment is used exclusively to run your application's
-# test suite.  You never need to work with it otherwise.  Remember that
-# your test database is "scratch space" for the test suite and is wiped
-# and recreated between test runs.  Don't rely on the data there!
-config.cache_classes = true
+config.cache_classes = true # This must be true for Cucumber to operate correctly!
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
@@ -21,13 +15,11 @@ config.action_controller.allow_forgery_protection    = false
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
 
-config.gem 'cucumber'
-config.gem 'webrat'
-config.gem 'rspec', :lib => false
-config.gem 'rspec-rails', :lib => false
+config.gem "cucumber",    :lib => false,        :version => ">=0.3.11"
+config.gem "rspec",       :lib => false,        :version => ">=1.2.7"
+config.gem "rspec-rails", :lib => false,        :version => ">=1.2.7"
 config.gem "thoughtbot-factory_girl",
   :lib    => "factory_girl",
   :source => "http://gems.github.com"
-
 HOST = "localhost"
 DO_NOT_REPLY = "donotreply@example.com"

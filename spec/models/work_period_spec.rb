@@ -17,7 +17,7 @@ describe WorkPeriod do
     work_period.hours.should == 8.75
   end
   
-  describe "validating if clocked in" do
+  describe "validations" do
     it "should be invalid when user is clocked in and start_time is after current clock-in time" do
       open_work_period = Factory(:work_period, :end_time => nil)
       work_period = Factory.build(:work_period, :user => open_work_period.user)
@@ -30,7 +30,11 @@ describe WorkPeriod do
       work_period = Factory.build(:work_period, :start_time => 3.days.ago, :end_time => 2.days.ago)
       work_period.should be_valid 
     end
-    it "should not overlap with any other work periods"
+    it "should not be valid if it overlaps with any other closed work periods" do
+	    user=Factory(:user)
+	    Factory(:work_period, :start_time => 1.hour.ago, :end_time => 1.minute.ago, :user => user)
+	    Factory.build(:work_period, :start_time => 30.minutes.ago, :user => user).should_not be_valid
+    end
     it "should be valid when user is not clocked in" do
       Factory.build(:work_period, :end_time => nil).should be_valid
     end
@@ -38,7 +42,7 @@ describe WorkPeriod do
     it "should be valid when another user is clocked in" do
       user1 = Factory(:user)
       user2 = Factory(:user)
-      open_work_period = Factory(:work_period, :end_time => nil, :user => user1)
+      open_work_period =  Factory(:work_period, :end_time => nil, :user => user1)
       work_period = Factory.build(:work_period, :end_time => nil, :user => user2)
       work_period.should be_valid
     end

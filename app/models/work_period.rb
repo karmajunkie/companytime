@@ -18,6 +18,7 @@ class WorkPeriod < ActiveRecord::Base
   named_scope :current, :conditions => ["start_time < now()"]
   validates_presence_of :start_time
   validate_on_create :check_clocked_in
+  validate :check_overlapping
 
   #all work periods for the month starting on the date given
   named_scope :for_month, lambda { |month|
@@ -51,5 +52,9 @@ private
   def check_clocked_in
     errors.add_to_base 'You are already clocked in.' if user.clocked_in? && start_time > user.last_clock
   end
+	def check_overlapping
+		wp=WorkPeriod.find(:first, :conditions => ["start_time < ? and end_time > ? and user_id = ?", start_time, start_time, user_id])
+		errors.add_to_base "overlaps with another work period" unless wp.nil?
+	end
   
 end

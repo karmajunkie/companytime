@@ -15,6 +15,15 @@
   <% end %>
   </ul>
 </div>
+  <div class='pending_leave_requests'>
+    <ul>
+      <% @user.leave_requests.pending.each do |request| %>
+        <li class='request'>
+          <%= render request %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
   <div id='leave_requests'>
     <h4>Leave requests</h4>
     <ul>

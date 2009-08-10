@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090603200000
+# Schema version: 20090805190920
 #
 # Table name: leave_requests
 #
@@ -25,6 +25,9 @@
 #  updated_at           :datetime
 #  employee_id          :integer(4)
 #  approver_id          :integer(4)
+#  leave_code           :string(255)
+#  approval_code        :string(255)
+#  leave_type_id        :integer(4)
 #
 
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html

@@ -1,12 +1,12 @@
 # == Schema Information
-# Schema version: 20090529235331
+# Schema version: 20090805190920
 #
 # Table name: timesheets
 #
 #  id         :integer(4)      not null, primary key
 #  user_id    :integer(4)
-#  start_date :datetime
-#  end_date   :datetime
+#  start_date :date
+#  end_date   :date
 #  created_at :datetime
 #  updated_at :datetime
 #

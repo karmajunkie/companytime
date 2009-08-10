@@ -16,6 +16,11 @@
       <%= render :file => '_menubar' %>
     </div>
     <div id='content'>
+			<%- [:notice, :success, :error].each do |type| -%>
+        <%- if flash[type] -%>
+          <p class='<%= type %>'><%= flash[type] %></p>
+        <%- end -%>
+      <%- end -%>
       <%= yield %>
     </div>
   </body>

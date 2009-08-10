@@ -1,6 +1,7 @@
 require 'rfeedparser'
 
 class MainController < ApplicationController
+	skip_before_filter :login_required
   def index
     @clocked_in_users=User.clocked_in
     @clocked_out_users=User.clocked_out

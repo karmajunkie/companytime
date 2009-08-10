@@ -4,21 +4,18 @@ Feature: Clocking in and out
   I want to track time by clocking in and out
   
   Scenario: An employee clocking in
-    Given Keith is an employee
-    When Keith clocks in
-    Then I can see that Keith is clocked in
+    Given "keith@example.com" is a user
+    When "keith@example.com" clocks in
+    Then I can see that "keith@example.com" is clocked in
   
   Scenario: An employee tries to clock in twice
-    Given Ethan is an employee
-    When Ethan clocks in
-    Then I can see that Ethan is clocked in
-    
-    When Ethan clocks in
+		Given "keith@example.com" is a user
+		When "keith@example.com" clocks in
+		When "keith@example.com" clocks in
     Then I can see an error message
     
   Scenario: An employee clocking out
-    Given Ethan is an employee
-    And Ethan is currently clocked in
-    When Ethan clocks out
-    Then I can see that Ethan is clocked out
-
+		Given "keith@example.com" is a user
+    And "keith@example.com" is currently clocked in
+    When "keith@example.com" clocks out
+		Then I can see that "keith@example.com" is clocked out

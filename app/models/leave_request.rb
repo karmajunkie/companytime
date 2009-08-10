@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090603200000
+# Schema version: 20090805190920
 #
 # Table name: leave_requests
 #
@@ -25,6 +25,9 @@
 #  updated_at           :datetime
 #  employee_id          :integer(4)
 #  approver_id          :integer(4)
+#  leave_code           :string(255)
+#  approval_code        :string(255)
+#  leave_type_id        :integer(4)
 #
 
 class LeaveRequest < ActiveRecord::Base
@@ -35,5 +38,7 @@ class LeaveRequest < ActiveRecord::Base
 
   accepts_nested_attributes_for :leave_periods
 
-  named_scope :open, :conditions => {:approval_code => nil}
+  named_scope :pending, :conditions => {:approval_code => nil}
+
+	validates_presence_of :employee
 end

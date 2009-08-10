@@ -24,11 +24,16 @@
       <%= f.error_messages %>
 
       <p><%= f.label(:employee_id) %>
-        <%= f.collection_select(:employee_id, User.all, :id, :name, :prompt => "Select User") %>
-        <%= observe_field( "leave_request_employee_id",
-            :url => "/users/accrual_display",
-            :with => 'id',
-            :update => "accruals_display") %>
+        <% if current_user.admin? %>
+					<%= f.collection_select(:employee_id, User.all, :id, :name, :prompt => "Select User") %>
+					<%= observe_field( "leave_request_employee_id",
+							:url => "/users/accrual_display",
+							:with => 'id',
+							:update => "accruals_display") %>
+        <% else %>
+          <%= f.hidden_field :employee_id %>
+          <b><%= current_user.name %> </b>
+        <% end %>
       </p>
 <%= javascript_tag "leave_period_count=#{@leave_request.leave_periods.count};
     hours_in_day=#{HOURS_IN_WORKDAY};" %>
@@ -56,7 +61,7 @@
         <%= f.text_area :reason, :cols => 40, :rows => 5 %>
 
       <div id='leave_type_display'>
-        <h4>Leave Type</h4>
+        <%= f.label :leave_type_id, "Leave Type" %>
         <%= f.collection_select(:leave_type_id, LeaveType.all, :id, :name, :include_blank => true) %>
       </div>
       </p>

@@ -1,6 +1,36 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe User do
+	describe "validations" do
+		before(:each) do
+			@user = Factory.build(:user)
+		end
+
+		it "should be valid" do
+			@user.valid?.should be_true
+		end
+		it "should not be valid without an email" do
+		  @user.email = ""
+		  @user.valid?.should be_false
+		end
+
+		it "should not be valid without a first name" do
+		  @user.first_name = ""
+		  @user.valid?.should be_false
+		end
+
+		it "should not be valid without a last name" do
+		  @user.last_name = ""
+		  @user.valid?.should be_false
+		end
+
+		it "should be invalid if a Person already exists with same email" do
+		  Factory(:user, :email => "joe@example.com")
+		  @user.email = "joe@example.com"
+		  @user.valid?.should be_false
+		end
+
+	end
   before(:each) do
     @valid_attributes = {
       :first_name => "John",
@@ -9,61 +39,17 @@ describe User do
     }
   end
 
-  it "should create a new instance given valid attributes" do
-    User.create!(@valid_attributes)
+  it "should find return nil for current_accrual if there are none" do
+	  user=Factory(:user)
+	  user.current_accrual.should be_nil
   end
-  it "should find return nil for current_accrual if there are none" 
   it "should find the most recent accrual with .current_accrual" do
-    jd=User.create(@avalid_attributes)
-    jd.save
-    t1=Timesheet.new({:start_date => 1.month.ago.beginning_of_month,
-                      :end_date =>   1.month.ago.end_of_month,
-                      :user_id => 1})
-    t2=Timesheet.new({:start_date => 2.month.ago.beginning_of_month,
-                      :end_date =>   2.month.ago.end_of_month,
-                      :user_id => 1})
-    jd.timesheets << t1
-    jd.timesheets << t2
-    a1 = Accrual.new({
-      :vacation_hours => 99.0,
-      :holiday_hours => 99.0,
-      :sick_hours => 99.0,
-      :effective_date => 2.month.ago.beginning_of_month,
-      :discriminator =>"start"
-    })
-    a2 = Accrual.new({
-      :vacation_hours => 10.0,
-      :holiday_hours => 10.0,
-      :sick_hours => 10.0,
-      :effective_date => 2.month.ago.end_of_month,
-      :discriminator =>"end"
-    })
-
-    b1 = Accrual.new({
-      :vacation_hours => 10.0,
-      :holiday_hours => 10.0,
-      :sick_hours => 10.0,
-      :effective_date => 1.month.ago.beginning_of_month,
-      :discriminator =>"start"
-
-    })
-    b2 = Accrual.new({
-      :vacation_hours => 22.0,
-      :holiday_hours => 20.0,
-      :sick_hours => 20.0,
-      :effective_date => 1.month.ago.beginning_of_month,
-      :discriminator =>"end"
-
-    })
-    t1.starting_accrual=a1
-    t1.ending_accrual=a2
-
-    t2.starting_accrual=b1
-    t2.ending_accrual=b2
-
-    
-
-    jd.current_accrual.should == b2
+    jd=Factory(:user)
+    t1=Factory(:timesheet, :start_date => 1.month.ago.beginning_of_month,
+                      :end_date =>   1.month.ago.end_of_month, :user => jd)
+    t2=Factory(:timesheet, :start_date => 2.month.ago.beginning_of_month,
+                      :end_date =>   2.month.ago.end_of_month, :user => jd)
+    jd.current_accrual.should == t1.ending_accrual
   end
   
   describe "clocked_in" do
