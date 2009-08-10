@@ -23,15 +23,7 @@ Then /^I should explicitly see "(.*)" in the "(.*)" dropdown$/ do |text, label|
 end
 
 When /^I fill in the form with the following info:$/ do |table|
-	table.raw.each do |row|
-		if ["Preferred language"
-# Add in more select form elements here
-		].include?(row[0])
-			select  row[1], row[0]
-		else
-			fill_in row[0], row[1]
-		end
-	end
+	fill_in_form(table)
 end
 
 Then /^I should see a link to (.*)$/ do |page_name|
@@ -52,4 +44,8 @@ end
 
 Then /^I should not see an "([^\"]+)" button$/ do |button_text|
   response.should_not have_selector('input[type=button]', :content => button_text)
+end
+
+When /^I visit (.*) for "([^\"]*)"$/ do |page_name, email|
+  visit path_to(page_name, :user =>  User.find_by_email!(email))
 end

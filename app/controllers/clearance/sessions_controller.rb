@@ -63,6 +63,6 @@ class Clearance::SessionsController < ApplicationController
   end
 
   def url_after_destroy
-    new_session_url
+    root_url
   end
 end

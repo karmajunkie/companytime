@@ -2,7 +2,8 @@
 
 <% form_for(@user) do |f| %>
   <%= f.error_messages %>
-
+<fieldset>
+  <legend>User options</legend>
   <p>
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
@@ -11,6 +12,23 @@
     <%= f.label :last_name%><br />
     <%= f.text_field :last_name%>
   </p>
+  <p>
+  	<%= f.label :email %>
+  	<%= f.text_field :email %>
+  </p>
+  <p>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </p>
+  </fieldset>
+  <%- if current_user.admin? -%>
+    <fieldset>
+      <legend> Administrator options</legend>
+      
   <p>
     <%= f.label :login %><br />
     <%= f.text_field :login %>
@@ -35,8 +53,10 @@
     <%= f.label :sick_accrual_rate %><br />
     <%= f.text_field :sick_accrual_rate %>
   </p>
+    </fieldset>
+  <%- end -%>
   <p>
-    <%= f.submit "Update" %>
+    <%= f.submit "Save" %>
   </p>
 <% end %>
 

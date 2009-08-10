@@ -7,9 +7,12 @@ end
 
 
 Given 'the following users exist:' do |table|
-	pending
   table.raw.each do |row|
-#    Given %Q{the user "#{row[0]}" with the email "#{row[1]}" has the role "#{row[2]}" in "#{row[3]}"}
+	  if row[0] == 'admin'
+		  Given "\"#{row[1]}\" is an admin"
+	  else
+		  Given "\"#{row[1]}\" is a user"
+	  end
   end
 end
 
@@ -62,4 +65,8 @@ When /^"([^\"]*)" clicks the confirmation link in the email$/ do |user_email|
   link = user_confirmation_url(user, user.token, :host => HOST)
   email.body.should contain(link)
   visit link
+end
+
+Then /^I should see (.*) for "([^\"]*)"$/ do |page, user_email|
+	URI.parse(current_url).path.should == path_to(page, :user => User.find_by_email!(user_email))
 end

@@ -5,9 +5,8 @@ module NavigationHelpers
   #
   # step definition in webrat_steps.rb
   #
-  def path_to(page_name)
+  def path_to(page_name, options={})
     case page_name
-    
 			when /the homepage/
 				'/'
 			when /the new leave_requests? page/i
@@ -18,6 +17,18 @@ module NavigationHelpers
 
 			when /the admin page/i
 		    admin_path
+	    when /the edit user page/i
+		    unless options[:user].blank?
+		      edit_user_path(options[:user])
+		    else
+			    edit_user_path(current_user)
+		    end
+	    when /the user profile page/i
+		    unless options[:user].blank?
+			    user_path(options[:user])
+		    else
+			    user_path(current_user)
+		    end
     # Add more mappings here.
     # Here is a more fancy example:
     #

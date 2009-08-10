@@ -1,6 +1,39 @@
 module FeatureHelpers
   module FillInMethods
-    
+
+	  def fill_in_form(table = nil)
+      fields = {}
+      if table.is_a?(Hash)
+        fields.merge!(table)
+      elsif !table.nil?
+        fields.merge!(table.rows_hash)
+      end
+      fields.each do |field, value|
+        value = "" if value == "<blank>"
+	      if value == "<checked>"
+		      check field
+	      elsif value == "<unchecked>"
+		      uncheck field
+	      else
+		      begin
+						begin
+							fill_in field, :with => value
+						rescue
+							if value.include?(",")
+								select_multiple value.split(',').map(&:strip), :from => field
+							else
+								select Regexp.new(value), :from => field
+							end
+						end
+		      rescue
+		        raise "Could not find a field with #{field} that would accept #{value}.  Check your field names and types.  If your values are correct, fix fill_in.rb"   
+		      end
+
+	      end
+	    end
+
+	  end
+
     def fill_in_user_signup_form(table=nil)
       fields={"Email"=> "john@example.com",
        "Password"=> "password",
@@ -40,7 +73,7 @@ module FeatureHelpers
           'Are you with any of these organizations', 'Organization Type'
             select Regexp.new(value), :from => field
         when /Counties/
-          select_multiple value.split(',').map(&:strip), :from => 'organization_jurisdiction_ids'
+	        select_multiple value.split(',').map(&:strip), :from => 'organization_jurisdiction_ids'
         when "Are you a public health professional?"
           id = "health_professional"
           if value == '<unchecked>'
