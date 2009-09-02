@@ -7,9 +7,9 @@ Feature: Manage leave_requests
     Given "keith@example.com" is a user
     And "jason@example.com" is an admin
     And the following leave types exist:
-    | Vacation | 610 |
-    | Sick     | 611 |
-    | Holiday  | 612 |
+      | Vacation | 610 |
+      | Sick     | 611 |
+      | Holiday  | 612 |
 
   Scenario: Employee requesting leave
     Given I am logged in as "keith@example.com"
@@ -17,12 +17,19 @@ Feature: Manage leave_requests
     When I request leave for "Doctor's appointment" using "Vacation" time
     Then I should be redirected to the employee portal page
     And I should see 1 "Pending Leave Requests"
+    And "jason@example.com" should receive the email:
+      | body contains | keith@example.com |
+      | body contains | Doctor's appointment |
+      | body contains | Vacation          |
+      | subject       | Leave request from keith@example.com |      
 
 	Scenario: Admin approving leave
 		Given "keith@example.com" has a pending leave request with the following info:
-			| Reason | Doctor's appointment |
-			| Leave periods | 8/1/2009 12:00-8/1/2009 13:00 |
-			| Leave Type | Vacation |
+			| Reason          | Doctor's appointment          |
+			| Leave periods   | 8/1/2009 12:00-8/1/2009 13:00 |
+			| Leave Type      | Vacation                      |
 		And I am logged in as "jason@example.com"
 		When I go to the admin page
 		Then I should see 1 "Pending Leave Requests" from "keith@example.com"
+
+		When I press "Approve"

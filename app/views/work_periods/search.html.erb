@@ -1,0 +1,33 @@
+<% form_for(@search_params, :url => search_work_periods_path, :html => {:method => :get}) do |f|  %>
+  <p>
+		<%= f.label :user_id, "Employee" %>
+		<%= f.collection_select(:user_id, current_user.admin? ? User.all : [current_user], :id, :name, :include_blank => current_user.admin?) %>
+  </p>
+  <p>
+    <%= f.label :start_date, "Start date" %>
+    <%= date_field :work_period_search_parameters, :start_date, :value => @search_params.start_date, :format => "%m/%d/%Y", :class => 'datepicker' %>
+  </p>
+  <p>
+  	<%= f.label :end_date, "End date"%>
+    <%= date_field :work_period_search_parameters, :end_date, :value => @search_params.end_date, :format => "%m/%d/%Y", :class => 'datepicker' %>
+  </p>
+
+  <%= submit_tag "Search" %>
+
+
+<% end %>
+
+<div class='search_results'>
+		<% @work_periods.group_by{|wp| "#{wp.user.name}:#{wp.start_time.to_date}" }.each do |day, wp_group| %>
+			<hr/>
+			<% wp_group.each do |work_period| %>
+				<div class='work_period'>
+				  <div class='user'><%= work_period.user.name %></div>
+				  <div class='start_date'><%= work_period.start_time.strftime("%m/%d/%Y") %></div>
+				  <div class='start_time'><%= work_period.start_time.strftime("%X") %></div>
+				  <div class='end_time'><%= work_period.end_time.strftime("%X") %></div>
+				  <div class='hours'><%= work_period.hours %></div>
+				</div>
+			<% end %>
+		<% end %>
+</div>

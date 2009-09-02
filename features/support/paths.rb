@@ -17,6 +17,8 @@ module NavigationHelpers
 
 			when /the admin page/i
 		    admin_path
+	    when /the work period search page/i
+	      search_work_periods_path
 	    when /the edit user page/i
 		    unless options[:user].blank?
 		      edit_user_path(options[:user])

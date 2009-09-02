@@ -36,18 +36,18 @@ Given "$user is on the Leave Request form" do |user|
 end
 
 When /^I request leave for "([^\"]*)" using "([^\"]*)" time$/ do |reason, type|
-	fill_in "Reason", reason
+	fill_in "Reason", :with => reason
 	select type, "Leave Type"
 	click_button "Save"
 end
 
-When "$login requests an afternoon of Leave for $reason using $type time" do |login, reason, type|
-  user=User.find_by_login(login)
-  fill_in("leave_request[reason]", reason)
-  select "Leave Type", type
-  select( user.name, "leave_request[employee_id]")
-  click_button "Save"
-end
+#When "$login requests an afternoon of Leave for $reason using $type time" do |login, reason, type|
+#  user=User.find_by_login(login)
+#  fill_in("leave_request[reason]", :with => reason)
+#  select "Leave Type", type
+#  select( user.name, "leave_request[employee_id]")
+#  click_button "Save"
+#end
 
 When "$user clicks \"$link\"" do |user, link| 
   click_link "New Leave Request"

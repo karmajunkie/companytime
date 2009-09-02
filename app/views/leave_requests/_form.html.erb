@@ -1,5 +1,4 @@
 <%= javascript_include_tag "leave_request" %>
-
 <div id='leave_period_form_dlg'>
   <h5>Add Leave period</h5>
     <label>From</label><br/>
@@ -57,7 +56,7 @@
         </ul>
       </div>
       <p>
-        <%= f.label :reason %><br/>
+        <%= f.label :reason, "Reason" %><br/>
         <%= f.text_area :reason, :cols => 40, :rows => 5 %>
 
       <div id='leave_type_display'>

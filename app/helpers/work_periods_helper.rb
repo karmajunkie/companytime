@@ -6,12 +6,12 @@ module WorkPeriodsHelper
     rec.start_time.localtime.strftime("%x %X") 
   end
   #def start_time_form_column(rec, inputname)
-    #"From: "+date_select( rec, rec.start_time, :name => (inputname + "[from]"), 
+    #"From: "+date_select( rec, rec.start_time, :name => (inputname + "[from]"),
                          #:include_blank => true,
                          #:default => Date.today.beginning_of_month) + " To: "+
               #date_select( rec, rec.start_time, :name => (inputname + "[to]"),
                          #:include_blank => true,
-                         #:default => Date.today.end_of_month) 
+                         #:default => Date.today.end_of_month)
   #end
   #def end_time_form_column(rec, inputname)
     #"From: "+date_select( rec, rec.end_time, :name => (inputname + "[from]"), 

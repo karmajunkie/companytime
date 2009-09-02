@@ -1,10 +1,12 @@
 <div id='menu'>
-  <ul>
     <%- if signed_in? -%>
-      <li>Logged in as <%= current_user.name %> (<%= link_to "Sign out", sign_out_path if signed_in? %>)</li>
+      <span>Logged in as <%= current_user.name %> (<%= link_to "Sign out", sign_out_path if signed_in? %>)</span>
     <%- end -%>
+  <ul>
+
     <li><%= link_to_unless_current "Login", sign_in_path unless signed_in? %></li>
     <li><%= link_to_unless_current "New timesheet", new_timesheet_path %></li>
     <li><%= link_to_unless_current "New Leave Request", new_leave_request_path %></li>
+    <li><%= link_to_unless_current "Search Work Periods", search_work_periods_path %></li>
   </ul>
 </div>

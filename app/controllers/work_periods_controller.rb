@@ -16,4 +16,11 @@ class WorkPeriodsController < ApplicationController
   def before_update_save(record)
     record.start_time=record.start_time.localtime if record.start_time
   end
+#	helper :date
+#
+#	def search
+#		@search_params=WorkPeriodSearchParameters.new(params[:work_period_search_parameters])
+#		@search_params.user=current_user unless current_user.admin?
+#		@work_periods = WorkPeriod.for_employee(@search_params.user).starts_after(@search_params.start_date).starts_before(@search_params.end_date)
+#	end
 end

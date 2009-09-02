@@ -14,8 +14,25 @@
 
 class WorkPeriod < ActiveRecord::Base
   belongs_to :user
+
   default_scope :order => "start_time asc"
   named_scope :current, :conditions => ["start_time < now()"]
+  named_scope :starts_after, lambda{|date|
+	  unless date.blank?
+		  {:conditions => ["start_time > ?", date.beginning_of_day]}
+	  end
+  }
+  named_scope :starts_before, lambda{|date|
+	  unless date.blank?
+		  {:conditions => ["start_time < ?", date.end_of_day]}
+	  end
+  }
+  named_scope :for_employee, lambda{|user|
+	  unless user.blank?
+	    {:conditions => {:user_id => user.id}}
+	  end
+  }
+
   validates_presence_of :start_time
   validate_on_create :check_clocked_in
   validate :check_overlapping
@@ -38,9 +55,9 @@ class WorkPeriod < ActiveRecord::Base
       self.end_time||= DateTime.now
       diff = self.end_time.to_datetime - self.start_time.to_datetime
       hrs, mins, secs, frac = Date.day_fraction_to_time(diff)
-      hrs + (((mins / 60.0) * 4).round(2) / 4)
+      hrs + (((mins / 60.0) * 4).round.to_f / 4)
     else
-      nil
+      raise "No start time available"
     end
   end
   def to_label

@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :holidays
 
-  map.resources :work_periods, :active_scaffold => true
+  map.resources :work_periods, :collection => {:search => :get}, :active_scaffold => true
   map.resources :timesheets
   map.admin "admin", :controller => "admin", :action => "index"
 

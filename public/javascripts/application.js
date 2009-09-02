@@ -11,6 +11,8 @@ $(document).ready(function(){
               + "authenticity_token=" + encodeURIComponent( AUTH_TOKEN );
       }
     });
+
+	$(".datepicker").datepicker({appendText : "(mm/dd/yyyy)"});
 });
 
 function approveLeave(request_id){

@@ -21,30 +21,34 @@ Then /^I should explicitly see "(.*)" in the "(.*)" dropdown$/ do |text, label|
     node.inner_html.should == text
   end
 end
-
+Then /^I should see the "([^\"]*)" field$/ do |label|
+  response.should have_selector("label", :content => label)
+end
 When /^I fill in the form with the following info:$/ do |table|
 	fill_in_form(table)
 end
 
-Then /^I should see a link to (.*)$/ do |page_name|
+Then /^I should see an? link to (.*)$/ do |page_name|
   response.should have_selector('a', :content => page_name)
 end
 
-Then /^I should not see a link to (.*)$/ do |page_name|
+Then /^I should not see an? link to (.*)$/ do |page_name|
   response.should_not have_selector('a', :content => page_name)
 end
 
-Then /^I should see a (.*) link$/ do |class_name|
+Then /^I should see an? (.*) link$/ do |class_name|
   response.should have_selector('a', :class => ".#{class_name}")
 end
 
-Then /^I should not see a (.*) link$/ do |class_name|
+Then /^I should not see an? (.*) link$/ do |class_name|
   response.should_not have_selector('a', :class => ".#{class_name}")
 end
 
-Then /^I should not see an "([^\"]+)" button$/ do |button_text|
+Then /^I should not see an? "([^\"]+)" button$/ do |button_text|
   response.should_not have_selector('input[type=button]', :content => button_text)
 end
+
+
 
 When /^I visit (.*) for "([^\"]*)"$/ do |page_name, email|
   visit path_to(page_name, :user =>  User.find_by_email!(email))
