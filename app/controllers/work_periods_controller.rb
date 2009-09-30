@@ -10,7 +10,7 @@ class WorkPeriodsController < ApplicationController
     config.update.columns = [:user, :start_time, :end_time]
     config.create.columns = [:user, :start_time, :end_time]
     config.search.columns = [:user, :start_time, :end_time]
-    config.field_search.columns = [:user, :start_time, :end_time]
+    config.field_search.columns = [:user, :start_time]
   end
   def before_update_save(record)
     record.start_time=record.start_time.localtime if record.start_time

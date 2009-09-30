@@ -1,6 +1,6 @@
 [submodule "vendor/plugins/active_scaffold"]
 	path = vendor/plugins/active_scaffold
-	url = git://github.com/activescaffold/active_scaffold.git
+	url = git://github.com/karmajunkie/active_scaffold.git
 [submodule "vendor/plugins/seed-fu"]
 	path = vendor/plugins/seed-fu
 	url = git://github.com/mbleigh/seed-fu.git
