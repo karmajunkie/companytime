@@ -4,6 +4,7 @@ class WorkPeriodsController < ApplicationController
     config.actions << :field_search
     config.columns[:user].form_ui= :select
     config.columns[:user].search_sql = 'users.id'
+    config.columns[:start_time].options = {:discard_time => true, :begin_date => Date.today.beginning_of_month, :end_date => Date.today.end_of_month }
     config.columns.exclude :created_at, :updated_at, :note
     config.search.columns << :user
     config.list.columns =   [:user, :start_time, :end_time]
