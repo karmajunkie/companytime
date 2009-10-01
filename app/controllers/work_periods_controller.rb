@@ -7,7 +7,7 @@ class WorkPeriodsController < ApplicationController
     config.columns[:start_time].options = {:discard_time => true, :begin_date => Date.today.beginning_of_month, :end_date => Date.today.end_of_month }
     config.columns.exclude :created_at, :updated_at, :note
     config.search.columns << :user
-    config.list.columns =   [:user, :start_time, :end_time]
+    config.list.columns   = [:user, :start_time, :end_time]
     config.update.columns = [:user, :start_time, :end_time]
     config.create.columns = [:user, :start_time, :end_time]
     config.search.columns = [:user, :start_time, :end_time]
