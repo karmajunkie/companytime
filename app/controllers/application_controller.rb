@@ -27,19 +27,21 @@ class ApplicationController < ActionController::Base
       end
 
       def admin_required
-        unless current_user.admin? 
-          flash[:notice] = "That resource does not exist or you do not have access to it"
-          redirect_to root_path
-          false
-        end
+#        unless current_user.admin?
+#          flash[:notice] = "That resource does not exist or you do not have access to it"
+#          redirect_to root_path
+#          false
+#        end
+		true
       end
 
 			def admin_or_self_required
-				unless current_user.admin? || params[:id] == current_user.id.to_s
-					flash[:notice] = "You are not authorized to view this resource.  You must be an admin or a user with permission to view the requested page."
-					redirect_to root_path
-					false
-				end
+#				unless current_user.admin? || params[:id] == current_user.id.to_s
+#					flash[:notice] = "You are not authorized to view this resource.  You must be an admin or a user with permission to view the requested page."
+#					redirect_to root_path
+#					false
+#				end
+				true
 			end
 	
 end
