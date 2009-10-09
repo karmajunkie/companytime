@@ -1,5 +1,6 @@
 class WorkPeriodsController < ApplicationController
   layout "admin"
+  before_filter :login_required
   active_scaffold :work_period do |config|
     config.actions << :field_search
     config.columns[:user].form_ui= :select
