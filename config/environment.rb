@@ -80,6 +80,7 @@ Rails::Initializer.run do |config|
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :work_period_sweeper
   config.gem 'fastercsv'
+  config.gem 'spreadsheet'
   
   # Use a different cache store in production
   config.cache_store = :file_store, 'tmp/cache'

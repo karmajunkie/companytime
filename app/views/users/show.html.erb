@@ -1,41 +1,34 @@
 <div id='user_show'>
-<p>
-<b><%=h @user.name %></b> (<%=h @user.login %>)<br/>
-</p>
-<div id='current_accruals'>
-        <%= render :partial => '/users/accrued_leave_display',
-                   :locals => {:user => @user}  %>
- 
-</div>
-<div id='timesheets'>
-  <h4>Timesheets</h4>
-  <ul>
-  <% @user.timesheets.each do |ts| %>
-    <li><%= link_to ts.start_date.strftime("%B %Y"), timesheet_path(ts) %></li>
-  <% end %>
-  </ul>
-</div>
-  <div class='pending_leave_requests'>
+  <p>
+    <b><%= h @user.name %></b> (<%= h @user.login %>)<br/>
+  </p>
+
+  <div id='current_accruals'>
+    <%= render :partial => '/users/accrued_leave_display',
+               :locals => {:user => @user} %>
+
+  </div>
+  <div id='time_export'>
+    <h4>Export Time</h4>
+    <% form_tag time_export_path do %>
+      <%= hidden_field_tag :user_id, @user.id %>
+      <%= label_tag :date_month, "Month" %>
+      <%= select_month Date.today %>
+      <%= label_tag :date_year, "Year" %>
+      <%= select_year Date.today %>
+
+      <%= submit_tag "Export" %>
+    <% end %>
+  </div>
+  <div id='timesheets'>
+    <h4>Timesheets</h4>
     <ul>
-      <% @user.leave_requests.pending.each do |request| %>
-        <li class='request'>
-          <%= render request %>
-        </li>
+      <% @user.timesheets.each do |ts| %>
+        <li><%= link_to ts.start_date.strftime("%B %Y"), timesheet_path(ts) %></li>
       <% end %>
     </ul>
   </div>
-  <div id='leave_requests'>
-    <h4>Leave requests</h4>
-    <ul>
-    <% @user.leave_requests.each do |leave_request| %>
-        <% if leave_request.leave_periods.count > 0 %>
-            <li><%= link_to "#{leave_request.reason} (#{leave_request.leave_periods.first.from_date.strftime("%x")}
-- #{leave_request.leave_periods.last.until_date.strftime("%x")}): #{leave_request.approval_code}", leave_request_path(leave_request)%></li>
-        <% end %>
 
-    <% end %>
-    </ul>
-  </div>
 </div>
 <br>
 <%= link_to 'Edit', edit_user_path(@user) %> |

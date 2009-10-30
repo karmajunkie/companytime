@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
     map.toggle_user 'users/toggle/:id', :controller => 'users', :action => 'toggle'
     map.clockin_user 'users/clockin/:id', :controller => 'users', :action => 'clockin'
     map.clockout_user 'users/clockout/:id', :controller => 'users', :action => 'clockout'
+  map.time_export '/export', :controller => "users", :action => "export"
   
   # The priority is based upon order of creation: first created -> highest priority.
 

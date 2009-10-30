@@ -36,3 +36,24 @@ Then /^I should see (\d*) work periods$/ do |count|
 	response.should have_selector(".search_results .work_period")
 	assigns['work_periods'].flatten.size.should == 2
 end
+When /^I select "([^\"]*)" as the export date$/ do |export_date|
+  date=Date.parse(export_date)
+  select(date.year, :from => "Year")
+  select(date.strftime("%B"), :from => "Month")
+end
+Then /^the downloaded file should have the content type "([^\"]*)"$/ do |content_type|
+  response.content_type.should == content_type
+end
+Then /^the file should contain the following information\:$/ do |table|
+  response.headers["Content-Disposition"] =~/filename\=\"([^\"]*)\"/
+
+  filename = File.join(Rails.root, 'tmp', $1)
+  sheet=Spreadsheet.open(filename).worksheet(0)
+  table.raw.each_with_index do |test_row, test_row_index|
+    test_row.each_with_index do |val, index|
+      sheet[test_row_index, index].strip.should == val
+    end
+  end
+  
+
+end

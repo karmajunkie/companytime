@@ -48,8 +48,15 @@ Then /^I should not see an? "([^\"]+)" button$/ do |button_text|
   response.should_not have_selector('input[type=button]', :content => button_text)
 end
 
+Then /^I should receive a file "([^\"]+)"$/ do |filename|
+  response.headers['Content-Disposition'].should contain(filename)
+end
+
 
 
 When /^I visit (.*) for "([^\"]*)"$/ do |page_name, email|
   visit path_to(page_name, :user =>  User.find_by_email!(email))
+end
+When /^I want to debug$/ do
+  debugger
 end

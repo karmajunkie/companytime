@@ -145,5 +145,27 @@ class UsersController < ApplicationController
 	def accrual_display
 		@user=User.find(params[:id])
 		render :partial => "accrued_leave_display", :locals =>{ :user => @user}
-	end
+  end
+
+  def export
+    user=User.find(params[:user_id])
+    export_month=Date.new(params[:date][:year].to_i,params[:date][:month].to_i, 1)
+    filename=File.join(Rails.root, 'tmp', export_month.strftime("time_export_%Y%m.xls"))
+    file=Spreadsheet::Workbook.new
+    sheet=file.create_worksheet(:name => "Time for #{export_month.strftime("%B %Y")}")
+
+    export_month.upto(export_month.end_of_month) do |date|
+      periods=user.work_periods.for_day(date)
+      sheet[date.day-1, 0] = "#{"(Holiday) " if date.holiday? }#{date.day}"
+      sheet[date.day-1, 0] = "#{date.strftime("(%A) ") unless [1,2,3,4,5].include?(date.wday)}#{date.day}"
+
+      unless periods.empty?
+        sheet[date.day-1, 1] = periods.first.start_time.strftime("%k:%M")
+        sheet[date.day-1, 2] = periods.last.end_time.strftime("%k:%M")
+      end
+    end
+    file.write(filename)
+
+    send_file filename, :type => "application/msexcel"
+  end
 end
