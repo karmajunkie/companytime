@@ -153,6 +153,8 @@ class UsersController < ApplicationController
     filename=File.join(Rails.root, 'tmp', export_month.strftime("time_export_%Y%m.xls"))
     file=Spreadsheet::Workbook.new
     sheet=file.create_worksheet(:name => "Time for #{export_month.strftime("%B %Y")}")
+    sheet.format_column(1, Spreadsheet::Format.new(:number_format => "HH:MM AM/PM_)", :border => true))
+    sheet.format_column(2, Spreadsheet::Format.new(:number_format => "HH:MM AM/PM_)", :border => true))
 
     export_month.upto(export_month.end_of_month) do |date|
       periods=user.work_periods.for_day(date)
@@ -160,8 +162,8 @@ class UsersController < ApplicationController
       sheet[date.day-1, 0] = "#{date.strftime("(%A) ") unless [1,2,3,4,5].include?(date.wday)}#{date.day}"
 
       unless periods.empty?
-        sheet[date.day-1, 1] = periods.first.start_time.strftime("%k:%M")
-        sheet[date.day-1, 2] = periods.last.end_time.strftime("%k:%M")
+        sheet[date.day-1, 1] = periods.first.start_time
+        sheet[date.day-1, 2] = periods.last.end_time  
       end
     end
     file.write(filename)
