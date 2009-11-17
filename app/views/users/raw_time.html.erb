@@ -1,0 +1,24 @@
+<h2>Clock periods for month of <%= @export_month.strftime("%B %Y") %></h2>
+<table class='raw_time'>
+  <tr>
+    <td>Date</td>
+    <td>Time in</td>
+    <td>Time out</td>
+  </tr>
+  <% @work_periods.group_by(&:start_date).each do |date, periods| %>
+    <tr>
+      <td><%= date.strftime("%m/%d") %></td>
+      <td><%= periods.first.start_time.strftime("%X") %></td>
+      <td><%= periods.first.end_time.strftime("%X") %></td>
+    </tr>
+    <% periods[1..-1].each do |period| %>
+      <tr>
+        <td>
+
+        </td>
+        <td> <%= period.start_time.strftime("%X") %></td>
+        <td> <%= period.end_time.strftime("%X") %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

@@ -20,6 +20,18 @@
       <%= submit_tag "Export" %>
     <% end %>
   </div>
+  <div id='time_export'>
+    <h4>Raw Time</h4>
+    <% form_tag raw_time_path do %>
+      <%= hidden_field_tag :user_id, @user.id %>
+      <%= label_tag :date_month, "Month" %>
+      <%= select_month Date.today %>
+      <%= label_tag :date_year, "Year" %>
+      <%= select_year Date.today %>
+
+      <%= submit_tag "Export Raw" %>
+    <% end %>
+  </div>
   <div id='timesheets'>
     <h4>Timesheets</h4>
     <ul>

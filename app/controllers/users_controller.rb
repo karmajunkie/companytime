@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	skip_before_filter :login_required, :only => [:clockin, :clockout, :toggle]
+  skip_before_filter :login_required, :only => [:clockin, :clockout, :toggle]
   active_scaffold :user
   cache_sweeper :work_period_sweeper, :only => [:toggle, :clockin, :clockout]
   before_filter :admin_required, :only => [:index, :delete]
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @users }
+      format.xml { render :xml => @users }
     end
   end
 
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @user }
+      format.xml { render :xml => @user }
     end
   end
 
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @user }
+      format.xml { render :xml => @user }
     end
   end
 
@@ -52,10 +52,10 @@ class UsersController < ApplicationController
       if @user.save
         flash[:notice] = 'User was successfully created.'
         format.html { redirect_to(@user) }
-        format.xml  { render :xml => @user, :status => :created, :location => @user }
+        format.xml { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -69,10 +69,10 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         flash[:notice] = 'User was successfully updated.'
         format.html { redirect_to(@user) }
-        format.xml  { head :ok }
+        format.xml { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -85,14 +85,14 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(users_url) }
-      format.xml  { head :ok }
+      format.xml { head :ok }
     end
   end
 
   def accrual_report
     @user = User.find_by_login(params[:id])
     respond_to do |format|
-      format.csv { 
+      format.csv {
         str = FasterCSV.generate do |csv|
           csv << ['login', 'vacation', 'skeleton', 'sick']
           csv << [@user.login, @user.vacation_hours, @user.skeleton_hours, @user.sick_hours]
@@ -124,7 +124,7 @@ class UsersController < ApplicationController
         format.js { render :text => "clocked in", :status => 201 }
         format.html{ render :text => 'clocked in' }
       end
-      
+
     end
   end
 
@@ -132,7 +132,7 @@ class UsersController < ApplicationController
     @user = User.find_by_login(params[:id])
     if @user.clocked_in?
       wp=@user.work_periods.last
-      wp.end_time = Time.now 
+      wp.end_time = Time.now
       wp.save
       respond_to do |format|
         format.js { render :text => "clocked out", :status => 205 }
@@ -142,14 +142,30 @@ class UsersController < ApplicationController
       render :text => "You can't log out until you've logged in!", :status => 403
     end
   end
-	def accrual_display
-		@user=User.find(params[:id])
-		render :partial => "accrued_leave_display", :locals =>{ :user => @user}
+
+  def accrual_display
+    @user=User.find(params[:id])
+    render :partial => "accrued_leave_display", :locals =>{ :user => @user}
+  end
+
+  def raw_time
+    @user=User.find(params[:user_id])
+    if params[:date].nil?
+      @export_month = Date.today.beginning_of_month
+    else
+      @export_month=Date.new(params[:date][:year].to_i, params[:date][:month].to_i, 1)
+    end
+
+    @work_periods = @user.work_periods.for_month(@export_month)
+
+    respond_to do |format|
+      format.html
+    end
   end
 
   def export
     user=User.find(params[:user_id])
-    export_month=Date.new(params[:date][:year].to_i,params[:date][:month].to_i, 1)
+    export_month=Date.new(params[:date][:year].to_i, params[:date][:month].to_i, 1)
     filename=File.join(Rails.root, 'tmp', export_month.strftime("time_export_%Y%m.xls"))
     file=Spreadsheet::Workbook.new
     sheet=file.create_worksheet(:name => "Time for #{export_month.strftime("%B %Y")}")
@@ -159,11 +175,11 @@ class UsersController < ApplicationController
     export_month.upto(export_month.end_of_month) do |date|
       periods=user.work_periods.for_day(date)
       sheet[date.day-1, 0] = "#{"(Holiday) " if date.holiday? }#{date.day}"
-      sheet[date.day-1, 0] = "#{date.strftime("(%A) ") unless [1,2,3,4,5].include?(date.wday)}#{date.day}"
+      sheet[date.day-1, 0] = "#{date.strftime("(%A) ") unless [1, 2, 3, 4, 5].include?(date.wday)}#{date.day}"
 
       unless periods.empty?
         sheet[date.day-1, 1] = periods.first.start_time
-        sheet[date.day-1, 2] = periods.last.end_time  
+        sheet[date.day-1, 2] = periods.last.end_time
       end
     end
     file.write(filename)
