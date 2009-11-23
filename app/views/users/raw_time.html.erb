@@ -9,7 +9,7 @@
     <tr>
       <td><%= date.strftime("%m/%d") %></td>
       <td><%= periods.first.start_time.strftime("%X") %></td>
-      <td><%= periods.first.end_time.strftime("%X") %></td>
+      <td><%= periods.first.end_time.nil? ? "Not logged out" : periods.first.end_time.strftime("%X") %></td>
     </tr>
     <% periods[1..-1].each do |period| %>
       <tr>
@@ -17,7 +17,7 @@
 
         </td>
         <td> <%= period.start_time.strftime("%X") %></td>
-        <td> <%= period.end_time.strftime("%X") %></td>
+        <td> <%= period.end_time.nil? ? "Not logged out" : period.end_time.strftime("%X") %></td>
       </tr>
     <% end %>
   <% end %>
